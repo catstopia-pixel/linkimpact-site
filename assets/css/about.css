@@ -1,0 +1,262 @@
+/* assets/css/about.css */
+/* 밝지 않게, 하지만 간결 + 디자인 요소(글로우/그리드/유리감) */
+:root{
+  --bg: #050707;
+  --panel: rgba(255,255,255,.04);
+  --panel2: rgba(255,255,255,.06);
+  --txt: rgba(255,255,255,.92);
+  --muted: rgba(255,255,255,.62);
+  --muted2: rgba(255,255,255,.42);
+  --brand: #3fef92;
+  --brandA: rgba(63,239,146,.30);
+  --line: rgba(255,255,255,.10);
+}
+
+body.about{
+  margin:0;
+  background: radial-gradient(900px 500px at 50% 0%, rgba(63,239,146,.10), transparent 55%),
+              radial-gradient(700px 400px at 12% 18%, rgba(63,239,146,.07), transparent 50%),
+              radial-gradient(800px 480px at 88% 22%, rgba(63,239,146,.06), transparent 55%),
+              var(--bg);
+  color: var(--txt);
+  font-family: "Prompt", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  overflow-x:hidden;
+}
+
+.wrap{
+  min-height:100vh;
+  padding: 96px 18px 96px;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.ui{
+  position: fixed;
+  top: 14px;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  pointer-events:none;
+}
+.ui__right{
+  display:flex;
+  justify-content:flex-end;
+  padding: 0 14px;
+  pointer-events:none;
+}
+.langToggle{
+  pointer-events:auto;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.32);
+  backdrop-filter: blur(10px);
+  color: var(--txt);
+  box-shadow: 0 0 0 1px rgba(63,239,146,.08), 0 18px 60px rgba(0,0,0,.55);
+}
+.langToggle__label{
+  font-size: 12px;
+  letter-spacing:.10em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.langToggle__track{
+  width: 42px;
+  height: 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+  position: relative;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.25);
+}
+.langToggle__thumb{
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  position:absolute;
+  top: 50%;
+  left: 2px;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,.78);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.20), 0 8px 18px rgba(0,0,0,.35);
+  transition: left .18s ease;
+}
+.langToggle.is-ko .langToggle__thumb{ left: 22px; }
+.langToggle.is-ko .langToggle__track{ box-shadow: inset 0 0 0 1px rgba(63,239,146,.22); }
+.langToggle.is-ko .langToggle__label:last-child{ color: rgba(63,239,146,.92); }
+.langToggle:not(.is-ko) .langToggle__label:first-child{ color: rgba(63,239,146,.92); }
+
+.hero{
+  padding: 26px 8px 8px;
+  position: relative;
+}
+.hero:before{
+  content:"";
+  position:absolute;
+  inset:-140px -80px auto -80px;
+  height: 260px;
+  background:
+    linear-gradient(to bottom, rgba(63,239,146,.10), transparent 65%),
+    repeating-linear-gradient(to right, rgba(255,255,255,.06) 0 1px, transparent 1px 90px);
+  mask-image: radial-gradient(closest-side at 50% 40%, #000 0%, transparent 70%);
+  pointer-events:none;
+  opacity:.70;
+}
+.eyebrow{
+  margin:0 0 12px;
+  color: rgba(63,239,146,.86);
+  letter-spacing:.06em;
+  font-weight:600;
+  font-size: 13px;
+}
+.title{
+  margin:0 0 12px;
+  font-size: clamp(34px, 5vw, 56px);
+  letter-spacing:-.02em;
+  line-height:1.05;
+}
+.lead{
+  margin:0;
+  max-width: 74ch;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.pillRow{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 18px;
+}
+.pill{
+  border: 1px solid rgba(255,255,255,.10);
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+  border-radius: 18px;
+  padding: 14px 14px 16px;
+  box-shadow: 0 0 0 1px rgba(63,239,146,.05), 0 18px 60px rgba(0,0,0,.55);
+}
+.pill__kicker{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  font-size:12px;
+  letter-spacing:.10em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.70);
+  margin-bottom: 8px;
+}
+.pill__t{
+  color: rgba(255,255,255,.86);
+  line-height:1.55;
+  font-size: 14px;
+}
+
+.connect{
+  margin-top: 34px;
+  padding: 10px 8px 0;
+}
+.secTitle{
+  margin: 0 0 10px;
+  font-size: 18px;
+  letter-spacing: -.01em;
+}
+.secLead{
+  margin: 0 0 16px;
+  color: var(--muted);
+  line-height:1.7;
+  font-size: 14px;
+  max-width: 78ch;
+}
+.grid{
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.card{
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.24);
+  backdrop-filter: blur(10px);
+  border-radius: 18px;
+  padding: 14px 14px 16px;
+  box-shadow: 0 0 0 1px rgba(63,239,146,.05), 0 18px 60px rgba(0,0,0,.55);
+}
+.card__top{
+  display:flex;
+  align-items:flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.tag{
+  display:inline-flex;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(63,239,146,.22);
+  background: rgba(63,239,146,.06);
+  color: rgba(63,239,146,.92);
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  white-space:nowrap;
+}
+.card__t{
+  margin:0;
+  font-size: 15px;
+  line-height:1.25;
+  letter-spacing:-.01em;
+}
+.card__list{
+  margin: 0;
+  padding-left: 18px;
+  color: rgba(255,255,255,.78);
+  line-height:1.65;
+  font-size: 13.5px;
+}
+.card__list li{ margin: 6px 0; }
+
+.ctaDock{
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 12px;
+  padding: 0 14px;
+  z-index: 20;
+  display:flex;
+  gap: 10px;
+  justify-content: space-between;
+  pointer-events:none;
+}
+.btn{
+  pointer-events:auto;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  height: 46px;
+  padding: 0 16px;
+  border-radius: 14px;
+  text-decoration:none;
+  font-weight: 600;
+  letter-spacing:.02em;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.32);
+  color: var(--txt);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 0 1px rgba(63,239,146,.06), 0 18px 60px rgba(0,0,0,.55);
+}
+.btn--primary{
+  border-color: rgba(63,239,146,.22);
+  background: linear-gradient(180deg, rgba(63,239,146,.16), rgba(63,239,146,.08));
+  color: rgba(63,239,146,.98);
+}
+.btn--ghost{
+  color: rgba(255,255,255,.84);
+}
+
+@media (max-width: 860px){
+  .pillRow{ grid-template-columns: 1fr; }
+  .grid{ grid-template-columns: 1fr; }
+  .wrap{ padding-top: 88px; }
+}

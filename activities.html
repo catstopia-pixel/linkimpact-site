@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LINK IMPACT | Activities</title>
+
+  <link rel="stylesheet" href="./assets/css/app.css" />
+  <link rel="stylesheet" href="./assets/css/ui-light.css" />
+  <link rel="stylesheet" href="./assets/css/activities.css" />
+</head>
+
+<body class="li lightUI activities">
+  <header class="ui">
+    <div class="ui__right">
+      <button class="langToggle" id="langToggle" type="button" aria-label="Language toggle">
+        <span class="langToggle__label" data-i18n="ui.lang.en">EN</span>
+        <span class="langToggle__track" aria-hidden="true">
+          <span class="langToggle__thumb" aria-hidden="true"></span>
+        </span>
+        <span class="langToggle__label" data-i18n="ui.lang.ko">KO</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="aHero" aria-label="Activities">
+      <p class="eyebrow" data-i18n="act.eyebrow">Solidarity, made visible.</p>
+      <h1 class="title" data-i18n="act.title">Activities</h1>
+      <p class="lead" data-i18n="act.lead">
+        We connect world, generation, nation, and community—through culture, education, and action.
+      </p>
+
+      <div class="filters" role="tablist" aria-label="Categories">
+        <button class="chip is-active" type="button" data-filter="all" role="tab" aria-selected="true" data-i18n="act.f.all">All</button>
+        <button class="chip" type="button" data-filter="world" role="tab" aria-selected="false" data-i18n="act.f.world">World</button>
+        <button class="chip" type="button" data-filter="generation" role="tab" aria-selected="false" data-i18n="act.f.generation">Generation</button>
+        <button class="chip" type="button" data-filter="nation" role="tab" aria-selected="false" data-i18n="act.f.nation">Nation</button>
+        <button class="chip" type="button" data-filter="solidarity" role="tab" aria-selected="false" data-i18n="act.f.solidarity">Solidarity</button>
+      </div>
+    </section>
+
+    <section class="gallery" aria-label="Activity board">
+      <div class="grid" id="activityGrid">
+        <!-- Cards are injected by activities.js -->
+      </div>
+
+      <div class="listWrap" aria-label="List view">
+        <h2 class="secTitle" data-i18n="act.listTitle">All posts</h2>
+        <ul class="list" id="activityList">
+          <!-- List items injected by activities.js -->
+        </ul>
+      </div>
+    </section>
+
+    <footer class="ctaDock" aria-label="Actions">
+      <a class="btn" href="about.html" data-i18n="ui.back">Back</a>
+      <button class="btn btn--primary" id="btnMore" type="button" data-i18n="ui.more">More</button>
+    </footer>
+  </main>
+
+  <!-- Zoom Modal (no page navigation) -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal__backdrop" id="modalBackdrop"></div>
+
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal__top">
+        <div class="modal__meta">
+          <span class="modal__tag" id="modalTag">World</span>
+          <h3 class="modal__title" id="modalTitle">Title</h3>
+        </div>
+        <button class="modal__close" id="modalClose" type="button" aria-label="Close">✕</button>
+      </div>
+
+      <div class="modal__body" id="modalBody">
+        <!-- filled by JS -->
+      </div>
+    </div>
+  </div>
+
+  <script src="./assets/js/i18n.js"></script>
+  <script src="./assets/js/activities.js"></script>
+</body>
+</html>
