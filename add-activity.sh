@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# 가장 큰 숫자 ID를 기준으로 다음 ID 자동 생성
 ID=$(jq -r '[.items[].id | tostring | tonumber?] | max + 1' data/activities.json)
 
 if [ "$ID" == "null" ] || [ -z "$ID" ]; then
@@ -21,11 +20,19 @@ read SUMMARY_KO
 echo "한줄요약 (영문):"
 read SUMMARY_EN
 
-echo "내용 전체 (한글):"
-read CONTENT_KO
+echo "내용 전체 (한글)를 입력하세요. 입력이 끝나면 새 줄에 END 입력:"
+CONTENT_KO=""
+while IFS= read -r line; do
+  [ "$line" = "END" ] && break
+  CONTENT_KO+="$line"$'\n'
+done
 
-echo "내용 전체 (영문):"
-read CONTENT_EN
+echo "내용 전체 (영문)를 입력하세요. 입력이 끝나면 새 줄에 END 입력:"
+CONTENT_EN=""
+while IFS= read -r line; do
+  [ "$line" = "END" ] && break
+  CONTENT_EN+="$line"$'\n'
+done
 
 DATE=$(date +%Y-%m-%d)
 
@@ -38,33 +45,43 @@ echo "추가 이미지 파일명 예시: 01.png, 02.png, 03.png"
 
 TMP=$(mktemp)
 
-jq ".items += [{
-  \"id\": \"$ID\",
-  \"category\": \"world\",
-  \"date\": \"$DATE\",
-  \"place\": \"\",
-  \"title\": {
-    \"ko\": \"$TITLE_KO\",
-    \"en\": \"$TITLE_EN\"
-  },
-  \"summary\": {
-    \"ko\": \"$SUMMARY_KO\",
-    \"en\": \"$SUMMARY_EN\"
-  },
-  \"content\": {
-    \"ko\": [\"$CONTENT_KO\"],
-    \"en\": [\"$CONTENT_EN\"]
-  },
-  \"media\": {
-    \"thumb\": \"assets/img/activities/$ID/cover.png\",
-    \"cover\": \"assets/img/activities/$ID/cover.png\",
-    \"images\": []
-  },
-  \"tags\": []
-}]" data/activities.json > "$TMP" && mv "$TMP" data/activities.json
+jq \
+  --arg id "$ID" \
+  --arg date "$DATE" \
+  --arg titleKo "$TITLE_KO" \
+  --arg titleEn "$TITLE_EN" \
+  --arg summaryKo "$SUMMARY_KO" \
+  --arg summaryEn "$SUMMARY_EN" \
+  --arg contentKo "$CONTENT_KO" \
+  --arg contentEn "$CONTENT_EN" \
+  '.items += [{
+    id: $id,
+    category: "world",
+    date: $date,
+    place: "",
+    title: {
+      ko: $titleKo,
+      en: $titleEn
+    },
+    summary: {
+      ko: $summaryKo,
+      en: $summaryEn
+    },
+    content: {
+      ko: [$contentKo],
+      en: [$contentEn]
+    },
+    media: {
+      thumb: ("assets/img/activities/" + $id + "/cover.png"),
+      cover: ("assets/img/activities/" + $id + "/cover.png"),
+      images: []
+    },
+    tags: []
+  }]' data/activities.json > "$TMP" && mv "$TMP" data/activities.json
 
 echo "활동 추가 완료: $ID"
 
 git add .
 git commit -m "add activity: $ID"
 git push
+
