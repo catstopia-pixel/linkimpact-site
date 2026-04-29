@@ -9,7 +9,7 @@
   const lang = () => getLang();
 
   const grid = document.getElementById("activityGrid");
-  const list = document.getElementById("activityList");
+  const list = null;
   const btnMore = document.getElementById("btnMore");
 
   const modal = document.getElementById("modal");
@@ -71,7 +71,7 @@
   }
 
   function render() {
-    if (!grid || !list) return;
+    if (!grid) return;
 
     const shown = DATA.slice(0, visibleCount);
 
@@ -97,22 +97,7 @@
       })
       .join("");
 
-    list.innerHTML = shown
-      .map((item) => {
-        const title = t(item.title);
-        const summary = t(item.summary);
-
-        return `
-          <li class="listItem" data-id="${esc(item.id)}" tabindex="0" role="button" aria-label="${esc(title)}">
-            <span class="dot" aria-hidden="true"></span>
-            <div>
-              <h4>${esc(title)}</h4>
-              <p>${esc(summary)}</p>
-            </div>
-          </li>
-        `;
-      })
-      .join("");
+   
 
     if (btnMore) {
       btnMore.disabled = visibleCount >= DATA.length;
@@ -305,7 +290,6 @@
   }
 
   if (grid) grid.addEventListener("click", onActivate);
-  if (list) list.addEventListener("click", onActivate);
 
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {

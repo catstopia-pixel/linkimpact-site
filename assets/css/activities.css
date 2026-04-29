@@ -96,47 +96,6 @@ body.activities .wrap{ padding-bottom: 110px; }
   line-height: 1.6;
 }
 
-.listWrap{
-  margin-top: 18px;
-  border-top: 1px solid rgba(0,0,0,.06);
-  padding-top: 16px;
-}
-.list{
-  margin: 8px 0 0;
-  padding: 0;
-  list-style:none;
-  display:grid;
-  gap: 10px;
-}
-.listItem{
-  border: 1px solid var(--line);
-  background: var(--panel2);
-  border-radius: 16px;
-  padding: 12px 12px;
-  box-shadow: var(--shadow2);
-  display:flex;
-  gap: 10px;
-  align-items:flex-start;
-  cursor:pointer;
-}
-.listItem:hover{ box-shadow: var(--shadow); }
-.listItem .dot{
-  width: 10px; height: 10px;
-  border-radius: 999px;
-  background: rgba(63,239,146,.60);
-  margin-top: 4px;
-  flex: 0 0 auto;
-}
-.listItem h4{
-  margin:0 0 4px;
-  font-size: 14px;
-}
-.listItem p{
-  margin:0;
-  color: rgba(10,10,12,.62);
-  font-size: 13px;
-  line-height: 1.55;
-}
 
 /* Modal */
 .modal{
