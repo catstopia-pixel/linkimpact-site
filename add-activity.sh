@@ -1,10 +1,23 @@
 #!/bin/bash
 
-ID=$(jq -r '[.items[].id | tostring | tonumber?] | max + 1' data/activities.json)
+YEAR=$(date +%Y)
+MONTH=$(date +%m)
 
-if [ "$ID" == "null" ] || [ -z "$ID" ]; then
-  ID=1
+BASE_PATH="assets/img/activities/$YEAR/$MONTH"
+
+mkdir -p "$BASE_PATH"
+
+# 해당 월 폴더에서 가장 큰 숫자 ID 찾기
+LAST_ID=$(find "$BASE_PATH" -maxdepth 1 -type d -printf "%f\n" 2>/dev/null | grep -E '^[0-9]+$' | sort -n | tail -1)
+
+if [ -z "$LAST_ID" ]; then
+  NEW_ID="001"
+else
+  NEXT_ID=$((10#$LAST_ID + 1))
+  NEW_ID=$(printf "%03d" $NEXT_ID)
 fi
+
+ID="$YEAR-$MONTH-$NEW_ID"
 
 echo "자동 생성된 활동 ID: $ID"
 
@@ -20,28 +33,28 @@ read SUMMARY_KO
 echo "한줄요약 (영문):"
 read SUMMARY_EN
 
-echo "내용 전체 (한글)를 입력하세요. 입력이 끝나면 새 줄에 END 입력:"
+echo "내용 전체 (한글) 입력 후 END:"
 CONTENT_KO=""
 while IFS= read -r line; do
   [ "$line" = "END" ] && break
   CONTENT_KO+="$line"$'\n'
 done
 
-echo "내용 전체 (영문)를 입력하세요. 입력이 끝나면 새 줄에 END 입력:"
+echo "내용 전체 (영문) 입력 후 END:"
 CONTENT_EN=""
 while IFS= read -r line; do
   [ "$line" = "END" ] && break
   CONTENT_EN+="$line"$'\n'
 done
 
+FOLDER="$BASE_PATH/$NEW_ID"
+mkdir -p "$FOLDER"
+
+echo "이미지 넣기:"
+echo "$FOLDER"
+echo "cover.png 필수"
+
 DATE=$(date +%Y-%m-%d)
-
-mkdir -p "assets/img/activities/$ID"
-
-echo "이미지 파일을 아래 폴더에 넣어주세요:"
-echo "assets/img/activities/$ID"
-echo "필수 대표 이미지 파일명: cover.png"
-echo "추가 이미지 파일명 예시: 01.png, 02.png, 03.png"
 
 TMP=$(mktemp)
 
@@ -54,6 +67,7 @@ jq \
   --arg summaryEn "$SUMMARY_EN" \
   --arg contentKo "$CONTENT_KO" \
   --arg contentEn "$CONTENT_EN" \
+  --arg folder "$FOLDER" \
   '.items += [{
     id: $id,
     category: "world",
@@ -72,16 +86,15 @@ jq \
       en: [$contentEn]
     },
     media: {
-      thumb: ("assets/img/activities/" + $id + "/cover.png"),
-      cover: ("assets/img/activities/" + $id + "/cover.png"),
+      thumb: ($folder + "/cover.png"),
+      cover: ($folder + "/cover.png"),
       images: []
     },
     tags: []
   }]' data/activities.json > "$TMP" && mv "$TMP" data/activities.json
 
-echo "활동 추가 완료: $ID"
+echo "활동 생성 완료: $ID"
 
 git add .
 git commit -m "add activity: $ID"
 git push
-
