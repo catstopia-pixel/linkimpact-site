@@ -154,6 +154,34 @@
         "cover": "assets/img/activities/20260430-iclee-conference-0623/cover.png",
         "images": []
       }
+    },
+    {
+      "id": "1",
+      "category": "world",
+      "date": "2026-04-30",
+      "place": "",
+      "title": {
+        "ko": "ICLEE 컨퍼런스에서 가나의 생태적 위기와 공존의 해법 제시",
+        "en": "Link-Impact Proposes Ecological Solutions for Ghana’s Crisis at ICLEE Conference"
+      },
+      "summary": {
+        "ko": "'생물다양성’과 ‘가나 채광 문제’를 주제로 한 두 명의 연사, 입체적 해결책 발표",
+        "en": "Two Speakers Address 'Biodiversity' and 'Mining Issues in Ghana,' Presenting Multi-Dimensional Strategies"
+      },
+      "content": {
+        "ko": [
+          "지난 ICLEE ‘Green Transformation to New Horizons’ 컨퍼런스에서 국제 NGO Link-Impact 소속의 두 연사가 나란히 무대에 올랐다. 이들은 가나가 직면한 환경적 파괴 현상과 이를 극복하기 위한 인류학적·생태적 대안을 각각 발표하며 컨퍼런스 참가자들의 이목을 집중시켰다."
+        ],
+        "en": [
+          "1. 첫 번째 발표: 생물다양성과 다문화주의의 연결고리"
+        ]
+      },
+      "media": {
+        "thumb": "assets/img/activities/1/cover.png",
+        "cover": "assets/img/activities/1/cover.png",
+        "images": []
+      },
+      "tags": []
     }
   ]
 }
