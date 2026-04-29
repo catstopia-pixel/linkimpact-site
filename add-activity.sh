@@ -1,7 +1,25 @@
 #!/bin/bash
 
-echo "활동 ID 입력 (예: marine-2026):"
-read ID
+echo "활동 키워드 입력 (영문 소문자 권장, 예: marine, bird, earthday):"
+read KEYWORD
+
+DATE_ID=$(date +%Y%m%d)
+TIME_ID=$(date +%H%M)
+
+KEYWORD=$(echo "$KEYWORD" \
+  | tr '[:upper:]' '[:lower:]' \
+  | sed 's/[^a-z0-9]/-/g' \
+  | sed 's/-\+/-/g' \
+  | sed 's/^-//' \
+  | sed 's/-$//')
+
+if [ -z "$KEYWORD" ]; then
+  KEYWORD="activity"
+fi
+
+ID="${DATE_ID}-${KEYWORD}-${TIME_ID}"
+
+echo "자동 생성된 활동 ID: $ID"
 
 echo "제목 (한글):"
 read TITLE_KO
