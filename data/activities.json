@@ -222,6 +222,37 @@
         ]
       },
       "tags": []
+    },
+    {
+      "id": "2026-04-004",
+      "category": "world",
+      "date": "2026-04-30",
+      "place": "",
+      "title": {
+        "ko": "Link-Impact, 연결과 변화의 출발점을 만들다",
+        "en": "Link-Impact Marks a New Beginning of Connection and Change"
+      },
+      "summary": {
+        "ko": "2023년 11월 미디어아트센터 발대식, 다문화 참여 속 공동 가치 확산",
+        "en": "Launch Ceremony at Media Arts Center Highlights Multicultural Engagement and Shared Values"
+      },
+      "content": {
+        "ko": [
+          "2023년 11월, 미디어아트센터에서 열린 Link-Impact 발대식은 다양한 국적과 배경을 지닌 사람들이 한자리에 모여 새로운 연결의 출발을 알리는 의미 있는 자리로 진행되었다. 이번 행사는 단순한 출범을 넘어, ‘함께(Togetherness)’, ‘연결(Link)’, ‘변화(Change)’라는 핵심 가치를 공유하고 확산하는 계기가 되었다.\n\n기후위기와 사회적 단절이 동시에 심화되는 시대 속에서, Link-Impact는 다양한 문화적 배경을 가진 구성원들이 공통의 목표 아래 협력하는 새로운 형태의 글로벌 플랫폼을 지향한다. 발대식 현장에서는 외국인을 포함한 다문화 참여자들이 준비된 프로그램을 함께 즐기며 자연스럽게 교류하고, 서로의 경험과 관점을 나누는 시간을 가졌다.\n\n특히 이번 행사는 ‘연결’이라는 개념을 단순한 네트워크를 넘어, 사람과 사람, 지역과 지역, 그리고 현장과 글로벌 의제를 잇는 실질적인 행동으로 확장하는 데 의미가 있었다. 참여자들은 공동의 문제 인식과 해결 의지를 바탕으로, 향후 Link-Impact가 만들어갈 변화의 방향성에 공감대를 형성했다.\n\nLink-Impact는 이번 발대식을 시작으로, 다문화 협력 기반의 프로젝트와 사회·환경 문제 해결을 위한 실천적 활동을 지속적으로 확대해 나갈 계획이다. 다양한 주체를 연결하고, 그 연결을 통해 실질적인 변화를 만들어내는 플랫폼으로서의 역할을 강화해 나갈 것이다.\n"
+        ],
+        "en": [
+          "In November 2023, Link-Impact officially launched at the Media Arts Center, bringing together people from diverse nationalities and backgrounds to mark the beginning of a new era of connection. More than a formal inauguration, the event served as a platform to share and promote the core values of “Togetherness,” “Link,” and “Change.”\nIn a time when both climate crises and social fragmentation are intensifying, Link-Impact aims to build a global platform where individuals from diverse cultural backgrounds collaborate toward common goals. During the ceremony, multicultural participants—including international attendees—engaged in organized programs, fostering meaningful exchanges and sharing perspectives in an inclusive environment.\nThe event redefined the concept of “link” beyond mere networking, emphasizing actionable connections between people, regions, and global agendas. Participants resonated with a shared awareness of pressing challenges and a collective commitment to driving change through collaboration.\nFollowing this launch, Link-Impact plans to expand its multicultural, action-oriented initiatives addressing social and environmental issues. By connecting diverse stakeholders and transforming those connections into tangible impact, the organization aims to establish itself as a platform for meaningful and sustainable change.\n"
+        ]
+      },
+      "media": {
+        "thumb": "assets/img/activities/2026/04/004/cover.png",
+        "cover": "assets/img/activities/2026/04/004/cover.png",
+        "images": [
+          "assets/img/activities/2026/04/004/01.png",
+          "assets/img/activities/2026/04/004/02.png"
+        ]
+      },
+      "tags": []
     }
   ]
 }
