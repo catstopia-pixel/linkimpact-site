@@ -1,0 +1,26 @@
+{
+  "title": "",
+  "summary": "",
+  "content": [
+    "	",
+    "	",
+    "	",
+    "		body {",
+    "			background:#fafafa;",
+    "			color: #3B4859;",
+    "			font-synthesis: none;",
+    "			text-rendering: optimizeLegibility;",
+    "			-webkit-font-smoothing: antialiased;",
+    "			-moz-osx-font-smoothing: grayscale;",
+    "			-moz-font-feature-settings: 'liga', 'kern';",
+    "			direction: ltr;",
+    "			line-height: 1.45;",
+    "			font-size:15px;",
+    "		}",
+    "		a {",
+    "			text-decoration: none;",
+    "		}",
+    "		section {",
+    "			font-size:14px;"
+  ]
+}
