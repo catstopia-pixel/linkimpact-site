@@ -341,6 +341,34 @@
         "images": []
       },
       "tags": []
+    },
+    {
+      "id": "2026-04-008",
+      "category": "world",
+      "date": "2026-04-30",
+      "place": "",
+      "title": {
+        "ko": "농업 기술 교류 통해 지속가능한 생산 기반 주목",
+        "en": "Link-Impact Highlights Sustainable Agricultural Collaboration"
+      },
+      "summary": {
+        "ko": "누에바 비즈카야, 선진 농업 기술로 잉여 생산 구조 구축",
+        "en": "Nueva Vizcaya’s Advanced Techniques Lead to Surplus Crop Production"
+      },
+      "content": {
+        "ko": [
+          "농업 분야 실무 교류 확대를 위한 논의가 농업진흥청 관계자들과의 미팅을 통해 이루어졌다. 이번 만남은 단순한 정보 교환을 넘어, 지속가능한 농업 발전과 국제 협력 모델 구축을 위한 실질적 협력 방안을 모색하는 자리로 마련됐다.\n\n미팅에서는 기후변화에 대응하는 농업 기술, 지역 맞춤형 농업 정책, 그리고 개발도상국을 포함한 글로벌 협력 사례 등이 주요 의제로 다뤄졌다. 특히 농업 생산성 향상과 환경 보전을 동시에 달성하기 위한 기술적·정책적 접근이 강조되었다.\n\n누에바 비즈카야(Nueva Vizcaya)는 선진 농업 기술과 식품 가공 분야의 전문성을 지속적으로 공유해 왔으며, 이를 기반으로 안정적인 생산 체계를 구축해왔다. 그 결과, 지역 내 농산물 생산량이 크게 증가하며 상당한 수준의 잉여 생산 구조가 형성된 것으로 나타났다. 이는 단순한 생산 확대를 넘어, 가공·유통까지 연결되는 농업 가치사슬(Value Chain)의 확장을 의미한다.\n\n이러한 성과는 향후 농업 분야 국제 협력에서 중요한 사례로 활용될 수 있으며, 특히 기술 이전과 현지 맞춤형 적용을 결합한 모델로서 주목받고 있다. Link-Impact는 이번 논의를 바탕으로, 농업 기술과 현장 경험을 연결하는 협력 플랫폼 역할을 강화하며 지속가능한 글로벌 농업 생태계 구축에 기여해 나갈 계획이다.\n"
+        ],
+        "en": [
+          "A meeting with officials from the Rural Development Administration (RDA) focused on expanding practical agricultural cooperation and exploring sustainable international collaboration models. The discussion went beyond information exchange, emphasizing actionable strategies for long-term agricultural development.\nKey topics included climate-resilient farming technologies, region-specific agricultural policies, and global cooperation frameworks involving developing regions. The importance of balancing productivity with environmental sustainability was strongly emphasized.\nNueva Vizcaya has been actively sharing its advanced agricultural techniques and expertise in food processing, enabling the region to establish a stable and efficient production system. As a result, the province has achieved a significant surplus in crop production. This outcome reflects not only increased output but also the expansion of the agricultural value chain, linking production with processing and distribution.\nThese developments present a valuable case for international agricultural cooperation, particularly in models that combine technology transfer with localized adaptation. Building on these discussions, Link-Impact aims to strengthen its role as a platform connecting agricultural innovation with field-based practices, contributing to the development of a sustainable global agricultural ecosystem.\n"
+        ]
+      },
+      "media": {
+        "thumb": "assets/img/activities/2026/04/008/cover.png",
+        "cover": "assets/img/activities/2026/04/008/cover.png",
+        "images": []
+      },
+      "tags": []
     }
   ]
 }
