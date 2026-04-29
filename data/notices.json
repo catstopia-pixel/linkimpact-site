@@ -1,8 +1,6 @@
 {
-
   "version": 1,
   "items": [
-
     {
       "id": "notice-2026-04-30",
       "enabled": true,
@@ -19,6 +17,23 @@
         "ko": [
           "LINK IMPACT 활동 페이지에 오신 것을 환영합니다.",
           "최근 활동과 주요 공지는 이 팝업을 통해 안내됩니다."
+        ]
+      }
+    },
+    {
+      "id": "notice-1",
+      "enabled": true,
+      "date": "2026-04-30",
+      "title": {
+        "ko": "[모집] 국제사회 의제 발굴 및 문제 해결을 위한 Link-Impact 상시 단원 모집",
+        "en": "[Recruitment] Open Call for Link-Impact Members Dedicated to Global Agenda Setting and Problem Solving"
+      },
+      "content": {
+        "ko": [
+          "연대의 가치를 믿고 국제적 사회 문제 해결에 기여할 열정적인 인재는 hyojoon0310@gmail.com으로 지원 및 문의 바랍니다.END\n"
+        ],
+        "en": [
+          "If you believe in the value of solidarity and wish to contribute to solving global social issues, please\n"
         ]
       }
     }
