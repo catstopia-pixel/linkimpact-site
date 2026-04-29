@@ -492,6 +492,37 @@
         ]
       },
       "tags": []
+    },
+    {
+      "id": "2026-04-013",
+      "category": "world",
+      "date": "2026-04-30",
+      "place": "",
+      "title": {
+        "ko": "농업 생물다양성 연구 현장 확장",
+        "en": "Link-Impact Advances Research on Agricultural Biodiversity"
+      },
+      "summary": {
+        "ko": "딸기 농장 탐사 통해 지속가능 농업 정책 기반 데이터 확보",
+        "en": "Strawberry Farm Expedition Provides Data for Sustainable Agriculture Policies"
+      },
+      "content": {
+        "ko": [
+          "농업 환경과 생물다양성 연구를 위한 현장 탐사가 지역 딸기 농장에서 진행되며 지속가능한 농업에 대한 실질적 이해를 높이는 계기가 마련됐다. 이번 활동은 단순한 농업 체험을 넘어, 농업과 환경의 상호작용을 분석하고 이를 정책 연구로 연결하기 위한 목적에서 추진됐다.\n\n4월 13일 진행된 이번 탐사에서는 유기농 딸기 재배 과정을 중심으로 물 사용, 토양 관리, 그리고 농장 내 다양한 생물종의 공존 구조를 직접 관찰하는 시간이 이어졌다. 이를 통해 농업 생물다양성이 단순한 환경 요소가 아닌, 지속가능한 생산 체계를 유지하는 핵심 기반임이 확인됐다.\n\n현장에서는 특히 농업 활동이 생태계에 미치는 영향과, 이를 최소화하면서 생산성을 유지할 수 있는 관리 방식에 대한 논의가 이루어졌다. 다양한 종이 함께 공존하는 농업 환경은 병해충 관리, 토양 건강 유지, 그리고 장기적인 생산 안정성 확보에 중요한 역할을 하는 것으로 분석됐다.\n\n또한 이번 탐사는 농업 환경 정책 수립을 위한 기초 데이터 확보라는 측면에서도 의미를 가진다. 수집된 현장 데이터와 관찰 결과는 향후 지속가능한 농업 정책 설계와 지역 맞춤형 적용 방안을 도출하는 데 활용될 예정이다. 특히 농업 생물다양성을 정책에 반영하는 방식과, 지역 경제 활성화와 연계하는 전략에 대한 논의가 병행됐다.\n\nLink-Impact는 이번 연구를 통해 농업이 단순한 식량 생산을 넘어, 환경과 미래 세대를 위한 중요한 기반임을 다시 확인했다. 앞으로도 지역 공동체와의 협력을 바탕으로 농업 환경 보호와 생물다양성 증진을 위한 연구를 지속하며, 이를 실행 가능한 정책으로 연결해 나갈 계획이다.\n"
+        ],
+        "en": [
+          "A field research expedition on agricultural environmental biodiversity was conducted at a local strawberry farm, providing valuable insights into sustainable agricultural practices. The initiative went beyond a simple farming experience, aiming to analyze the interaction between agriculture and the environment and translate these findings into policy research.\nOn April 13, participants observed organic strawberry cultivation, focusing on water usage, soil management, and the coexistence of diverse species within the farm ecosystem. This hands-on research demonstrated that agricultural biodiversity is not merely an environmental factor, but a critical foundation for maintaining sustainable production systems.\nThe expedition also highlighted how farming practices can influence ecosystems, and how sustainable management approaches can balance productivity with environmental preservation. Biodiverse farm environments were found to play a key role in pest control, soil health, and long-term agricultural stability.\nIn addition, the activity contributed to the collection of foundational data for agricultural environmental policy development. The insights gathered will support the design of sustainable agriculture policies and their adaptation to local contexts, with particular emphasis on integrating biodiversity into economic and environmental strategies.\nThrough this research, Link-Impact reaffirmed that agriculture is not only about food production, but also about sustaining the environment for future generations. The organization plans to continue collaborating with local communities to develop actionable solutions and translate research into effective policy recommendations.\n"
+        ]
+      },
+      "media": {
+        "thumb": "assets/img/activities/2026/04/013/cover.png",
+        "cover": "assets/img/activities/2026/04/013/cover.png",
+        "images": [
+          "assets/img/activities/2026/04/013/01.png",
+          "assets/img/activities/2026/04/013/02.png"
+        ]
+      },
+      "tags": []
     }
   ]
 }
