@@ -7,16 +7,31 @@ BASE_PATH="assets/img/activities/$YEAR/$MONTH"
 
 mkdir -p "$BASE_PATH"
 
-# 해당 월 폴더에서 가장 큰 숫자 ID 찾기
-LAST_ID=$(find "$BASE_PATH" -maxdepth 1 -type d -printf "%f\n" 2>/dev/null | grep -E '^[0-9]+$' | sort -n | tail -1)
+# 현재 월 폴더와 activities.json을 함께 확인해 다음 번호 생성
+LAST_FOLDER_ID=$(find "$BASE_PATH" -maxdepth 1 -type d -print 2>/dev/null \
+  | sed 's#.*/##' \
+  | grep -E '^[0-9]{3}$' \
+  | sort -n \
+  | tail -1)
 
-if [ -z "$LAST_ID" ]; then
-  NEW_ID="001"
+LAST_JSON_ID=$(jq -r --arg ym "$YEAR-$MONTH-" '
+  [.items[].id
+   | tostring
+   | select(startswith($ym))
+   | split("-")[-1]
+   | tonumber?]
+  | max // 0
+' data/activities.json)
+
+LAST_FOLDER_ID=${LAST_FOLDER_ID:-0}
+
+if [ "$LAST_FOLDER_ID" -gt "$LAST_JSON_ID" ]; then
+  NEXT_ID=$((10#$LAST_FOLDER_ID + 1))
 else
-  NEXT_ID=$((10#$LAST_ID + 1))
-  NEW_ID=$(printf "%03d" $NEXT_ID)
+  NEXT_ID=$((LAST_JSON_ID + 1))
 fi
 
+NEW_ID=$(printf "%03d" "$NEXT_ID")
 ID="$YEAR-$MONTH-$NEW_ID"
 
 echo "자동 생성된 활동 ID: $ID"
