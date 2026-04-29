@@ -152,7 +152,10 @@
       "media": {
         "thumb": "assets/img/activities/2026/04/001/cover.png",
         "cover": "assets/img/activities/2026/04/001/cover.png",
-        "images": []
+        "images": [
+  "assets/img/activities/2026/05/001/01.png",
+  "assets/img/activities/2026/05/001/02.png"
+]
       },
       "tags": []
     }
