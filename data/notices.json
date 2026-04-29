@@ -1,0 +1,26 @@
+{
+
+  "version": 1,
+  "items": [
+
+    {
+      "id": "notice-2026-04-30",
+      "enabled": true,
+      "date": "2026-04-30",
+      "title": {
+        "en": "LINK IMPACT Notice",
+        "ko": "LINK IMPACT 공지사항"
+      },
+      "content": {
+        "en": [
+          "Welcome to LINK IMPACT activities.",
+          "Recent activities and announcements will be shared through this notice popup."
+        ],
+        "ko": [
+          "LINK IMPACT 활동 페이지에 오신 것을 환영합니다.",
+          "최근 활동과 주요 공지는 이 팝업을 통해 안내됩니다."
+        ]
+      }
+    }
+  ]
+}

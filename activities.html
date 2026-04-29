@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LINK IMPACT | Activities</title>
+
+  <link rel="stylesheet" href="./assets/css/app.css" />
+  <link rel="stylesheet" href="./assets/css/ui-light.css" />
+  <link rel="stylesheet" href="./assets/css/activities.css" />
+</head>
+
+<body class="li lightUI activities">
+  <header class="ui">
+    <div class="ui__right">
+      <button class="langToggle" id="langToggle" type="button" aria-label="Language toggle">
+        <span class="langToggle__label" data-i18n="ui.lang.en">EN</span>
+        <span class="langToggle__track" aria-hidden="true">
+          <span class="langToggle__thumb" aria-hidden="true"></span>
+        </span>
+        <span class="langToggle__label" data-i18n="ui.lang.ko">KO</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="aHero" aria-label="Activities">
+      <p class="eyebrow" data-i18n="act.eyebrow">Solidarity, made visible.</p>
+      <h1 class="title" data-i18n="act.title">Activities</h1>
+      <p class="lead" data-i18n="act.lead">
+        We connect world, generation, nation, and community—through culture, education, and action.
+      </p>
+    </section>
+
+    <section class="gallery" aria-label="Activity board">
+      <div class="grid" id="activityGrid">
+        <!-- Cards are injected by activities.js -->
+      </div>
+
+      <div class="listWrap" aria-label="List view">
+        <h2 class="secTitle" data-i18n="act.listTitle">All posts</h2>
+        <ul class="list" id="activityList">
+          <!-- List items injected by activities.js -->
+        </ul>
+      </div>
+    </section>
+
+    <footer class="pageFooter" aria-label="Footer">
+      <div class="footerActions footerActions--between">
+        <a class="btn" href="index.html" data-i18n="ui.home">Home</a>
+
+        <div class="footerActions__right">
+          <button class="btn" id="btnNotice" type="button" data-i18n="ui.notice">Notice</button>
+          <button class="btn btn--primary" id="btnMore" type="button" data-i18n="ui.more">More</button>
+        </div>
+      </div>
+
+      <nav class="socialDock" aria-label="External channels">
+        <a href="https://www.instagram.com/linkimpact_" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+            <circle cx="12" cy="12" r="4"></circle>
+            <circle cx="17" cy="7" r="1.3"></circle>
+          </svg>
+        </a>
+
+        <a href="https://www.youtube.com/@LINKIMPACTNGO" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="6" width="18" height="12" rx="3"></rect>
+            <path d="M10 9.5v5l5-2.5-5-2.5z"></path>
+          </svg>
+        </a>
+
+        <a href="https://www.facebook.com/people/Linkimpact/61564662763460" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M14 8h2.5V4.5H14c-2.8 0-4.5 1.7-4.5 4.6V12H7v3.5h2.5V21H13v-5.5h3l.6-3.5H13V9.2c0-.8.4-1.2 1-1.2z"></path>
+          </svg>
+        </a>
+
+        <a href="https://naturelens.kr" target="_blank" rel="noopener noreferrer" aria-label="Nature Lens">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="6"></circle>
+            <circle cx="12" cy="12" r="2.4"></circle>
+            <path d="M4 12h3M17 12h3M12 4v3M12 17v3"></path>
+          </svg>
+        </a>
+      </nav>
+    </footer>
+  </main>
+
+  <!-- Activity Zoom Modal -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal__backdrop" id="modalBackdrop"></div>
+
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal__top">
+        <div class="modal__meta">
+          <span class="modal__tag" id="modalTag">World</span>
+          <h3 class="modal__title" id="modalTitle">Title</h3>
+        </div>
+        <button class="modal__close" id="modalClose" type="button" aria-label="Close">✕</button>
+      </div>
+
+      <div class="modal__body" id="modalBody">
+        <!-- filled by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Notice Modal -->
+  <div class="noticeModal" id="noticeModal" aria-hidden="true">
+    <div class="noticeModal__backdrop" id="noticeBackdrop"></div>
+
+    <section class="noticeModal__panel" role="dialog" aria-modal="true" aria-labelledby="noticeTitle">
+      <div class="noticeModal__top">
+        <div>
+          <span class="noticeModal__eyebrow" data-i18n="notice.eyebrow">Notice</span>
+          <h3 class="noticeModal__title" id="noticeTitle">Notice</h3>
+        </div>
+        <button class="noticeModal__close" id="noticeClose" type="button" aria-label="Close">✕</button>
+      </div>
+
+      <div class="noticeModal__body">
+        <p class="noticeModal__date" id="noticeDate"></p>
+        <div class="noticeModal__content" id="noticeContent"></div>
+      </div>
+
+      <div class="noticeModal__bottom">
+        <button class="noticeArrow" id="noticePrev" type="button" aria-label="Previous notice">‹</button>
+        <span class="noticeCount" id="noticeCount">1 / 1</span>
+        <button class="noticeArrow" id="noticeNext" type="button" aria-label="Next notice">›</button>
+      </div>
+
+      <div class="noticeModal__today">
+        <button class="btn btn--ghost" id="noticeTodayClose" type="button" data-i18n="notice.todayClose">
+          Don’t show again today
+        </button>
+      </div>
+    </section>
+  </div>
+
+  <script src="./assets/js/i18n.js"></script>
+  <script src="./assets/js/activities.js"></script>
+</body>
+</html>

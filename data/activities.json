@@ -1,0 +1,136 @@
+{
+  "version": 1,
+  "items": [
+    {
+  "id": "message-of-currents",
+  "category": "climate",
+  "date": "2026-02-15",
+  "place": "Seoul",
+
+  "title": {
+    "en": "Message of the Currents",
+    "ko": "물결의 메시지 사진전"
+  },
+
+  "summary": {
+    "en": "A photo exhibition highlighting the silent voices of marine life amid climate change.",
+    "ko": "기후 변화 속 해양 생물의 침묵하는 목소리를 담은 사진전."
+  },
+
+  "content": {
+    "en": [
+      "Link Impact hosted its second photo exhibition, 'Message of the Currents,' focusing on marine species from the Philippines and Korea affected by climate change.",
+      "The exhibition documents extinction, migration, and adaptation as oceans undergo rapid transformation.",
+      "Using the symbolic keyword 'currents,' the project emphasizes the interconnectedness of global marine ecosystems.",
+      "The exhibition calls for deeper awareness of marine conservation and stronger international cooperation for climate action."
+    ],
+    "ko": [
+      "링크임팩트는 두 번째 사진전 ‘물결의 메시지’를 개최하며 기후 변화의 영향을 받는 필리핀과 한국 해양 생물의 이야기를 조명했습니다.",
+      "이번 전시는 멸종, 이동, 적응 과정을 겪는 해양 생물의 현실을 기록하며 급변하는 해양 환경을 보여줍니다.",
+      "‘물결(currents)’이라는 상징적 키워드를 통해 전 세계 바다 생태계가 서로 연결되어 있음을 전달합니다.",
+      "전시는 해양 보전의 중요성을 환기하고 기후 행동을 위한 국제 협력의 필요성을 강조합니다."
+    ]
+  },
+
+  "media": {
+    "thumb": "assets/img/activities/message-of-currents/cover.png",
+    "cover": "assets/img/activities/message-of-currents/cover.png",
+    "images": [
+      "assets/img/activities/message-of-currents/01.png",
+      "assets/img/activities/message-of-currents/02.png",
+      "assets/img/activities/message-of-currents/03.png"
+    ]
+  },
+
+  "tags": ["climate", "marine", "exhibition", "biodiversity"]
+},
+ 
+
+{
+  "id": "denr-interview",
+  "category": "partnership",
+  "date": "2026-02-20",
+  "place": "Philippines",
+
+  "title": {
+    "en": "Interview with DENR on Climate and Sustainability",
+    "ko": "필리핀 환경자원부(DENR) 기후 대응 인터뷰"
+  },
+
+  "summary": {
+    "en": "Link Impact met with DENR officials to discuss marine protection, climate resilience, and sustainable tourism.",
+    "ko": "링크임팩트는 DENR 관계자와 해양 보호, 기후 대응, 지속가능 관광 전략을 논의했습니다."
+  },
+
+  "content": {
+    "en": [
+      "Link Impact conducted an in-depth interview with officials from the Philippine Department of Environment and Natural Resources (DENR) to discuss national climate response strategies.",
+      "The discussion addressed coral bleaching, sea-level rise, and coastal erosion—major environmental challenges impacting marine ecosystems and tourism.",
+      "DENR highlighted its initiatives, including expanding marine protected areas, strengthening environmental education, and promoting sustainable fishing practices.",
+      "Both parties reaffirmed their commitment to collaborative efforts supporting sustainable development and eco-friendly tourism models in the Philippines."
+    ],
+    "ko": [
+      "링크임팩트는 필리핀 환경자원부(DENR) 관계자와 국가 차원의 기후 대응 전략을 논의하는 인터뷰를 진행했습니다.",
+      "대화에서는 산호 백화, 해수면 상승, 해안 침식 등 해양 생태계와 관광 산업에 영향을 미치는 주요 환경 문제를 다뤘습니다.",
+      "DENR은 해양 보호구역 확대, 환경 교육 강화, 지속가능 어업 촉진 등의 정책을 추진하고 있음을 밝혔습니다.",
+      "양 기관은 지속가능 발전과 친환경 관광 모델 구축을 위한 협력 의지를 재확인했습니다."
+    ]
+  },
+
+  "media": {
+    "thumb": "assets/img/activities/denr-interview/cover.png",
+    "cover": "assets/img/activities/denr-interview/cover.png"
+
+  },
+
+  "tags": ["climate", "marine", "government", "partnership", "sustainability"]
+},
+
+
+{
+  "id": "global-ambassador-birds",
+  "category": "biodiversity",
+  "date": "2026-05-10",
+  "place": "Seoul",
+
+  "title": {
+    "en": "The Crisis of Global Ambassador Migratory Birds",
+    "ko": "글로벌 앰배서더 철새 위기 기록전"
+  },
+
+  "summary": {
+    "en": "Link Impact’s first documentary exhibition highlighting the climate crisis facing migratory birds.",
+    "ko": "기후 위기 속 철새의 현실을 조명한 링크임팩트의 첫 다큐멘터리 전시."
+  },
+
+  "content": {
+    "en": [
+      "In celebration of World Migratory Bird Day, Link Impact hosted its first documentary exhibition focusing on migratory birds in crisis.",
+      "The exhibition introduced migratory birds as 'global ambassadors' that connect countries without borders, symbolizing ecological interdependence.",
+      "Birds that once migrated between Korea, China, and Canada are now losing habitats due to climate change and environmental degradation.",
+      "The exhibition emphasized that the extinction threat facing migratory birds reflects a broader climate crisis affecting humanity itself."
+    ],
+    "ko": [
+      "세계 철새의 날을 맞아 링크임팩트는 철새 위기를 조명하는 첫 다큐멘터리 전시를 개최했습니다.",
+      "국경을 넘어 세계를 연결하는 철새를 ‘글로벌 앰배서더’로 정의하며 생태계 상호연결성을 상징적으로 표현했습니다.",
+      "한국, 중국, 캐나다를 오가던 철새들은 기후 변화와 서식지 파괴로 더 이상 머물 공간을 찾기 어려운 상황에 놓여 있습니다.",
+      "전시는 철새의 멸종 위기가 곧 인류가 직면한 기후 위기의 단면임을 강조했습니다."
+    ]
+  },
+
+  "media": {
+    "thumb": "assets/img/activities/global-ambassador-birds/cover.png",
+    "cover": "assets/img/activities/global-ambassador-birds/cover.png",
+    "images": [
+      "assets/img/activities/global-ambassador-birds/01.png",
+      "assets/img/activities/global-ambassador-birds/02.png",
+      "assets/img/activities/global-ambassador-birds/03.png",
+      "assets/img/activities/global-ambassador-birds/04.png"
+    ]
+  },
+
+  "tags": ["climate", "migratory-birds", "biodiversity", "exhibition", "awareness"]
+}
+
+]
+}
