@@ -70,10 +70,15 @@
     return `${yyyy}-${mm}-${dd}`;
   }
 
+  function getOrderedActivities() {
+    return [...DATA].reverse();
+  }
+
   function render() {
     if (!grid) return;
 
-    const shown = DATA.slice(0, visibleCount);
+    const ordered = getOrderedActivities();
+    const shown = ordered.slice(0, visibleCount);
 
     grid.innerHTML = shown
       .map((item) => {
@@ -97,10 +102,8 @@
       })
       .join("");
 
-   
-
     if (btnMore) {
-      btnMore.disabled = visibleCount >= DATA.length;
+      btnMore.disabled = visibleCount >= ordered.length;
       btnMore.style.opacity = btnMore.disabled ? ".55" : "1";
     }
   }
@@ -163,12 +166,16 @@
     document.body.style.overflow = "";
   }
 
+  function findActivityById(id) {
+    return DATA.find((x) => String(x.id) === String(id));
+  }
+
   function onActivate(e) {
     const el = e.target.closest("[data-id]");
     if (!el) return;
 
     const id = el.getAttribute("data-id");
-    const item = DATA.find((x) => x.id === id);
+    const item = findActivityById(id);
 
     if (item) openModal(item);
   }
@@ -302,7 +309,7 @@
 
       if (a && a.hasAttribute("data-id")) {
         const id = a.getAttribute("data-id");
-        const item = DATA.find((x) => x.id === id);
+        const item = findActivityById(id);
 
         if (item) openModal(item);
       }
