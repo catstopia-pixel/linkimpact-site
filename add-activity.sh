@@ -101,7 +101,6 @@ jq \
   --argjson images "$IMAGES" \
   '.items += [{
     id: $id,
-    category: "world",
     date: $date,
     place: "",
     title: {

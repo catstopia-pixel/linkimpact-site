@@ -82,7 +82,7 @@
 
     grid.innerHTML = shown
       .map((item) => {
-        const badge = t(categoryLabel[item.category] || { en: item.category || "" });
+        const badge = "";
         const title = t(item.title);
         const summary = t(item.summary);
         const thumb = item.media?.thumb || "";
@@ -92,7 +92,6 @@
             <div class="thumb" aria-hidden="true" style="background-image:url('${esc(thumb)}')"></div>
             <div class="cardBody">
               <div class="cardTop">
-                <span class="badge">${esc(badge)}</span>
               </div>
               <h3 class="cardTitle">${esc(title)}</h3>
               <p class="cardDesc">${esc(summary)}</p>
