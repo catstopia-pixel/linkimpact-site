@@ -629,6 +629,37 @@
         ]
       },
       "tags": []
+    },
+    {
+      "id": "2026-05-002",
+      "date": "2026-05-07",
+      "place": "",
+      "title": {
+        "ko": "외국인과 함께하는 철새 도래지 탐조활동",
+        "en": "Migratory Bird Habitat Exploration with Foreign Residents"
+      },
+      "summary": {
+        "ko": "국내 거주 외국인과 함께 철새 도래지를 탐사하며 기후위기와 생태 보존의 현주소를 간접적으로 체험했습니다.",
+        "en": "Foreign residents explored migratory bird habitats and indirectly experienced the current state of the climate crisis and ecological conservation."
+      },
+      "content": {
+        "ko": [
+          "국제 NGO Link-Impact는 국내에 거주하는 1인 가구, 외국인, 다문화 가족과 함께 철새 도래지를 탐방하며 탐조활동과 생태체험을 진행했다. 이번 활동은 철새를 직접 관찰하는 자연 체험을 넘어, 기후위기와 서식지 변화가 생태계에 미치는 영향을 현장에서 간접적으로 이해하고, 다양한 배경의 참여자들이 함께 정서적 연대를 형성하는 시간으로 마련되었다.\n\n참여자들은 철새가 찾아오는 하천과 습지 주변을 걸으며 쌍안경과 관찰 기록을 활용해 철새의 움직임, 먹이 활동, 서식 환경을 살펴보았다. 철새는 계절에 따라 국경을 넘어 이동하며 여러 지역의 생태계를 연결하는 존재로, 이들의 이동 경로는 기후변화, 습지 감소, 도시 개발, 수질 변화 등 다양한 환경 요인과 밀접하게 연결되어 있다. 이번 탐방은 철새의 모습을 통해 생물다양성과 생태 보존의 중요성을 체감하는 계기가 되었다.\n\n특히 국내 거주 외국인과 다문화 가족, 1인 가구 참여자들은 자연을 함께 관찰하는 과정에서 서로의 경험과 감정을 나누며 관계를 형성했다. 탐조활동은 언어와 문화의 차이를 넘어 같은 풍경을 바라보고 같은 생명을 관찰하는 공동의 경험을 제공했다. 이를 통해 참여자들은 단순한 환경 교육을 넘어, 도시 생활 속에서 느낄 수 있는 고립감을 완화하고 지역사회 안에서 연결감을 회복하는 시간을 가질 수 있었다.\n\n이번 활동은 철새 도래지가 단순히 새들이 머무는 장소가 아니라, 기후위기와 생태계 변화의 현주소를 보여주는 중요한 환경 지표임을 확인하게 했다. 철새의 감소, 이동 시기의 변화, 서식지 훼손은 자연만의 문제가 아니라 인간의 생활 방식과도 깊이 연결되어 있다. 참여자들은 철새를 관찰하며 환경보존이 먼 미래의 과제가 아니라 지금 우리가 함께 실천해야 할 현실적인 책임임을 인식했다.\n\nLink-Impact는 이번 철새 도래지 탐조활동을 통해 생태체험, 다문화 교류, 정서적 연대, 환경보존이 하나의 지역 기반 프로그램 안에서 연결될 수 있음을 확인했다. 앞으로도 국내외 시민이 함께 참여하는 생태 프로그램을 확대하여, 기후위기와 생물다양성 보전에 대한 인식을 넓히고 서로 다른 배경의 사람들이 자연을 매개로 연결되는 지속가능한 공동체 활동을 이어갈 계획이다.\n"
+        ],
+        "en": [
+          "Link-Impact, an international NGO, organized a migratory bird habitat exploration and birdwatching activity with single-person households, foreign residents, and multicultural families living in Korea. The activity went beyond simple nature observation, providing participants with an opportunity to indirectly understand how the climate crisis and habitat changes are affecting ecosystems, while also building emotional solidarity among people from diverse backgrounds.\n\nParticipants walked along riverside and wetland areas where migratory birds appear, using binoculars and field notes to observe bird movements, feeding behavior, and habitat conditions. Migratory birds cross borders according to the seasons and connect ecosystems across different regions. Their migration routes are closely related to climate change, wetland loss, urban development, and changes in water quality. Through this field experience, participants were able to recognize the importance of biodiversity and ecological conservation.\n\nThe activity was especially meaningful because foreign residents, multicultural families, and single-person household participants were able to share their thoughts and experiences while observing nature together. Birdwatching created a shared experience that went beyond differences in language and culture, allowing participants to look at the same landscape and observe the same living beings. In this process, the program became more than environmental education; it also helped participants reduce feelings of isolation and rebuild a sense of connection within the local community.\n\nThe exploration also showed that migratory bird habitats are not merely places where birds rest, but important environmental indicators that reveal the current state of the climate crisis and ecological change. The decline of migratory birds, shifts in migration timing, and habitat degradation are not only issues of nature, but are deeply connected to human lifestyles. By observing migratory birds, participants recognized that environmental conservation is not a distant future task, but a responsibility that requires action today.\n\nThrough this migratory bird habitat exploration, Link-Impact confirmed that ecological experience, multicultural exchange, emotional solidarity, and environmental conservation can be connected within one community-based program. Moving forward, Link-Impact plans to continue expanding ecological programs involving both local and international participants, raising awareness of the climate crisis and biodiversity conservation while creating sustainable community activities that connect people through nature.\n"
+        ]
+      },
+      "media": {
+        "thumb": "assets/img/activities/2026/05/002/cover.png",
+        "cover": "assets/img/activities/2026/05/002/cover.png",
+        "images": [
+          "assets/img/activities/2026/05/002/01.png",
+          "assets/img/activities/2026/05/002/02.png",
+          "assets/img/activities/2026/05/002/03.png"
+        ]
+      },
+      "tags": []
     }
   ]
 }
