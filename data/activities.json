@@ -598,6 +598,37 @@
         ]
       },
       "tags": []
+    },
+    {
+      "id": "2026-05-001",
+      "date": "2026-05-07",
+      "place": "",
+      "title": {
+        "ko": "다문화 가족과 함께한 중랑천 생태 체험",
+        "en": "Jungnangcheon Ecological Experience with Multicultural Families"
+      },
+      "summary": {
+        "ko": "필리핀, 독일 등 다양한 배경의 외국인 및 다문화 가족이 중랑천 일대 텃밭을 함께 가꾸며 생태체험과 지역 연대활동을 진행했습니다.",
+        "en": "Foreign residents and multicultural families from countries including the Philippines and Germany joined a community gardening activity near Jungnangcheon, combining ecological experience with local solidarity."
+      },
+      "content": {
+        "ko": [
+          "국제 NGO Link-Impact는 중랑천 일대에서 한국에 거주하는 필리핀, 독일 등 다양한 국적의 외국인과 다문화 가족이 함께 참여하는 생태 체험 활동을 진행했다. 이번 활동은 도시 속 자연 공간인 중랑천 주변 텃밭을 함께 가꾸며, 다문화 구성원과 지역사회가 자연스럽게 교류하고 연대하는 기회로 마련되었다.\n\n참여자들은 텃밭을 정리하고 작물을 돌보는 과정을 통해 생물다양성, 지속가능한 생활 방식, 도시 생태계의 중요성을 직접 경험했다. 서로 다른 언어와 문화적 배경을 가진 이들이 흙을 만지고 식물을 가꾸며 협력하는 과정은 생태체험이 단순한 환경 교육을 넘어 문화 간 이해와 공동체 형성의 장이 될 수 있음을 보여주었다.\n\n이번 활동은 외국인 주민, 다문화 가족, 지역 주민 등 사회적으로 소외되기 쉬운 시민들이 함께 참여했다는 점에서도 의미가 있다. 중랑천이라는 열린 공간은 서로 다른 배경을 가진 사람들이 지역사회 구성원으로 연결되는 장소가 되었고, 텃밭 활동은 환경 보호와 사회적 포용을 함께 실천하는 연대활동으로 확장되었다.\n\nLink-Impact는 이번 중랑천 생태 체험을 통해 다문화, 소외시민, 생태체험, 연대활동이 하나의 지역 기반 프로그램 안에서 연결될 수 있음을 확인했다. 앞으로도 도시 속 생태 공간을 활용해 다양한 시민이 함께 참여할 수 있는 환경 교육과 지역 연대 프로그램을 지속적으로 확대해 나갈 계획이다.\n"
+        ],
+        "en": [
+          "Link-Impact, an international NGO, organized an ecological experience program along the Jungnangcheon area with foreign residents and multicultural families living in Korea, including participants from the Philippines and Germany. The activity was designed as a community-based program where participants could cultivate a garden near Jungnangcheon while building connections between multicultural communities and local residents.\n\nParticipants maintained the garden and cared for crops, gaining hands-on experience with biodiversity, sustainable living, and the importance of urban ecosystems. Through touching the soil, growing plants, and working together, people from different linguistic and cultural backgrounds discovered that ecological activities can become more than environmental education—they can also foster intercultural understanding and community belonging.\n\nThe activity was also meaningful because it created a shared space for foreign residents, multicultural families, local citizens, and others who may often feel socially marginalized. Jungnangcheon became an open meeting point where people from diverse backgrounds could connect as members of the same community, while the gardening activity developed into a form of solidarity that combined environmental protection with social inclusion.\n\nThrough this Jungnangcheon ecological experience, Link-Impact confirmed that multiculturalism, marginalized citizens, ecological learning, and solidarity action can be connected within one local program. Moving forward, the organization plans to continue expanding environmental education and community solidarity programs that use urban ecological spaces as platforms for inclusive participation.\n"
+        ]
+      },
+      "media": {
+        "thumb": "assets/img/activities/2026/05/001/cover.png",
+        "cover": "assets/img/activities/2026/05/001/cover.png",
+        "images": [
+          "assets/img/activities/2026/05/001/01.png",
+          "assets/img/activities/2026/05/001/02.png",
+          "assets/img/activities/2026/05/001/03.png"
+        ]
+      },
+      "tags": []
     }
   ]
 }
