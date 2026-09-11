@@ -1,0 +1,55 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1788680401133,
+      "tag": "0000_classy_swarm",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1788680418413,
+      "tag": "0001_aspiring_falcon",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1788873489807,
+      "tag": "0002_lethal_inhumans",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1788876000000,
+      "tag": "0003_add_field_activities",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1788879600000,
+      "tag": "0004_add_naturelens_notices",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1788883200000,
+      "tag": "0005_add_sovac_notice",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1788886800000,
+      "tag": "0006_update_mission_and_donation",
+      "breakpoints": true
+    }
+  ]
+}
