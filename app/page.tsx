@@ -5,10 +5,16 @@ import InteractiveFrontClient from "./ui/interactive-front-client";
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const [posts, user] = await Promise.all([
-    getPublishedPosts(undefined, 12),
+  const [notices, activities, user] = await Promise.all([
+    getPublishedPosts("notice", 5),
+    getPublishedPosts("activity", 20),
     getChatGPTUser(),
   ]);
 
-  return <InteractiveFrontClient posts={posts} showAdmin={Boolean(user)} />;
+  return (
+    <InteractiveFrontClient
+      posts={[...notices, ...activities]}
+      showAdmin={Boolean(user)}
+    />
+  );
 }
