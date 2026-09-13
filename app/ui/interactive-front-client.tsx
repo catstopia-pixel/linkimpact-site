@@ -9,24 +9,29 @@ type Props={posts:Post[];showAdmin:boolean};
 type Dot={x:number;y:number;vx:number;vy:number;active:number};
 type Ripple={x:number;y:number;r:number;a:number};
 
-type Feature={name:string;desc:string;left:string;top:string};
+type Feature={name:string;desc:string;left:string;top:string;keywords:string[]};
 const FEATURES:Feature[]=[
-  {name:"PEOPLE",desc:"사람을 연결합니다.",left:"66%",top:"18%"},
-  {name:"NATURE",desc:"자연을 연결합니다.",left:"82%",top:"29%"},
-  {name:"COMMUNITY",desc:"지역사회를 연결합니다.",left:"80%",top:"52%"},
-  {name:"RESOURCE",desc:"자원을 연결합니다.",left:"63%",top:"61%"},
-  {name:"ACTION",desc:"행동으로 변화를 만듭니다.",left:"73%",top:"75%"},
+  {name:"PEOPLE",desc:"사람을 연결합니다.",left:"66%",top:"18%",keywords:["사람","주민","시민","청년","아동","people","resident","citizen","community"]},
+  {name:"NATURE",desc:"자연을 연결합니다.",left:"83%",top:"29%",keywords:["자연","생태","숲","식물","대나무","기후","nature","forest","climate","plant"]},
+  {name:"COMMUNITY",desc:"지역사회를 연결합니다.",left:"81%",top:"54%",keywords:["지역","마을","커뮤니티","협력","다문화","community","local","village","network"]},
+  {name:"RESOURCE",desc:"자원을 연결합니다.",left:"63%",top:"64%",keywords:["자원","지원","교육","데이터","플랫폼","resource","data","education","platform"]},
+  {name:"ACTION",desc:"행동으로 변화를 만듭니다.",left:"75%",top:"78%",keywords:["활동","행동","탐사","복원","식재","봉사","제거","action","restore","volunteer","planting"]},
 ];
 
 function todayKey(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;}
 function media(post?:Post){if(!post?.image_key)return "/assets/earth-network.png";return post.image_key.startsWith("/")?post.image_key:`/api/media/${encodeURIComponent(post.image_key)}`;}
+function searchable(post:Post){return `${post.title_ko||""} ${post.title_en||""} ${post.excerpt_ko||""} ${post.excerpt_en||""} ${post.content_ko||""} ${post.content_en||""}`.toLowerCase();}
 
-export default function InteractiveFrontClient({posts,showAdmin}:Props){
+export default function InteractiveFrontClient({posts}:Props){
  const canvasRef=useRef<HTMLCanvasElement|null>(null);
  const heroRef=useRef<HTMLElement|null>(null);
  const [popupOpen,setPopupOpen]=useState(false);
- const popupNotice=useMemo(()=>posts.find(p=>p.type==="notice"&&Boolean(p.is_pinned))||null,[posts]);
- const activityImages=useMemo(()=>posts.filter(p=>p.type==="activity"&&p.image_key).slice(0,5),[posts]);
+ const popupNotice=useMemo(()=>posts.find(p=>p.type==="notice"&&Boolean(p.is_pinned))||posts.find(p=>p.type==="notice")||null,[posts]);
+ const activityImages=useMemo(()=>posts.filter(p=>p.type==="activity"&&p.image_key),[posts]);
+ const featureImages=useMemo(()=>FEATURES.map((feature,index)=>{
+   const matched=activityImages.find(post=>feature.keywords.some(keyword=>searchable(post).includes(keyword.toLowerCase())));
+   return matched||activityImages[index%Math.max(activityImages.length,1)];
+  }),[activityImages]);
 
  useEffect(()=>{if(!popupNotice)return;const key=`linkimpact-notice-popup-${popupNotice.id}`;if(localStorage.getItem(key)!==todayKey())setPopupOpen(true);},[popupNotice]);
  const hidePopupToday=()=>{if(popupNotice)localStorage.setItem(`linkimpact-notice-popup-${popupNotice.id}`,todayKey());setPopupOpen(false);};
@@ -77,8 +82,8 @@ export default function InteractiveFrontClient({posts,showAdmin}:Props){
    <canvas ref={canvasRef} className="absolute inset-0 z-[3] h-full w-full touch-none" aria-hidden="true"/>
 
    <header className="relative z-30 mx-auto flex h-24 max-w-[1360px] items-center justify-between px-6 lg:px-10">
-    <Link href="/" className="flex items-center gap-3"><img src="/assets/linkimpact-logo.png" alt="LINKIMPACT 로고" className="h-11 w-auto md:h-14"/><span className="text-lg font-black tracking-[-.03em] md:text-xl">LINKIMPACT</span></Link>
-    <nav className="hidden items-center gap-9 text-xs font-bold tracking-[.08em] text-white/78 md:flex"><Link href="/news?type=activity" className="hover:text-white">OUR WORK</Link><a href="https://www.naturelens.kr" target="_blank" rel="noreferrer" className="hover:text-white">NATURELENS</a><Link href="/news?type=notice" className="hover:text-white">NEWS</Link>{showAdmin?<Link href="/admin" className="hover:text-white">ADMIN</Link>:null}<a href="https://together.kakao.com/fundraisings/139701/story" target="_blank" rel="noreferrer" className="rounded-full bg-emerald-300 px-5 py-3 text-[#05100d]">DONATE</a></nav>
+    <Link href="/" className="flex items-center"><img src="/assets/linkimpact-logo.png" alt="LINKIMPACT 로고" className="h-11 w-auto md:h-14"/></Link>
+    <a href="https://together.kakao.com/fundraisings/139701/story" target="_blank" rel="noreferrer" className="rounded-full bg-emerald-300 px-5 py-3 text-xs font-black tracking-[.08em] text-[#05100d] transition hover:-translate-y-0.5">DONATE</a>
    </header>
 
    <div className="relative z-20 mx-auto flex min-h-[calc(100svh-6rem)] max-w-[1360px] items-center px-6 pb-28 pt-4 lg:px-10">
@@ -90,21 +95,18 @@ export default function InteractiveFrontClient({posts,showAdmin}:Props){
      <div className="mt-8 flex flex-wrap gap-3">
       <Link href="/news?type=activity" className="inline-flex items-center gap-3 rounded-full bg-emerald-300 px-6 py-4 text-sm font-black text-[#04100c] transition hover:-translate-y-0.5">OUR WORK <ArrowRight size={17}/></Link>
       <a href="https://www.naturelens.kr" target="_blank" rel="noreferrer" className="inline-flex items-center gap-3 rounded-full border border-white/50 bg-black/20 px-6 py-4 text-sm font-bold backdrop-blur-sm transition hover:bg-white/10">NATURELENS <ExternalLink size={15}/></a>
-      <a href="https://together.kakao.com/fundraisings/139701/story" target="_blank" rel="noreferrer" className="inline-flex items-center gap-3 rounded-full border border-emerald-300/65 bg-black/20 px-6 py-4 text-sm font-bold text-emerald-200 backdrop-blur-sm transition hover:bg-emerald-300/10">DONATE <ExternalLink size={15}/></a>
      </div>
     </div>
    </div>
 
    <div className="pointer-events-none absolute inset-0 z-10 hidden md:block">
     {FEATURES.map((f,i)=><div key={f.name} className="group pointer-events-auto absolute -translate-x-1/2 -translate-y-1/2" style={{left:f.left,top:f.top}}>
-      <div className="flex items-center gap-3 transition duration-300 group-hover:scale-105">
-       <div className="h-[72px] w-[72px] overflow-hidden rounded-full border-2 border-white/85 bg-black/50 shadow-[0_0_28px_rgba(83,220,181,.38)]"><img src={media(activityImages[i])} alt="" className="h-full w-full object-cover opacity-90"/></div>
-       <div className="whitespace-nowrap drop-shadow-[0_3px_10px_rgba(0,0,0,.95)]"><div className="text-[13px] font-black tracking-[.04em]">{f.name}</div><div className="mt-1 text-[11px] font-medium text-white/75">{f.desc}</div></div>
+      <div className="flex items-center gap-4 transition duration-300 group-hover:scale-105">
+       <div className="h-[122px] w-[122px] overflow-hidden rounded-full border-2 border-white/85 bg-black/50 shadow-[0_0_34px_rgba(83,220,181,.42)]"><img src={media(featureImages[i])} alt={`${f.name} 관련 활동`} className="h-full w-full object-cover opacity-95"/></div>
+       <div className="whitespace-nowrap drop-shadow-[0_3px_10px_rgba(0,0,0,.95)]"><div className="text-[14px] font-black tracking-[.04em]">{f.name}</div><div className="mt-1 text-[12px] font-medium text-white/78">{f.desc}</div></div>
       </div>
      </div>)}
    </div>
-
-   <div className="absolute bottom-7 left-1/2 z-30 -translate-x-1/2 text-center"><div className="text-[9px] font-bold tracking-[.34em] text-white/45">MOVE · CONNECT · CLICK</div><div className="mx-auto mt-3 h-9 w-px bg-gradient-to-b from-emerald-300/80 to-transparent"/></div>
   </section>
  </main>;
 }
