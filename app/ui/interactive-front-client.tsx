@@ -9,32 +9,59 @@ type Props={posts:Post[];showAdmin:boolean};
 type Dot={x:number;y:number;vx:number;vy:number;active:number};
 type Ripple={x:number;y:number;r:number;a:number};
 
-type Feature={name:string;desc:string;left:string;top:string;keywords:string[]};
+type Feature={name:string;desc:string;left:string;top:string;image:string;alt:string};
 const FEATURES:Feature[]=[
-  {name:"PEOPLE",desc:"사람을 연결합니다.",left:"66%",top:"18%",keywords:["사람","주민","시민","청년","아동","people","resident","citizen","community"]},
-  {name:"NATURE",desc:"자연을 연결합니다.",left:"83%",top:"29%",keywords:["자연","생태","숲","식물","대나무","기후","nature","forest","climate","plant"]},
-  {name:"COMMUNITY",desc:"지역사회를 연결합니다.",left:"81%",top:"54%",keywords:["지역","마을","커뮤니티","협력","다문화","community","local","village","network"]},
-  {name:"RESOURCE",desc:"자원을 연결합니다.",left:"63%",top:"64%",keywords:["자원","지원","교육","데이터","플랫폼","resource","data","education","platform"]},
-  {name:"ACTION",desc:"행동으로 변화를 만듭니다.",left:"75%",top:"78%",keywords:["활동","행동","탐사","복원","식재","봉사","제거","action","restore","volunteer","planting"]},
+  {
+    name:"PEOPLE",
+    desc:"사람을 연결합니다.",
+    left:"66%",
+    top:"18%",
+    image:"https://images.unsplash.com/photo-1758518731462-d091b0b4ed0d?auto=format&fit=crop&w=900&q=82",
+    alt:"파트너 기관과 협약 문서에 서명하는 MOU 협력 장면",
+  },
+  {
+    name:"NATURE",
+    desc:"자연을 연결합니다.",
+    left:"83%",
+    top:"29%",
+    image:"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=82",
+    alt:"건강한 숲과 자연 생태계",
+  },
+  {
+    name:"COMMUNITY",
+    desc:"지역사회를 연결합니다.",
+    left:"81%",
+    top:"54%",
+    image:"https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=82",
+    alt:"함께 모여 협력하는 지역사회 사람들",
+  },
+  {
+    name:"RESOURCE",
+    desc:"자원을 연결합니다.",
+    left:"63%",
+    top:"64%",
+    image:"https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=82",
+    alt:"정보와 기술 자원을 연결하는 디지털 작업 환경",
+  },
+  {
+    name:"ACTION",
+    desc:"행동으로 변화를 만듭니다.",
+    left:"75%",
+    top:"78%",
+    image:"https://images.unsplash.com/photo-1758599669064-89f1ffe5c8d8?auto=format&fit=crop&w=900&q=82",
+    alt:"자연을 복원하기 위해 하천 주변을 정화하는 환경 활동",
+  },
 ];
 
-function todayKey(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;}
 function media(post?:Post){if(!post?.image_key)return "/assets/earth-network.png";return post.image_key.startsWith("/")?post.image_key:`/api/media/${encodeURIComponent(post.image_key)}`;}
-function searchable(post:Post){return `${post.title_ko||""} ${post.title_en||""} ${post.excerpt_ko||""} ${post.excerpt_en||""} ${post.content_ko||""} ${post.content_en||""}`.toLowerCase();}
 
 export default function InteractiveFrontClient({posts}:Props){
  const canvasRef=useRef<HTMLCanvasElement|null>(null);
  const heroRef=useRef<HTMLElement|null>(null);
  const [popupOpen,setPopupOpen]=useState(false);
  const popupNotice=useMemo(()=>posts.find(p=>p.type==="notice"&&Boolean(p.is_pinned))||posts.find(p=>p.type==="notice")||null,[posts]);
- const activityImages=useMemo(()=>posts.filter(p=>p.type==="activity"&&p.image_key),[posts]);
- const featureImages=useMemo(()=>FEATURES.map((feature,index)=>{
-   const matched=activityImages.find(post=>feature.keywords.some(keyword=>searchable(post).includes(keyword.toLowerCase())));
-   return matched||activityImages[index%Math.max(activityImages.length,1)];
-  }),[activityImages]);
 
- useEffect(()=>{if(!popupNotice)return;const key=`linkimpact-notice-popup-${popupNotice.id}`;if(localStorage.getItem(key)!==todayKey())setPopupOpen(true);},[popupNotice]);
- const hidePopupToday=()=>{if(popupNotice)localStorage.setItem(`linkimpact-notice-popup-${popupNotice.id}`,todayKey());setPopupOpen(false);};
+ useEffect(()=>{setPopupOpen(Boolean(popupNotice));},[popupNotice]);
 
  useEffect(()=>{
   const canvas=canvasRef.current,hero=heroRef.current;if(!canvas||!hero)return;
@@ -73,7 +100,7 @@ export default function InteractiveFrontClient({posts}:Props){
 
  const popupImage=media(popupNotice||undefined);
  return <main className="min-h-screen bg-[#030a0e] text-white">
-  {popupOpen&&popupNotice?<div className="fixed inset-0 z-[100] grid place-items-center bg-black/70 p-4"><div className="relative w-full max-w-lg overflow-hidden rounded-3xl border border-white/10 bg-[#09171b] shadow-2xl"><button onClick={()=>setPopupOpen(false)} className="absolute right-4 top-4 z-10 grid h-10 w-10 place-items-center rounded-full bg-black/50"><X size={18}/></button><div className="aspect-[16/8] bg-cover bg-center" style={{backgroundImage:`url("${popupImage}")`}}/><div className="p-6"><div className="text-xs font-bold tracking-[.2em] text-emerald-300">NOTICE</div><h2 className="mt-3 text-2xl font-bold">{popupNotice.title_ko}</h2><p className="mt-3 line-clamp-3 text-sm leading-7 text-white/65">{popupNotice.excerpt_ko||popupNotice.content_ko}</p><div className="mt-6 flex items-center justify-between gap-3"><button onClick={hidePopupToday} className="text-sm text-white/50">오늘 하루 보지 않기</button><Link href={`/news/${popupNotice.id}`} className="inline-flex items-center gap-2 rounded-full bg-emerald-300 px-5 py-3 text-sm font-bold text-[#061014]">자세히 보기 <ArrowRight size={15}/></Link></div></div></div></div>:null}
+  {popupOpen&&popupNotice?<div className="fixed inset-0 z-[100] grid place-items-center bg-black/70 p-4"><div className="relative w-full max-w-lg overflow-hidden rounded-3xl border border-white/10 bg-[#09171b] shadow-2xl"><button onClick={()=>setPopupOpen(false)} aria-label="공지 팝업 닫기" className="absolute right-4 top-4 z-10 grid h-10 w-10 place-items-center rounded-full bg-black/60 transition hover:bg-black/80"><X size={18}/></button><div className="aspect-[16/8] bg-cover bg-center" style={{backgroundImage:`url("${popupImage}")`}}/><div className="p-6"><div className="text-xs font-bold tracking-[.2em] text-emerald-300">NOTICE</div><h2 className="mt-3 text-2xl font-bold">{popupNotice.title_ko}</h2><p className="mt-3 line-clamp-3 text-sm leading-7 text-white/65">{popupNotice.excerpt_ko||popupNotice.content_ko}</p><div className="mt-6 flex items-center justify-end gap-3"><button onClick={()=>setPopupOpen(false)} className="rounded-full border border-white/20 px-5 py-3 text-sm font-bold text-white/70 transition hover:bg-white/10">닫기</button><Link href={`/news/${popupNotice.id}`} className="inline-flex items-center gap-2 rounded-full bg-emerald-300 px-5 py-3 text-sm font-bold text-[#061014]">자세히 보기 <ArrowRight size={15}/></Link></div></div></div></div>:null}
 
   <section ref={heroRef} className="relative min-h-[100svh] overflow-hidden bg-[#02090d]">
    <div className="absolute inset-0 bg-cover bg-[center_top] md:bg-[center_42%]" style={{backgroundImage:"url('/assets/earth-network.png')"}}/>
@@ -100,9 +127,9 @@ export default function InteractiveFrontClient({posts}:Props){
    </div>
 
    <div className="pointer-events-none absolute inset-0 z-10 hidden md:block">
-    {FEATURES.map((f,i)=><div key={f.name} className="group pointer-events-auto absolute -translate-x-1/2 -translate-y-1/2" style={{left:f.left,top:f.top}}>
+    {FEATURES.map((f)=><div key={f.name} className="group pointer-events-auto absolute -translate-x-1/2 -translate-y-1/2" style={{left:f.left,top:f.top}}>
       <div className="flex items-center gap-4 transition duration-300 group-hover:scale-105">
-       <div className="h-[122px] w-[122px] overflow-hidden rounded-full border-2 border-white/85 bg-black/50 shadow-[0_0_34px_rgba(83,220,181,.42)]"><img src={media(featureImages[i])} alt={`${f.name} 관련 활동`} className="h-full w-full object-cover opacity-95"/></div>
+       <div className="h-[122px] w-[122px] overflow-hidden rounded-full border-2 border-white/85 bg-black/50 shadow-[0_0_34px_rgba(83,220,181,.42)]"><img src={f.image} alt={f.alt} loading="eager" referrerPolicy="no-referrer" className="h-full w-full object-cover opacity-95"/></div>
        <div className="whitespace-nowrap drop-shadow-[0_3px_10px_rgba(0,0,0,.95)]"><div className="text-[14px] font-black tracking-[.04em]">{f.name}</div><div className="mt-1 text-[12px] font-medium text-white/78">{f.desc}</div></div>
       </div>
      </div>)}
