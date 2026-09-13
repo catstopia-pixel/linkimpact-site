@@ -41,5 +41,5 @@ button, input, textarea, select { font: inherit; }
   0%,100% { transform: scale(1); }
   50% { transform: scale(1.12); }
 }
-.front-node-image { animation: node-zoom 6s ease-in-out infinite; will-change: transform; }
-@media (prefers-reduced-motion: reduce) { .front-node-image { animation: none; } }
+.group img[style*="animation-delay"] { animation-name: node-zoom !important; animation-duration: 6s !important; animation-timing-function: ease-in-out !important; animation-iteration-count: infinite !important; will-change: transform; }
+@media (prefers-reduced-motion: reduce) { .group img[style*="animation-delay"] { animation: none !important; } }
