@@ -23,6 +23,39 @@ export const defaultSettings = {
   donate_url: "https://together.kakao.com/fundraisings/139701/story",
 };
 
+export const defaultFrontSettings: Record<string,string> = {
+  eyebrow: "PEOPLE CONNECT NATURE · A BRIGHTER TOMORROW",
+  title_line1: "LINKED TO",
+  title_emphasis: "CHANGE",
+  title_line2: "THE WORLD",
+  lead: "연결이 변화를 만듭니다.",
+  body: "사람과 자원, 행동을 연결해\n지역사회의 지속가능한 변화를 만듭니다.",
+  background_image_key: "/assets/earth-network.png",
+  people_label: "PEOPLE",
+  people_desc: "사람을 연결합니다.",
+  people_image_key: "",
+  nature_label: "NATURE",
+  nature_desc: "자연을 연결합니다.",
+  nature_image_key: "",
+  community_label: "COMMUNITY",
+  community_desc: "지역사회를 연결합니다.",
+  community_image_key: "",
+  resource_label: "RESOURCE",
+  resource_desc: "자원을 연결합니다.",
+  resource_image_key: "",
+  action_label: "ACTION",
+  action_desc: "행동으로 변화를 만듭니다.",
+  action_image_key: "",
+  work_label: "OUR WORK",
+  work_url: "/news?type=activity",
+  naturelens_label: "NATURELENS",
+  naturelens_url: "https://www.naturelens.kr",
+  donate_label: "DONATE",
+  donate_url: "https://together.kakao.com/fundraisings/139701/story",
+  notice_label: "NEWS",
+  notice_url: "/news?type=notice",
+};
+
 export const defaultStats = [
   { key: "citizens", label_ko: "시민 참여", label_en: "Citizen participants", value: "250,000+", sort_order: 1 },
   { key: "records", label_ko: "생물 관찰 데이터", label_en: "Nature records", value: "500,000+", sort_order: 2 },
@@ -43,6 +76,15 @@ export async function getSettings() {
     const row = await env.DB.prepare("SELECT * FROM site_settings WHERE id = 1").first<Record<string, string | null>>();
     return row ? { ...defaultSettings, ...row } : defaultSettings;
   } catch { return defaultSettings; }
+}
+
+export async function getFrontSettings() {
+  try {
+    await env.DB.prepare("CREATE TABLE IF NOT EXISTS front_settings (key TEXT PRIMARY KEY, value TEXT NOT NULL DEFAULT '')").run();
+    const rows=await env.DB.prepare("SELECT key,value FROM front_settings").all<{key:string;value:string}>();
+    const values=Object.fromEntries(rows.results.map(row=>[row.key,row.value]));
+    return {...defaultFrontSettings,...values};
+  } catch { return defaultFrontSettings; }
 }
 
 export async function getStats() {
