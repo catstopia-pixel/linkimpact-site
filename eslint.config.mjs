@@ -23,6 +23,15 @@ const eslintConfig = defineConfig([
       "react-hooks/set-state-in-effect": "off",
     },
   },
+  {
+    files: ["app/ui/**/*.{ts,tsx}"],
+    rules: {
+      // LINKIMPACT UI intentionally initializes and coordinates local animation,
+      // popup, and dashboard state from effects. Treat these as allowed UI
+      // synchronization patterns while keeping the rest of the hooks rules on.
+      "react-hooks/set-state-in-effect": "off",
+    },
+  },
 ]);
 
 export default eslintConfig;
