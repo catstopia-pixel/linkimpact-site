@@ -71,6 +71,17 @@ export type Post = {
   is_pinned: number; event_date: string | null; created_at: string; updated_at: string;
 };
 
+type SovacNotice = {
+  marker: string;
+  titleKo: string;
+  titleEn: string;
+  excerptKo: string;
+  excerptEn: string;
+  contentKo: string;
+  contentEn: string;
+  imageKey: string | null;
+};
+
 const SOVAC_CATEGORY = "SOVAC 2026 · INTERACTIVE";
 const WILD_LINK_TITLE = "[SOVAC 2026] 수달의 박수 — 생물다양성과 우리의 삶은 어떻게 연결될까요?";
 const WILD_LINK_IMAGE = "https://commons.wikimedia.org/wiki/Special:Redirect/file/Male_sea_otter_rubbing_flippers_and_forepaws.png";
@@ -78,11 +89,46 @@ const WILD_LINK_MARKER = "[[WILD_LINK_OTTER]]";
 const BAMBOO_LINK_TITLE = "[SOVAC 2026] 10초 숲 만들기 — 대나무가 지역사회의 회복과 어떻게 연결될까요?";
 const BAMBOO_LINK_MARKER = "[[BAMBOO_LINK_PHILIPPINES]]";
 
+async function upsertAndDeduplicateSovacNotice(notice: SovacNotice, now: string) {
+  const matches = await env.DB.prepare(
+    "SELECT id FROM posts WHERE title_ko = ? OR content_ko LIKE ? OR content_en LIKE ? ORDER BY id ASC"
+  ).bind(notice.titleKo, `%${notice.marker}%`, `%${notice.marker}%`).all<{id:number}>();
+
+  const ids = matches.results.map(row => row.id);
+
+  if (ids.length) {
+    const keepId = ids[0];
+    await env.DB.prepare(
+      `UPDATE posts SET
+        type='notice', title_ko=?, title_en=?, excerpt_ko=?, excerpt_en=?, content_ko=?, content_en=?,
+        image_key=?, gallery_json='[]', category=?, status='published', is_pinned=1, event_date='2026-09-14', updated_at=?
+       WHERE id=?`
+    ).bind(
+      notice.titleKo, notice.titleEn, notice.excerptKo, notice.excerptEn,
+      notice.contentKo, notice.contentEn, notice.imageKey, SOVAC_CATEGORY, now, keepId
+    ).run();
+
+    for (const duplicateId of ids.slice(1)) {
+      await env.DB.prepare("DELETE FROM posts WHERE id=?").bind(duplicateId).run();
+    }
+    return;
+  }
+
+  await env.DB.prepare(
+    "INSERT INTO posts(type,title_ko,title_en,excerpt_ko,excerpt_en,content_ko,content_en,image_key,gallery_json,category,status,is_pinned,event_date,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+  ).bind(
+    "notice", notice.titleKo, notice.titleEn, notice.excerptKo, notice.excerptEn,
+    notice.contentKo, notice.contentEn, notice.imageKey, "[]", SOVAC_CATEGORY,
+    "published", 1, "2026-09-14", now, now
+  ).run();
+}
+
 async function ensureSovacNotices() {
   try {
     const now = new Date().toISOString();
-    const notices = [
+    const notices: SovacNotice[] = [
       {
+        marker: WILD_LINK_MARKER,
         titleKo: WILD_LINK_TITLE,
         titleEn: "[SOVAC 2026] Otter Clap — How is biodiversity connected to our lives?",
         excerptKo: "수달의 박수 게임을 통해 자연을 기록하는 이유와 생물다양성, 기후환경, 지역사회와 우리의 삶이 어떻게 연결되는지 체험해보세요.",
@@ -92,6 +138,7 @@ async function ensureSovacNotices() {
         imageKey: WILD_LINK_IMAGE,
       },
       {
+        marker: BAMBOO_LINK_MARKER,
         titleKo: BAMBOO_LINK_TITLE,
         titleEn: "[SOVAC 2026] Build a Forest in 10 Seconds — How can bamboo connect climate resilience and community recovery?",
         excerptKo: "10초 동안 대나무를 심으며 태풍·홍수 재난, 토양과 식생, 지역환경, 생계와 지역경제가 어떻게 연결되는지 체험해보세요.",
@@ -103,10 +150,7 @@ async function ensureSovacNotices() {
     ];
 
     for (const notice of notices) {
-      const existing = await env.DB.prepare("SELECT id FROM posts WHERE category=? AND title_ko=? LIMIT 1").bind(SOVAC_CATEGORY, notice.titleKo).first<{id:number}>();
-      if (existing) continue;
-      await env.DB.prepare("INSERT INTO posts(type,title_ko,title_en,excerpt_ko,excerpt_en,content_ko,content_en,image_key,gallery_json,category,status,is_pinned,event_date,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")
-        .bind("notice", notice.titleKo, notice.titleEn, notice.excerptKo, notice.excerptEn, notice.contentKo, notice.contentEn, notice.imageKey, "[]", SOVAC_CATEGORY, "published", 1, "2026-09-14", now, now).run();
+      await upsertAndDeduplicateSovacNotice(notice, now);
     }
   } catch {}
 }
