@@ -1,8 +1,17 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, CalendarDays } from "lucide-react";
 import { getPublishedPosts, mediaUrl } from "../lib/content";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "공지사항과 활동 소식",
+  description: "LINKIMPACT의 공지사항과 지역사회·환경·시민참여 활동 소식을 확인하세요.",
+  alternates: {
+    canonical: "/news",
+  },
+};
 
 export default async function NewsPage({ searchParams }: { searchParams: Promise<{ type?: string; lang?: string }> }) {
   const { type, lang: rawLang } = await searchParams;
