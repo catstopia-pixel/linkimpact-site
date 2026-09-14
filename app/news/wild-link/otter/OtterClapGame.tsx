@@ -10,8 +10,47 @@ const GAME_SECONDS = 10;
 const OTTER_IMAGE = "https://upload.wikimedia.org/wikipedia/commons/7/7f/Otter_-_Eurasian_otter_-_Lutra_lutra.jpg";
 const OTTER_CREDIT = "Bouke ten Cate · CC BY 4.0 · Wikimedia Commons";
 
+const storySlides = [
+  {
+    kicker: "WHY RECORD NATURE?",
+    title: "우리가 자연을 기록하는 이유",
+    icon: "📍",
+    body: "자연을 기록하는 일은 단순히 생물의 이름을 남기는 일이 아닙니다. 어디에 어떤 생물이 살고 있는지, 무엇이 늘고 줄었는지 기록하면 생태계의 변화를 더 일찍 발견할 수 있습니다.",
+    chain: ["발견", "기록", "변화 감지", "보전 행동"],
+  },
+  {
+    kicker: "OTTER AS A SIGNAL",
+    title: "수달이 사라진다는 건 무엇을 뜻할까요?",
+    icon: "🦦",
+    body: "수달은 먹이와 은신처, 연결된 하천 공간이 필요한 야생동물입니다. 수달 자체가 재해를 막는 것은 아니지만, 수달이 살아가기 어려워진다는 것은 하천·습지 생태계의 건강성이 약해지고 있다는 신호일 수 있습니다.",
+    chain: ["수달", "하천·습지", "다양한 생명", "생태계 건강성"],
+  },
+  {
+    kicker: "BIODIVERSITY = RESILIENCE",
+    title: "생물다양성이 무너지면 자연의 방어력도 약해집니다.",
+    icon: "🌿",
+    body: "다양한 생물이 살아가는 숲·하천·습지와 건강한 토양은 물을 저장하고 흐름을 늦추며, 토양 유실을 줄이고 물환경을 유지하는 데 기여합니다. 이런 생태계 기능이 약해진 상태에서 집중호우·폭염·가뭄 같은 기후 충격이 겹치면 지역사회의 피해 위험은 더 커질 수 있습니다.",
+    chain: ["생물다양성 감소", "생태계 기능 약화", "기후 충격", "재해 피해 위험 증가"],
+  },
+  {
+    kicker: "BACK TO US",
+    title: "결국 직격타를 받는 건 우리의 삶입니다.",
+    icon: "🏘️",
+    body: "침수와 토사유출, 수질 악화, 농업 피해, 폭염과 같은 문제는 환경에서 끝나지 않습니다. 집과 도로, 먹거리, 건강, 지역경제까지 이어집니다. 그래서 환경문제는 동시에 사회문제이고, 생물다양성은 우리의 삶의 터전과 연결된 문제입니다.",
+    chain: ["자연환경", "재해·생활환경", "지역사회", "우리의 삶"],
+  },
+  {
+    kicker: "LINKIMPACT",
+    title: "기록에서 행동으로, 연결을 만듭니다.",
+    icon: "🔗",
+    body: "LINKIMPACT는 환경과 사회의 문제로 삶의 터전을 위협받는 지역사회의 문제를 발견하고, 시민의 기록과 데이터, 사람과 자원, 행동을 연결해 지속가능한 변화를 만듭니다.",
+    chain: ["시민 기록", "데이터", "사람·자원", "행동과 변화"],
+  },
+];
+
 export default function OtterClapGame() {
   const [phase, setPhase] = useState<Phase>("intro");
+  const [storyStep, setStoryStep] = useState(0);
   const [countdown, setCountdown] = useState(3);
   const [timeLeft, setTimeLeft] = useState(GAME_SECONDS);
   const [score, setScore] = useState(0);
@@ -78,6 +117,7 @@ export default function OtterClapGame() {
     setRank(null);
     setTimeLeft(GAME_SECONDS);
     setCountdown(3);
+    setStoryStep(0);
     setPhase("countdown");
   }
 
@@ -91,11 +131,13 @@ export default function OtterClapGame() {
     window.setTimeout(() => setPulse(false), 75);
   }
 
+  const slide = storySlides[storyStep];
+
   return (
     <div className="overflow-hidden rounded-[32px] bg-[#062e29] text-white shadow-2xl">
-      <div className="relative min-h-[680px] select-none">
+      <div className="relative min-h-[700px] select-none">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,#237566_0%,#0b433a_35%,#062e29_72%)]" />
-        <div className="relative z-10 flex min-h-[680px] flex-col p-5 sm:p-9">
+        <div className="relative z-10 flex min-h-[700px] flex-col p-5 sm:p-9">
           <div className="flex items-center justify-between text-[10px] font-bold tracking-[.16em] text-emerald-100/80 sm:text-xs">
             <span>WILD LINK · SOVAC 2026</span><span>LINKIMPACT</span>
           </div>
@@ -108,7 +150,7 @@ export default function OtterClapGame() {
             </div>
             <p className="text-sm font-bold tracking-[.2em] text-emerald-200">TOUCH · PLAY · FIND THE LINK</p>
             <h2 className="mt-3 text-5xl font-black tracking-tight sm:text-6xl">수달의 박수</h2>
-            <p className="mx-auto mt-5 max-w-md text-base leading-7 text-emerald-50/80">10초 동안 화면을 빠르게 터치하세요. 박수가 쌓일수록 수달에게 응원의 파동이 번집니다.</p>
+            <p className="mx-auto mt-5 max-w-md text-base leading-7 text-emerald-50/80">10초 동안 화면을 빠르게 터치하세요. 게임 뒤에는 수달에서 시작해 생물다양성, 기후환경, 그리고 우리의 삶으로 이어지는 이야기가 열립니다.</p>
             <input value={playerName} onChange={e => setPlayerName(e.target.value)} maxLength={20} placeholder="닉네임 (선택)" className="mx-auto mt-7 block w-full max-w-xs rounded-full border border-white/20 bg-white/10 px-5 py-3 text-center text-sm outline-none placeholder:text-white/45" />
             <button onClick={start} className="mt-4 rounded-full bg-[#d7ff58] px-10 py-4 text-lg font-black text-[#062e29] transition active:scale-95">게임 시작</button>
             <p className="mx-auto mt-5 max-w-md text-[10px] leading-4 text-white/45">Photo: {OTTER_CREDIT}</p>
@@ -126,7 +168,6 @@ export default function OtterClapGame() {
               <div className="absolute bottom-5 left-0 right-0 text-center"><span className="rounded-full bg-black/45 px-5 py-2 text-4xl font-black backdrop-blur">👏 {score}</span></div>
             </div>
             <p className="mt-5 text-sm font-bold text-emerald-100">사진을 계속 터치하세요!</p>
-            <p className="mt-1 text-xs text-emerald-100/55">5회마다 짧은 진동 · 모바일 지원 기기</p>
           </button>}
 
           {phase === "result" && <div className="my-auto text-center">
@@ -134,19 +175,25 @@ export default function OtterClapGame() {
             <p className="text-sm font-bold tracking-[.2em] text-[#d7ff58]">NICE CLAP!</p>
             <div className="mt-3 text-7xl font-black">{score}</div><p className="mt-1 text-emerald-100">번의 박수</p>
             {rank ? <p className="mt-5 text-2xl font-black">오늘의 순위 #{rank}</p> : null}
-            <button onClick={() => setPhase("story")} className="mt-8 rounded-full bg-white px-8 py-4 font-black text-[#062e29]">그런데 수달과 나는 무슨 사이일까요? →</button>
             <Leaderboard leaders={leaders} />
+            <button onClick={() => { setStoryStep(0); setPhase("story"); }} aria-label="다음 이야기 보기" className="mx-auto mt-8 grid h-16 w-16 place-items-center rounded-full bg-[#d7ff58] text-3xl font-black text-[#062e29] shadow-lg transition hover:translate-x-1 active:scale-95">→</button>
+            <p className="mt-3 text-xs font-bold tracking-[.14em] text-emerald-100/70">NEXT · 수달에서 우리의 삶까지</p>
           </div>}
 
           {phase === "story" && <div className="my-auto">
-            <p className="text-sm font-bold tracking-[.18em] text-[#d7ff58]">FOLLOW THE LINK</p>
-            <h2 className="mt-3 text-4xl font-black leading-tight sm:text-5xl">수달을 따라갔더니,<br/>결국 우리가 나왔습니다.</h2>
-            <div className="mt-8 grid grid-cols-3 gap-2 text-center text-xs font-bold sm:grid-cols-6 sm:text-sm">
-              {[['🦦','수달'],['🌊','하천·습지'],['🐟','다양한 생명'],['💧','물환경'],['🏘️','지역사회'],['👤','우리의 삶']].map(([icon,label],i) => <div key={label} className="relative rounded-2xl bg-white/10 p-4"><div className="text-3xl">{icon}</div><div className="mt-2">{label}</div>{i < 5 ? <span className="absolute -right-2 top-1/2 hidden -translate-y-1/2 sm:block">→</span> : null}</div>)}
+            <div className="mb-6 flex items-center justify-between"><p className="text-xs font-bold tracking-[.18em] text-[#d7ff58]">{slide.kicker}</p><p className="text-xs text-white/50">{storyStep + 1} / {storySlides.length}</p></div>
+            <div className="rounded-[32px] bg-white p-6 text-[#092a52] shadow-2xl sm:p-9">
+              <div className="text-5xl">{slide.icon}</div>
+              <h2 className="mt-5 text-3xl font-black leading-tight sm:text-5xl">{slide.title}</h2>
+              <p className="mt-5 text-base leading-8 text-slate-600 sm:text-lg">{slide.body}</p>
+              <div className="mt-8 grid grid-cols-2 gap-2 sm:grid-cols-4">{slide.chain.map((item, index) => <div key={item} className="relative rounded-2xl bg-[#edf6ef] px-3 py-4 text-center text-sm font-black text-[#17553c]">{item}{index < slide.chain.length - 1 ? <span className="absolute -right-2 top-1/2 hidden -translate-y-1/2 sm:block">→</span> : null}</div>)}</div>
             </div>
-            <div className="mt-8 rounded-3xl bg-white p-6 text-[#092a52] sm:p-8"><p className="text-xl font-black">생물다양성은 자연만의 이야기가 아닙니다.</p><p className="mt-3 leading-7 text-slate-600">수달이 살아가는 건강한 하천과 습지는 수많은 생명의 서식지입니다. 자연의 다양한 연결과 기능은 물환경과 지역의 회복력에 관계되고, 그 영향은 결국 우리가 살아가는 삶의 터전으로 이어집니다.</p><div className="mt-6 border-t pt-6"><p className="font-black text-[#287d44]">LINKIMPACT는 이 연결을 발견합니다.</p><p className="mt-2 text-sm leading-6 text-slate-600">환경과 사회의 문제로 삶의 터전을 위협받는 지역사회의 문제를 발견하고, 사람과 자원, 행동을 연결해 지속가능한 변화를 만듭니다.</p></div></div>
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row"><a href="https://www.naturelens.kr" target="_blank" rel="noreferrer" className="flex-1 rounded-full bg-[#d7ff58] px-6 py-4 text-center font-black text-[#062e29]">NatureLens에서 생명 기록하기</a><Link href="/news" className="flex-1 rounded-full border border-white/30 px-6 py-4 text-center font-bold">LINKIMPACT 활동 더 보기</Link></div>
-            <p className="mt-5 text-[10px] leading-4 text-white/45">Otter photo: {OTTER_CREDIT}. Original image used without modification except display cropping.</p>
+
+            <div className="mt-6 flex items-center justify-between">
+              <button onClick={() => setStoryStep(v => Math.max(0, v - 1))} disabled={storyStep === 0} className="rounded-full border border-white/25 px-5 py-3 text-sm font-bold disabled:opacity-30">← 이전</button>
+              {storyStep < storySlides.length - 1 ? <button onClick={() => setStoryStep(v => Math.min(storySlides.length - 1, v + 1))} className="grid h-14 w-14 place-items-center rounded-full bg-[#d7ff58] text-2xl font-black text-[#062e29]">→</button> : <div className="flex gap-2"><a href="https://www.naturelens.kr" target="_blank" rel="noreferrer" className="rounded-full bg-[#d7ff58] px-5 py-3 text-sm font-black text-[#062e29]">NatureLens 기록하기</a><Link href="/news" className="rounded-full border border-white/25 px-5 py-3 text-sm font-bold">활동 보기</Link></div>}
+            </div>
+            <p className="mt-5 text-[10px] leading-4 text-white/45">수달 자체가 홍수 등 자연재해를 막는다는 뜻이 아니라, 수달이 의존하는 하천·습지 생태계의 건강성과 그 생태계가 제공하는 기능이 우리의 안전과 연결되어 있다는 의미입니다. Otter photo: {OTTER_CREDIT}.</p>
           </div>}
         </div>
       </div>
