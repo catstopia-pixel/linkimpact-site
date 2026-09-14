@@ -1,4 +1,5 @@
 import { env } from "cloudflare:workers";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, CalendarDays } from "lucide-react";
 import { notFound } from "next/navigation";
@@ -6,10 +7,35 @@ import { galleryUrls, mediaUrl, type Post } from "../../lib/content";
 
 export const dynamic = "force-dynamic";
 
+async function getPost(id: string): Promise<Post | null> {
+  try {
+    return await env.DB.prepare("SELECT * FROM posts WHERE id=? AND status='published'").bind(Number(id)).first<Post>();
+  } catch {
+    return null;
+  }
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const post = await getPost(id);
+  if (!post) return { title: "게시글을 찾을 수 없습니다" };
+  return {
+    title: post.title_ko,
+    description: post.excerpt_ko || post.content_ko.slice(0, 150),
+    alternates: { canonical: `/news/${post.id}` },
+    openGraph: {
+      type: "article",
+      title: post.title_ko,
+      description: post.excerpt_ko || post.content_ko.slice(0, 150),
+      url: `/news/${post.id}`,
+      images: post.image_key ? [{ url: mediaUrl(post.image_key) }] : undefined,
+    },
+  };
+}
+
 export default async function PostPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ lang?: string }> }) {
   const { id } = await params; const { lang: rawLang } = await searchParams; const lang = rawLang === "en" ? "en" : "ko";
-  let post: Post | null = null;
-  try { post = await env.DB.prepare("SELECT * FROM posts WHERE id=? AND status='published'").bind(Number(id)).first<Post>(); } catch {}
+  const post = await getPost(id);
   if (!post) notFound();
   const gallery = galleryUrls(post.gallery_json); const title = lang === "ko" ? post.title_ko : (post.title_en || post.title_ko); const content = lang === "ko" ? post.content_ko : (post.content_en || post.content_ko);
   const typeLabel = post.type === "notice" ? (lang === "ko" ? "공지사항" : "Notice") : (lang === "ko" ? "활동 소식" : "Activity");
