@@ -71,22 +71,43 @@ export type Post = {
   is_pinned: number; event_date: string | null; created_at: string; updated_at: string;
 };
 
+const SOVAC_CATEGORY = "SOVAC 2026 · INTERACTIVE";
 const WILD_LINK_TITLE = "[SOVAC 2026] 수달의 박수 — 생물다양성과 우리의 삶은 어떻게 연결될까요?";
-const WILD_LINK_CATEGORY = "SOVAC 2026 · WILD LINK";
 const WILD_LINK_IMAGE = "https://commons.wikimedia.org/wiki/Special:Redirect/file/Male_sea_otter_rubbing_flippers_and_forepaws.png";
 const WILD_LINK_MARKER = "[[WILD_LINK_OTTER]]";
+const BAMBOO_LINK_TITLE = "[SOVAC 2026] 10초 숲 만들기 — 대나무가 지역사회의 회복과 어떻게 연결될까요?";
+const BAMBOO_LINK_MARKER = "[[BAMBOO_LINK_PHILIPPINES]]";
 
-async function ensureWildLinkNotice() {
+async function ensureSovacNotices() {
   try {
-    const existing = await env.DB.prepare("SELECT id FROM posts WHERE category=? AND title_ko=? LIMIT 1").bind(WILD_LINK_CATEGORY, WILD_LINK_TITLE).first<{id:number}>();
-    if (existing) return;
     const now = new Date().toISOString();
-    const excerptKo = "수달의 박수 게임을 통해 자연을 기록하는 이유와 생물다양성, 기후환경, 지역사회와 우리의 삶이 어떻게 연결되는지 체험해보세요.";
-    const excerptEn = "Play the Otter Clap game and discover how recording nature connects biodiversity, climate resilience, communities and our lives.";
-    const contentKo = `${WILD_LINK_MARKER}\n수달의 박수에서 시작해 생물다양성, 기후환경, 자연재해와 우리의 삶까지 이어지는 연결을 따라가 보세요.`;
-    const contentEn = `${WILD_LINK_MARKER}\nFollow the link from an otter to biodiversity, climate resilience, natural hazards and our lives.`;
-    await env.DB.prepare("INSERT INTO posts(type,title_ko,title_en,excerpt_ko,excerpt_en,content_ko,content_en,image_key,gallery_json,category,status,is_pinned,event_date,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")
-      .bind("notice", WILD_LINK_TITLE, "[SOVAC 2026] Otter Clap — How is biodiversity connected to our lives?", excerptKo, excerptEn, contentKo, contentEn, WILD_LINK_IMAGE, "[]", WILD_LINK_CATEGORY, "published", 1, "2026-09-14", now, now).run();
+    const notices = [
+      {
+        titleKo: WILD_LINK_TITLE,
+        titleEn: "[SOVAC 2026] Otter Clap — How is biodiversity connected to our lives?",
+        excerptKo: "수달의 박수 게임을 통해 자연을 기록하는 이유와 생물다양성, 기후환경, 지역사회와 우리의 삶이 어떻게 연결되는지 체험해보세요.",
+        excerptEn: "Play the Otter Clap game and discover how recording nature connects biodiversity, climate resilience, communities and our lives.",
+        contentKo: `${WILD_LINK_MARKER}\n수달의 박수에서 시작해 생물다양성, 기후환경, 자연재해와 우리의 삶까지 이어지는 연결을 따라가 보세요.`,
+        contentEn: `${WILD_LINK_MARKER}\nFollow the link from an otter to biodiversity, climate resilience, natural hazards and our lives.`,
+        imageKey: WILD_LINK_IMAGE,
+      },
+      {
+        titleKo: BAMBOO_LINK_TITLE,
+        titleEn: "[SOVAC 2026] Build a Forest in 10 Seconds — How can bamboo connect climate resilience and community recovery?",
+        excerptKo: "10초 동안 대나무를 심으며 태풍·홍수 재난, 토양과 식생, 지역환경, 생계와 지역경제가 어떻게 연결되는지 체험해보세요.",
+        excerptEn: "Plant bamboo for 10 seconds and explore how typhoons, floods, vegetation, soil, livelihoods and local recovery are connected.",
+        contentKo: `${BAMBOO_LINK_MARKER}\n게임 속 대나무를 심은 뒤 필리핀 태풍·홍수 피해지역의 환경 회복과 지역사회의 지속가능한 회복으로 이어지는 연결을 따라가 보세요. 마지막에는 카카오같이가치를 통해 댓글·기부 참여로 실제 행동을 이어갈 수 있습니다.`,
+        contentEn: `${BAMBOO_LINK_MARKER}\nPlant a virtual bamboo forest, then follow the link to climate resilience, environmental recovery and sustainable livelihoods in Philippine communities.`,
+        imageKey: null,
+      },
+    ];
+
+    for (const notice of notices) {
+      const existing = await env.DB.prepare("SELECT id FROM posts WHERE category=? AND title_ko=? LIMIT 1").bind(SOVAC_CATEGORY, notice.titleKo).first<{id:number}>();
+      if (existing) continue;
+      await env.DB.prepare("INSERT INTO posts(type,title_ko,title_en,excerpt_ko,excerpt_en,content_ko,content_en,image_key,gallery_json,category,status,is_pinned,event_date,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")
+        .bind("notice", notice.titleKo, notice.titleEn, notice.excerptKo, notice.excerptEn, notice.contentKo, notice.contentEn, notice.imageKey, "[]", SOVAC_CATEGORY, "published", 1, "2026-09-14", now, now).run();
+    }
   } catch {}
 }
 
@@ -115,7 +136,7 @@ export async function getStats() {
 
 export async function getPublishedPosts(type?: string, limit = 12) {
   try {
-    await ensureWildLinkNotice();
+    await ensureSovacNotices();
     const query = type
       ? env.DB.prepare("SELECT * FROM posts WHERE status = 'published' AND type = ? ORDER BY is_pinned DESC, created_at DESC LIMIT ?").bind(type, limit)
       : env.DB.prepare("SELECT * FROM posts WHERE status = 'published' ORDER BY is_pinned DESC, created_at DESC LIMIT ?").bind(limit);
@@ -125,6 +146,10 @@ export async function getPublishedPosts(type?: string, limit = 12) {
 
 export function isWildLinkOtterPost(post: Pick<Post,"content_ko"|"content_en">) {
   return post.content_ko.includes(WILD_LINK_MARKER) || post.content_en.includes(WILD_LINK_MARKER);
+}
+
+export function isBambooLinkPost(post: Pick<Post,"content_ko"|"content_en">) {
+  return post.content_ko.includes(BAMBOO_LINK_MARKER) || post.content_en.includes(BAMBOO_LINK_MARKER);
 }
 
 export function mediaUrl(key: string | null) {
