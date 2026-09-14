@@ -2,8 +2,8 @@ import { env } from "cloudflare:workers";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, CalendarDays } from "lucide-react";
-import { notFound } from "next/navigation";
-import { galleryUrls, mediaUrl, type Post } from "../../lib/content";
+import { notFound, redirect } from "next/navigation";
+import { galleryUrls, isWildLinkOtterPost, mediaUrl, type Post } from "../../lib/content";
 
 export const dynamic = "force-dynamic";
 
@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
       title: post.title_ko,
       description: post.excerpt_ko || post.content_ko.slice(0, 150),
       url: `/news/${post.id}`,
-      images: post.image_key ? [{ url: mediaUrl(post.image_key) }] : undefined,
+      images: post.image_key ? [{ url: mediaUrl(post.image_key)! }] : undefined,
     },
   };
 }
@@ -37,6 +37,7 @@ export default async function PostPage({ params, searchParams }: { params: Promi
   const { id } = await params; const { lang: rawLang } = await searchParams; const lang = rawLang === "en" ? "en" : "ko";
   const post = await getPost(id);
   if (!post) notFound();
+  if (isWildLinkOtterPost(post)) redirect("/news/wild-link/otter?from=notice");
   const gallery = galleryUrls(post.gallery_json); const title = lang === "ko" ? post.title_ko : (post.title_en || post.title_ko); const content = lang === "ko" ? post.content_ko : (post.content_en || post.content_ko);
   const typeLabel = post.type === "notice" ? (lang === "ko" ? "공지사항" : "Notice") : (lang === "ko" ? "활동 소식" : "Activity");
 
