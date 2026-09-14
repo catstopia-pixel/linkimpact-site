@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 type Leader = { player_name: string; score: number };
-type Phase = "intro" | "countdown" | "play" | "result" | "story";
+type Phase = "intro" | "countdown" | "play" | "result" | "story" | "ranking";
 
 const GAME_SECONDS = 10;
 const OTTER_IMAGE = "https://upload.wikimedia.org/wikipedia/commons/7/7f/Otter_-_Eurasian_otter_-_Lutra_lutra.jpg";
@@ -172,12 +172,14 @@ export default function OtterClapGame() {
 
           {phase === "result" && <div className="my-auto text-center">
             <div className="mx-auto mb-5 h-36 w-36 overflow-hidden rounded-full border-4 border-[#d7ff58]/50"><img src={OTTER_IMAGE} alt="수달" className="h-full w-full object-cover" /></div>
-            <p className="text-sm font-bold tracking-[.2em] text-[#d7ff58]">NICE CLAP!</p>
+            <p className="text-sm font-bold tracking-[.2em] text-[#d7ff58]">TIME'S UP!</p>
             <div className="mt-3 text-7xl font-black">{score}</div><p className="mt-1 text-emerald-100">번의 박수</p>
-            {rank ? <p className="mt-5 text-2xl font-black">오늘의 순위 #{rank}</p> : null}
-            <Leaderboard leaders={leaders} />
-            <button onClick={() => { setStoryStep(0); setPhase("story"); }} aria-label="다음 이야기 보기" className="mx-auto mt-8 grid h-16 w-16 place-items-center rounded-full bg-[#d7ff58] text-3xl font-black text-[#062e29] shadow-lg transition hover:translate-x-1 active:scale-95">→</button>
-            <p className="mt-3 text-xs font-bold tracking-[.14em] text-emerald-100/70">NEXT · 수달에서 우리의 삶까지</p>
+            <div className="mx-auto mt-8 max-w-md rounded-3xl border border-[#d7ff58]/35 bg-black/15 p-6">
+              <p className="text-3xl font-black leading-tight text-[#d7ff58]">잠깐!!<br/>나의 랭킹이 궁금하다구요?</p>
+              <p className="mt-4 text-sm leading-6 text-emerald-50/75">수달에서 시작된 연결을 끝까지 따라가 보세요. 모든 이야기를 확인하면 오늘의 랭킹이 공개됩니다.</p>
+            </div>
+            <button onClick={() => { setStoryStep(0); setPhase("story"); }} aria-label="이야기 시작하기" className="mx-auto mt-8 grid h-16 w-16 place-items-center rounded-full bg-[#d7ff58] text-3xl font-black text-[#062e29] shadow-lg transition hover:translate-x-1 active:scale-95">→</button>
+            <p className="mt-3 text-xs font-bold tracking-[.14em] text-emerald-100/70">START · 랭킹 공개까지 5개의 이야기</p>
           </div>}
 
           {phase === "story" && <div className="my-auto">
@@ -191,9 +193,27 @@ export default function OtterClapGame() {
 
             <div className="mt-6 flex items-center justify-between">
               <button onClick={() => setStoryStep(v => Math.max(0, v - 1))} disabled={storyStep === 0} className="rounded-full border border-white/25 px-5 py-3 text-sm font-bold disabled:opacity-30">← 이전</button>
-              {storyStep < storySlides.length - 1 ? <button onClick={() => setStoryStep(v => Math.min(storySlides.length - 1, v + 1))} className="grid h-14 w-14 place-items-center rounded-full bg-[#d7ff58] text-2xl font-black text-[#062e29]">→</button> : <div className="flex gap-2"><a href="https://www.naturelens.kr" target="_blank" rel="noreferrer" className="rounded-full bg-[#d7ff58] px-5 py-3 text-sm font-black text-[#062e29]">NatureLens 기록하기</a><Link href="/news" className="rounded-full border border-white/25 px-5 py-3 text-sm font-bold">활동 보기</Link></div>}
+              {storyStep < storySlides.length - 1
+                ? <button onClick={() => setStoryStep(v => Math.min(storySlides.length - 1, v + 1))} className="grid h-14 w-14 place-items-center rounded-full bg-[#d7ff58] text-2xl font-black text-[#062e29]">→</button>
+                : <button onClick={() => setPhase("ranking")} className="rounded-full bg-[#d7ff58] px-7 py-4 text-sm font-black text-[#062e29]">내 랭킹 공개 →</button>}
             </div>
             <p className="mt-5 text-[10px] leading-4 text-white/45">수달 자체가 홍수 등 자연재해를 막는다는 뜻이 아니라, 수달이 의존하는 하천·습지 생태계의 건강성과 그 생태계가 제공하는 기능이 우리의 안전과 연결되어 있다는 의미입니다. Otter photo: {OTTER_CREDIT}.</p>
+          </div>}
+
+          {phase === "ranking" && <div className="my-auto text-center">
+            <p className="text-sm font-bold tracking-[.2em] text-[#d7ff58]">RANKING UNLOCKED</p>
+            <h2 className="mt-3 text-4xl font-black sm:text-5xl">이제 나의 랭킹을 확인하세요!</h2>
+            <div className="mx-auto mt-7 max-w-md rounded-[32px] bg-white p-7 text-[#092a52] shadow-2xl">
+              <p className="text-sm font-bold text-[#287d44]">MY RESULT</p>
+              <div className="mt-3 text-6xl font-black">#{rank ?? "-"}</div>
+              <p className="mt-2 text-slate-500">{score}번의 박수 · {playerName || "수달친구"}</p>
+            </div>
+            <Leaderboard leaders={leaders} />
+            <div className="mx-auto mt-8 grid max-w-md gap-3 sm:grid-cols-2">
+              <a href="https://www.naturelens.kr" target="_blank" rel="noreferrer" className="rounded-full bg-[#d7ff58] px-6 py-4 text-center font-black text-[#062e29]">NatureLens로 기록하기</a>
+              <Link href="/news" className="rounded-full border border-white/30 px-6 py-4 text-center font-bold">LINKIMPACT 활동보기</Link>
+            </div>
+            <p className="mt-5 text-sm leading-6 text-emerald-50/70">오늘 발견한 연결을 실제 자연 기록과 행동으로 이어가 보세요.</p>
           </div>}
         </div>
       </div>
@@ -202,6 +222,6 @@ export default function OtterClapGame() {
 }
 
 function Leaderboard({ leaders }: { leaders: Leader[] }) {
-  if (!leaders.length) return <p className="mt-8 text-sm text-emerald-100/60">오늘의 첫 기록에 도전해보세요.</p>;
+  if (!leaders.length) return <p className="mt-8 text-sm text-emerald-100/60">오늘의 첫 기록입니다.</p>;
   return <div className="mx-auto mt-8 max-w-sm rounded-2xl bg-black/15 p-4 text-left"><p className="mb-3 text-center text-xs font-black tracking-[.16em] text-emerald-200">TODAY TOP 5</p>{leaders.slice(0,5).map((leader,i) => <div key={`${leader.player_name}-${i}`} className="flex justify-between border-b border-white/10 py-2 text-sm last:border-0"><span>{i + 1}. {leader.player_name}</span><b>{leader.score} 👏</b></div>)}</div>;
 }
