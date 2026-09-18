@@ -7,21 +7,13 @@ const GAME_SECONDS = 10;
 
 type Phase = "intro" | "play" | "complete" | "learn";
 
-type LearnCard = {
-  no:string;
-  title:string;
-  subtitle:string;
-  body:string;
-  kind:"risk"|"roots"|"plant"|"riverbank"|"future";
-};
-
-const LEARN_CARDS:LearnCard[] = [
-  {no:"01",title:"왜 대나무를 심을까요?",subtitle:"기후변화로 위험에 놓인 강변",body:"집중호우와 하천 범람, 토사 유실이 반복되면 강변의 토양과 식생이 약해지고 지역사회의 생활터전도 더 취약해질 수 있습니다.",kind:"risk"},
-  {no:"02",title:"대나무의 힘",subtitle:"빠르게 자라고, 뿌리로 토양을 붙잡습니다",body:"대나무의 촘촘한 뿌리와 지하경은 토양을 단단히 붙잡아 침식과 토사 유실을 줄이는 데 기여할 수 있습니다. 성장 과정에서 탄소를 흡수하는 식생이기도 합니다.",kind:"roots"},
-  {no:"03",title:"어떻게 심을까요?",subtitle:"적절한 장소와 꾸준한 관리가 중요합니다",body:"강변 환경과 생태 조건에 맞는 장소를 고르고 건강한 묘목을 심은 뒤, 뿌리가 자리 잡고 안정적으로 자랄 수 있도록 지속적으로 관리합니다.",kind:"plant"},
-  {no:"04",title:"이렇게 변화합니다",subtitle:"강변에 대나무를 심고 생태 회복을 이어갑니다",body:"강변 둑에 대나무와 식생이 자리 잡으면 토양을 보호하고, 훼손된 강변이 다시 녹지와 생물의 서식 공간으로 회복되는 과정에 도움을 줄 수 있습니다.",kind:"riverbank"},
-  {no:"05",title:"더 큰 변화를 위해",subtitle:"작은 행동을 지역의 지속가능한 변화로",body:"한 번의 식재에서 끝나지 않습니다. 관리, 생물다양성 회복, 지역 자원 활용과 시민 참여가 이어질 때 더 안전하고 지속가능한 지역사회를 만들어갈 수 있습니다.",kind:"future"},
-];
+const LEARN_CARD_IMAGES = [
+  "/assets/bamboo-card-01.webp",
+  "/assets/bamboo-card-02.webp",
+  "/assets/bamboo-card-03.webp",
+  "/assets/bamboo-card-04.webp",
+  "/assets/bamboo-card-05.webp",
+] as const;
 
 const BAMBOO_POSITIONS = [
   [15,62],[27,68],[39,58],[52,65],[66,55],[79,66],[88,58],[20,45],[34,50],[47,43],
@@ -68,47 +60,6 @@ function PixelRiverScene({count=0,interactive=false,onTap}:{count?:number;intera
   </button>
 }
 
-function PixelIllustration({kind}:{kind:LearnCard["kind"]}){
-  if(kind==="risk") return <svg viewBox="0 0 420 250" className="h-full w-full [image-rendering:pixelated]">
-    <rect width="420" height="250" fill="#82cdf7"/><rect y="122" width="420" height="128" fill="#4ea7d3"/>
-    <path d="M0 170L45 128L88 154L132 115L178 150L225 104L270 146L318 118L365 152L420 120V250H0Z" fill="#78934d"/>
-    <path d="M0 188L72 168L135 188L205 164L285 186L350 160L420 176V250H0Z" fill="#8b6844"/>
-    <path d="M15 202h390" stroke="#d8ecf3" strokeWidth="8" strokeDasharray="28 12"/>
-    <path d="M20 140C90 112 154 164 220 134S342 119 405 145" stroke="#dff7ff" strokeWidth="9" fill="none"/>
-    <path d="M60 190l34-24M98 198l36-28M302 191l31-24" stroke="#5e4936" strokeWidth="8"/>
-    <circle cx="346" cy="60" r="25" fill="#5b6a78"/><path d="M325 82l18 16 20-18 18 17" stroke="#6caee6" strokeWidth="6" fill="none"/>
-  </svg>;
-  if(kind==="roots") return <svg viewBox="0 0 420 250" className="h-full w-full [image-rendering:pixelated]">
-    <rect width="420" height="250" fill="#9bdcff"/><rect y="110" width="420" height="140" fill="#8a623d"/>
-    <rect x="195" y="18" width="26" height="118" fill="#3b8a39"/><rect x="202" y="28" width="8" height="100" fill="#78c95b"/>
-    <path d="M208 130L130 210M208 130L165 242M208 130L214 246M208 132L265 240M210 132L320 212" stroke="#d8c06c" strokeWidth="11"/>
-    <path d="M195 62l-62-34M220 84l66-40M195 101l-55 22M220 47l52-28" stroke="#65b84c" strokeWidth="15"/>
-    <rect x="35" y="150" width="105" height="42" rx="6" fill="#17343d"/><text x="52" y="176" fill="white" fontSize="19" fontWeight="800">강한 뿌리</text>
-    <rect x="275" y="157" width="110" height="42" rx="6" fill="#17343d"/><text x="294" y="183" fill="white" fontSize="18" fontWeight="800">토양 고정</text>
-  </svg>;
-  if(kind==="plant") return <svg viewBox="0 0 420 250" className="h-full w-full [image-rendering:pixelated]">
-    <rect width="420" height="250" fill="#8ed4fa"/><rect y="150" width="420" height="100" fill="#936c42"/>
-    <path d="M0 150L65 100L130 138L192 91L255 136L320 105L420 145V170H0Z" fill="#6b9547"/>
-    <rect x="246" y="76" width="16" height="106" fill="#438e3a"/><path d="M254 92l-38-24M255 118l44-30M254 140l-37 18" stroke="#64bb4e" strokeWidth="13"/>
-    <circle cx="162" cy="116" r="33" fill="#f0c592"/><rect x="132" y="144" width="62" height="56" fill="#285f35"/>
-    <path d="M146 174l-43 26M181 174l40 23" stroke="#f0c592" strokeWidth="16"/>
-    <rect x="310" y="160" width="38" height="48" rx="4" fill="#48a9cf"/><path d="M348 174h25v18" stroke="#48a9cf" strokeWidth="10" fill="none"/>
-    <circle cx="70" cy="205" r="22" fill="#5d402a"/><circle cx="70" cy="205" r="12" fill="#30261f"/>
-  </svg>;
-  if(kind==="riverbank") return <svg viewBox="0 0 420 250" className="h-full w-full [image-rendering:pixelated]">
-    <rect width="420" height="250" fill="#85d1fa"/><rect y="118" width="420" height="132" fill="#4da8d4"/>
-    <path d="M0 185L45 142L88 167L132 129L178 163L225 126L270 161L318 135L365 166L420 132V250H0Z" fill="#7e6945"/>
-    <path d="M0 205L70 184L135 201L205 178L285 199L350 176L420 190V250H0Z" fill="#719447"/>
-    <rect x="40" y="110" width="10" height="78" fill="#3e8e3b"/><path d="M45 128l-20-16M45 148l22-17" stroke="#67bd50" stroke-width="9"/><rect x="82" y="98" width="10" height="90" fill="#3e8e3b"/><path d="M87 116l-20-16M87 136l22-17" stroke="#67bd50" stroke-width="9"/><rect x="126" y="86" width="10" height="102" fill="#3e8e3b"/><path d="M131 104l-20-16M131 124l22-17" stroke="#67bd50" stroke-width="9"/><rect x="175" y="110" width="10" height="78" fill="#3e8e3b"/><path d="M180 128l-20-16M180 148l22-17" stroke="#67bd50" stroke-width="9"/><rect x="220" y="98" width="10" height="90" fill="#3e8e3b"/><path d="M225 116l-20-16M225 136l22-17" stroke="#67bd50" stroke-width="9"/><rect x="268" y="86" width="10" height="102" fill="#3e8e3b"/><path d="M273 104l-20-16M273 124l22-17" stroke="#67bd50" stroke-width="9"/><rect x="315" y="110" width="10" height="78" fill="#3e8e3b"/><path d="M320 128l-20-16M320 148l22-17" stroke="#67bd50" stroke-width="9"/><rect x="360" y="98" width="10" height="90" fill="#3e8e3b"/><path d="M365 116l-20-16M365 136l22-17" stroke="#67bd50" stroke-width="9"/>
-    <path d="M16 148C90 126 154 164 220 140S342 128 405 150" stroke="#dff7ff" strokeWidth="8" fill="none"/>
-  </svg>;
-  return <svg viewBox="0 0 420 250" className="h-full w-full [image-rendering:pixelated]">
-    <rect width="420" height="250" fill="#9bdcff"/><circle cx="210" cy="120" r="75" fill="#4ca86b"/><path d="M160 88c28-34 72-31 97 2-19 13-28 31-32 55-28-7-51-20-65-57z" fill="#4c8fda"/><path d="M175 161c27-3 48 6 66 25-29 11-60 5-78-12z" fill="#4c8fda"/>
-    <circle cx="70" cy="80" r="25" fill="#3e8f3d"/><rect x="64" y="100" width="12" height="34" fill="#6a4d2c"/><circle cx="338" cy="78" r="25" fill="#3e8f3d"/><rect x="332" y="98" width="12" height="34" fill="#6a4d2c"/><circle cx="67" cy="185" r="25" fill="#3e8f3d"/><rect x="61" y="205" width="12" height="34" fill="#6a4d2c"/><circle cx="344" cy="182" r="25" fill="#3e8f3d"/><rect x="338" y="202" width="12" height="34" fill="#6a4d2c"/>
-    <circle cx="118" cy="205" r="16" fill="#efbf89"/><rect x="105" y="218" width="26" height="25" fill="#285f35"/><circle cx="157" cy="210" r="16" fill="#98664e"/><rect x="144" y="223" width="26" height="25" fill="#285f35"/><circle cx="265" cy="207" r="16" fill="#d8a67a"/><rect x="252" y="220" width="26" height="25" fill="#285f35"/><circle cx="305" cy="202" r="16" fill="#7d5746"/><rect x="292" y="215" width="26" height="25" fill="#285f35"/>
-  </svg>;
-}
-
 export default function BambooPlantGame(){
  const [phase,setPhase]=useState<Phase>("intro");
  const [count,setCount]=useState(0);
@@ -151,42 +102,34 @@ export default function BambooPlantGame(){
   </div>}
 
   {phase==="learn"&&(()=>{
-    const card=LEARN_CARDS[learnIndex];
-    const isLast=learnIndex===LEARN_CARDS.length-1;
-    const next=()=>{if(!isLast)setLearnIndex(v=>Math.min(LEARN_CARDS.length-1,v+1));};
-    return <div className="relative min-h-[700px] bg-[#dff3ff] p-4 text-[#14303a] sm:p-7">
-      <div className="mx-auto flex min-h-[650px] max-w-3xl flex-col">
-        <div className="flex items-center justify-between text-xs font-black tracking-[.15em] text-[#2f7a43]">
-          <span>LINKIMPACT · BAMBOO STORY</span>
-          <span>{learnIndex+1} / {LEARN_CARDS.length}</span>
+    const isLast=learnIndex===LEARN_CARD_IMAGES.length-1;
+    const next=()=>{if(!isLast)setLearnIndex(v=>Math.min(LEARN_CARD_IMAGES.length-1,v+1));};
+    return <div className="relative min-h-[700px] bg-[#0e2732] p-4 sm:p-7">
+      <div className="mx-auto flex min-h-[650px] max-w-3xl flex-col items-center justify-center">
+        <div className="mb-4 flex w-full max-w-[620px] items-center justify-between text-xs font-black tracking-[.15em] text-white/80">
+          <span>LINKIMPACT · BAMBOO FOR TOMORROW</span>
+          <span>{learnIndex+1} / {LEARN_CARD_IMAGES.length}</span>
         </div>
 
-        <button type="button" onClick={next} className="mt-5 flex flex-1 flex-col overflow-hidden border-4 border-[#17343d] bg-[#fffdf6] text-left shadow-[8px_8px_0_#17343d] active:translate-y-1 active:shadow-[3px_3px_0_#17343d]">
-          <div className="flex items-start gap-4 border-b-4 border-[#17343d] bg-white p-5 sm:p-7">
-            <span className="shrink-0 rounded-lg bg-[#17343d] px-3 py-2 text-lg font-black text-white">{card.no}</span>
-            <div>
-              <h2 className="text-2xl font-black leading-tight sm:text-4xl">{card.title}</h2>
-              <p className="mt-2 text-sm font-black text-[#3f7d55] sm:text-base">{card.subtitle}</p>
-            </div>
-          </div>
-          <div className="min-h-[280px] flex-1 bg-[#8fd6fb] sm:min-h-[340px]"><PixelIllustration kind={card.kind}/></div>
-          <div className="bg-[#fffdf6] p-5 sm:p-7">
-            <p className="text-base font-semibold leading-7 text-[#3d535c] sm:text-lg sm:leading-8">{card.body}</p>
-            <div className="mt-5 flex items-center justify-between">
-              <div className="flex gap-2">
-                {LEARN_CARDS.map((_,i)=><span key={i} className={`h-2.5 w-2.5 rounded-full ${i===learnIndex?"bg-[#28a94f]":"bg-[#c4c6c0]"}`}/>)}
-              </div>
-              {!isLast?<span className="font-black text-[#1b6a37]">화면을 눌러 다음으로 →</span>:<span className="font-black text-[#1b6a37]">마지막 카드</span>}
-            </div>
-          </div>
+        <button type="button" onClick={next} aria-label={isLast?"마지막 설명 카드":"다음 설명 카드"} className="group relative flex w-full max-w-[620px] flex-1 items-center justify-center overflow-hidden rounded-2xl bg-[#eef5f7] p-2 shadow-[8px_8px_0_#07171e] sm:p-3">
+          <img
+            key={LEARN_CARD_IMAGES[learnIndex]}
+            src={LEARN_CARD_IMAGES[learnIndex]}
+            alt={`대나무 식재 설명 카드 ${learnIndex+1}`}
+            className="max-h-[70vh] w-auto max-w-full object-contain [image-rendering:auto]"
+          />
+          {!isLast&&<span className="absolute bottom-4 right-4 rounded-full bg-[#0e2732]/90 px-4 py-2 text-sm font-black text-white shadow-lg transition group-hover:translate-x-1">눌러서 다음 →</span>}
         </button>
 
-        <div className="mt-5 flex items-center justify-between gap-3">
-          <button disabled={learnIndex===0} onClick={()=>setLearnIndex(v=>Math.max(0,v-1))} className="border-4 border-[#17343d] bg-white px-5 py-3 font-black shadow-[4px_4px_0_#17343d] disabled:opacity-30">← 이전</button>
-          {isLast?<div className="flex gap-3">
-            <a href={KAKAO_URL} target="_blank" rel="noreferrer" className="border-4 border-[#17343d] bg-[#fee500] px-5 py-3 font-black shadow-[4px_4px_0_#17343d]">실제 행동으로 →</a>
-            <button onClick={start} className="border-4 border-[#17343d] bg-[#28b95b] px-5 py-3 font-black text-white shadow-[4px_4px_0_#17343d]">다시 심기</button>
-          </div>:<button onClick={next} className="border-4 border-[#17343d] bg-[#28b95b] px-6 py-3 font-black text-white shadow-[4px_4px_0_#17343d]">다음 →</button>}
+        <div className="mt-5 flex w-full max-w-[620px] items-center justify-between gap-3">
+          <button disabled={learnIndex===0} onClick={()=>setLearnIndex(v=>Math.max(0,v-1))} className="border-4 border-white/80 bg-[#17343d] px-5 py-3 font-black text-white shadow-[4px_4px_0_#07171e] disabled:opacity-25">← 이전</button>
+          <div className="flex gap-2">
+            {LEARN_CARD_IMAGES.map((_,i)=><button key={i} onClick={()=>setLearnIndex(i)} aria-label={`${i+1}번 카드`} className={`h-3 w-3 rounded-full ${i===learnIndex?"bg-[#67d267]":"bg-white/35"}`}/>)}
+          </div>
+          {isLast?<div className="flex gap-2">
+            <a href={KAKAO_URL} target="_blank" rel="noreferrer" className="border-4 border-[#17343d] bg-[#fee500] px-4 py-3 text-sm font-black text-[#17343d] shadow-[4px_4px_0_#07171e]">실제 행동으로 →</a>
+            <button onClick={start} className="border-4 border-white/80 bg-[#28b95b] px-4 py-3 text-sm font-black text-white shadow-[4px_4px_0_#07171e]">다시 심기</button>
+          </div>:<button onClick={next} className="border-4 border-white/80 bg-[#28b95b] px-6 py-3 font-black text-white shadow-[4px_4px_0_#07171e]">다음 →</button>}
         </div>
       </div>
     </div>;
