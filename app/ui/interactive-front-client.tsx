@@ -5,20 +5,6 @@ import { useEffect,useMemo,useState } from "react";
 import type { Post } from "../lib/content";
 
 type Props={posts:Post[];front:Record<string,string>;showAdmin:boolean};
-const positions=[
-  {left:"67%",top:"21%",key:"people"},
-  {left:"84%",top:"31%",key:"nature"},
-  {left:"82%",top:"53%",key:"community"},
-  {left:"64%",top:"65%",key:"resource"},
-  {left:"76%",top:"78%",key:"action"},
-];
-const fallbackImages=[
-  "https://images.unsplash.com/photo-1758518731462-d091b0b4ed0d?auto=format&fit=crop&w=900&q=82",
-  "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=82",
-  "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=82",
-  "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=82",
-  "https://images.unsplash.com/photo-1758599669064-89f1ffe5c8d8?auto=format&fit=crop&w=900&q=82",
-];
 
 function asset(key?:string){if(!key)return "";return key.startsWith("/")||key.startsWith("http")?key:`/api/media/${encodeURIComponent(key)}`;}
 function media(post?:Post){return asset(post?.image_key||"")||"/assets/earth-network.png";}
@@ -39,7 +25,6 @@ export default function InteractiveFrontClient({posts,front,showAdmin}:Props){
  },[]);
 
  const bg=asset(front.background_image_key)||"/assets/earth-network.png";
- const images=positions.map((p,i)=>({...p,image:asset(front[`${p.key}_image_key`])||fallbackImages[i]}));
 
  return <main className="min-h-screen bg-[#030a0e] text-white">
    {popupOpen&&popupNotice?<div className="fixed inset-0 z-[100] grid place-items-center bg-black/70 p-4">
@@ -88,12 +73,9 @@ export default function InteractiveFrontClient({posts,front,showAdmin}:Props){
        </div>
      </div>
 
-     <div className="pointer-events-none absolute inset-0 z-10 hidden md:block">
-       {images.map((item,i)=><img key={item.key} src={item.image} alt="" className="absolute h-[118px] w-[118px] -translate-x-1/2 -translate-y-1/2 rounded-full object-cover lg:h-[138px] lg:w-[138px]" style={{left:item.left,top:item.top,animationDelay:`${i*.45}s`}}/>)}
-     </div>
-
      <div className="absolute inset-x-0 bottom-7 z-30 flex justify-center px-6 md:left-1/2 md:right-auto md:w-full md:max-w-[1360px] md:-translate-x-1/2 md:justify-start md:px-6 lg:px-10">
        <div className="flex flex-wrap justify-center gap-3 md:justify-start">
+         <a href="#home-main" className="inline-flex h-12 min-w-[148px] items-center justify-center gap-3 rounded-full border border-white/45 bg-white/10 px-6 text-sm font-black text-white backdrop-blur-sm">HOME<ArrowRight size={17}/></a>
          <Link href={front.work_url} className="inline-flex h-12 min-w-[168px] items-center justify-center gap-3 rounded-full bg-emerald-300 px-6 text-sm font-black text-[#04100c]">{front.work_label}<ArrowRight size={17}/></Link>
          <a href={front.naturelens_url} target="_blank" rel="noreferrer" className="inline-flex h-12 min-w-[168px] items-center justify-center gap-3 rounded-full border border-white/50 bg-black/30 px-6 text-sm font-bold backdrop-blur-sm">{front.naturelens_label}<ExternalLink size={15}/></a>
        </div>
