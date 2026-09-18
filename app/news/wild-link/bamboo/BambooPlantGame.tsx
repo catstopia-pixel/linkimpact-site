@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const KAKAO_URL = "https://together.kakao.com/fundraisings/139701/story";
@@ -358,16 +359,16 @@ export default function BambooPlantGame() {
             {!isLast?<span className="absolute bottom-4 right-4 rounded-full bg-[#17343d]/95 px-4 py-2 text-xs font-black text-white shadow-lg sm:text-sm">눌러서 다음 →</span>:null}
           </button>
 
-          <div className="mt-3 flex w-full items-center justify-between gap-2 sm:mt-4 sm:gap-3">
+          {isLast?<div className="mt-3 grid w-full grid-cols-2 gap-2 sm:mt-4 sm:gap-3">
+            <Link href="/home" className="inline-flex min-h-12 items-center justify-center border-[3px] border-white/80 bg-[#17343d] px-4 py-3 text-sm font-black text-white shadow-[3px_3px_0_#07171e] sm:border-4 sm:text-base sm:shadow-[4px_4px_0_#07171e]">HOME →</Link>
+            <a href={KAKAO_URL} target="_blank" rel="noreferrer" className="inline-flex min-h-12 items-center justify-center border-[3px] border-[#17343d] bg-[#fee500] px-4 py-3 text-sm font-black text-[#17343d] shadow-[3px_3px_0_#07171e] sm:border-4 sm:text-base sm:shadow-[4px_4px_0_#07171e]">기부 페이지로 →</a>
+          </div>:<div className="mt-3 flex w-full items-center justify-between gap-2 sm:mt-4 sm:gap-3">
             <button disabled={learnIndex===0} onClick={()=>setLearnIndex(v=>Math.max(0,v-1))} className="inline-flex min-h-11 shrink-0 items-center justify-center border-[3px] border-white/75 bg-[#17343d] px-3 py-2.5 text-xs font-black text-white shadow-[3px_3px_0_#07171e] disabled:opacity-25 sm:border-4 sm:px-5 sm:text-base sm:shadow-[4px_4px_0_#07171e]">← 이전</button>
             <div className="flex min-w-0 items-center justify-center gap-1.5 sm:gap-2">
               {LEARN_CARDS.map((_,i)=><button key={i} onClick={()=>setLearnIndex(i)} aria-label={`${i+1}번 카드`} className={`h-2.5 w-2.5 shrink-0 rounded-full sm:h-3 sm:w-3 ${i===learnIndex?"bg-[#67d267]":"bg-white/35"}`}/>)}
             </div>
-            {isLast?<div className="flex min-w-0 flex-1 justify-end gap-1.5 sm:gap-2">
-              <a href={KAKAO_URL} target="_blank" rel="noreferrer" className="inline-flex min-h-11 min-w-0 flex-1 items-center justify-center whitespace-nowrap border-[3px] border-[#17343d] bg-[#fee500] px-2.5 py-2.5 text-[11px] font-black text-[#17343d] shadow-[3px_3px_0_#07171e] sm:flex-none sm:border-4 sm:px-5 sm:py-3 sm:text-sm sm:shadow-[4px_4px_0_#07171e]">기부 페이지로 →</a>
-              <button onClick={start} className="inline-flex min-h-11 shrink-0 items-center justify-center whitespace-nowrap border-[3px] border-white/80 bg-[#28b95b] px-2.5 py-2.5 text-[11px] font-black text-white shadow-[3px_3px_0_#07171e] sm:border-4 sm:px-5 sm:py-3 sm:text-sm sm:shadow-[4px_4px_0_#07171e]">다시 심기</button>
-            </div>:<button onClick={next} className="inline-flex min-h-11 shrink-0 items-center justify-center border-[3px] border-white/80 bg-[#28b95b] px-4 py-2.5 text-xs font-black text-white shadow-[3px_3px_0_#07171e] sm:border-4 sm:px-6 sm:text-base sm:shadow-[4px_4px_0_#07171e]">다음 →</button>}
-          </div>
+            <button onClick={next} className="inline-flex min-h-11 shrink-0 items-center justify-center border-[3px] border-white/80 bg-[#28b95b] px-4 py-2.5 text-xs font-black text-white shadow-[3px_3px_0_#07171e] sm:border-4 sm:px-6 sm:text-base sm:shadow-[4px_4px_0_#07171e]">다음 →</button>
+          </div>}
         </div>
       </div>;
     })()}
