@@ -48,7 +48,7 @@ export async function POST(request: Request) {
       ? body.playerName.trim().slice(0, 20)
       : "";
 
-    if (!Number.isInteger(score) || score < 0 || score > 100) {
+    if (!Number.isInteger(score) || score < 0 || score > 10000) {
       return NextResponse.json({ error: "invalid_score" }, { status: 400 });
     }
 
