@@ -209,11 +209,11 @@ function LearnCard({index,lang}:{index:number;lang:"ko"|"en"}) {
   return <article className="flex h-full w-full flex-col overflow-hidden rounded-[22px] bg-[#f7faf8] text-[#132b36]">
     <div className="flex items-center gap-3 px-4 pb-3 pt-4 sm:gap-4 sm:px-7 sm:pb-4 sm:pt-6">
       <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#17343d] text-sm font-black text-white sm:h-12 sm:w-12 sm:text-base">{card.no}</span>
-      <h2 className="text-[clamp(1.45rem,5.3vw,2.25rem)] font-black leading-tight tracking-[-.03em]">>{lang==="ko"?card.title:card.titleEn}</h2>
+      <h2 className="text-[clamp(1.45rem,5.3vw,2.25rem)] font-black leading-tight tracking-[-.03em]">{lang==="ko"?card.title:card.titleEn}</h2>
     </div>
     <div className="mx-4 overflow-hidden rounded-xl border-[3px] border-[#17343d]/15 sm:mx-7"><LearnIllustration kind={card.kind} lang={lang}/></div>
     <div className="flex flex-1 flex-col justify-between px-4 py-4 sm:px-7 sm:py-6">
-      <p className="text-[clamp(.98rem,3.7vw,1.2rem)] font-semibold leading-[1.65] text-[#334d56]">>{lang==="ko"?card.body:card.bodyEn}</p>
+      <p className="text-[clamp(.98rem,3.7vw,1.2rem)] font-semibold leading-[1.65] text-[#334d56]">{lang==="ko"?card.body:card.bodyEn}</p>
       {index===4?<div className="mt-4 border-t border-[#17343d]/15 pt-4 text-center">
         <div className="text-[clamp(1.45rem,5vw,2rem)] font-black tracking-[-.03em]">LINKIMPACT</div>
         <div className="mt-1 text-[9px] font-black tracking-[.16em] text-[#55706f] sm:text-[11px]">LINKED TO CHANGE THE WORLD</div>
@@ -373,7 +373,7 @@ export default function BambooPlantGame() {
 
           <button type="button" onClick={next} aria-label={isLast?"마지막 설명 카드":"다음 설명 카드"} className="group relative flex min-h-0 flex-1 items-stretch overflow-hidden rounded-[24px] bg-[#eef5f7] p-2 shadow-[5px_5px_0_#07171e] sm:p-3 sm:shadow-[8px_8px_0_#07171e]">
             <LearnCard index={learnIndex} lang={lang}/>
-            {!isLast?<span className="absolute bottom-4 right-4 rounded-full bg-[#17343d]/95 px-4 py-2 text-xs font-black text-white shadow-lg sm:text-sm">눌러서 다음 →</span>:null}
+            {!isLast?<span className="absolute bottom-4 right-4 rounded-full bg-[#17343d]/95 px-4 py-2 text-xs font-black text-white shadow-lg sm:text-sm">{lang==="ko"?"눌러서 다음 →":"Tap for next →"}</span>:null}
           </button>
 
           {isLast?<div className="mt-3 w-full sm:mt-4">
