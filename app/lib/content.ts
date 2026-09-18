@@ -86,7 +86,7 @@ const SOVAC_CATEGORY = "SOVAC 2026 · INTERACTIVE";
 const WILD_LINK_TITLE = "[SOVAC 2026] 수달의 박수 — 생물다양성과 우리의 삶은 어떻게 연결될까요?";
 const WILD_LINK_IMAGE = "https://commons.wikimedia.org/wiki/Special:Redirect/file/Male_sea_otter_rubbing_flippers_and_forepaws.png";
 const WILD_LINK_MARKER = "[[WILD_LINK_OTTER]]";
-const BAMBOO_LINK_TITLE = "[SOVAC 2026] 10초 숲 만들기 — 대나무가 지역사회의 회복과 어떻게 연결될까요?";
+const BAMBOO_LINK_TITLE = "[SOVAC 2026] 30초 숲 만들기 — 대나무가 지역사회의 회복과 어떻게 연결될까요?";
 const BAMBOO_LINK_MARKER = "[[BAMBOO_LINK_PHILIPPINES]]";
 
 async function upsertAndDeduplicateSovacNotice(notice: SovacNotice, now: string) {
@@ -140,12 +140,12 @@ async function ensureSovacNotices() {
       {
         marker: BAMBOO_LINK_MARKER,
         titleKo: BAMBOO_LINK_TITLE,
-        titleEn: "[SOVAC 2026] Build a Forest in 10 Seconds — How can bamboo connect climate resilience and community recovery?",
-        excerptKo: "10초 동안 대나무를 심으며 태풍·홍수 재난, 토양과 식생, 지역환경, 생계와 지역경제가 어떻게 연결되는지 체험해보세요.",
-        excerptEn: "Plant bamboo for 10 seconds and explore how typhoons, floods, vegetation, soil, livelihoods and local recovery are connected.",
+        titleEn: "[SOVAC 2026] Build a Forest in 30 Seconds — How can bamboo connect climate resilience and community recovery?",
+        excerptKo: "30초 동안 가능한 만큼 대나무를 심고 랭킹에 도전하며 태풍·홍수 재난, 토양과 식생, 지역환경, 생계와 지역경제가 어떻게 연결되는지 체험해보세요.",
+        excerptEn: "Plant as much bamboo as you can in 30 seconds, enter the ranking, and explore how typhoons, floods, vegetation, soil, livelihoods and local recovery are connected.",
         contentKo: `${BAMBOO_LINK_MARKER}\n게임 속 대나무를 심은 뒤 필리핀 태풍·홍수 피해지역의 환경 회복과 지역사회의 지속가능한 회복으로 이어지는 연결을 따라가 보세요. 마지막에는 카카오같이가치를 통해 댓글·기부 참여로 실제 행동을 이어갈 수 있습니다.`,
         contentEn: `${BAMBOO_LINK_MARKER}\nPlant a virtual bamboo forest, then follow the link to climate resilience, environmental recovery and sustainable livelihoods in Philippine communities.`,
-        imageKey: null,
+        imageKey: "/notices/sovac-2026-goods.webp",
       },
     ];
 
