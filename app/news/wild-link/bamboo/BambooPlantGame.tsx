@@ -9,13 +9,37 @@ type Phase = "intro" | "play" | "rank" | "learn";
 
 type LeaderRow = { player_name:string; score:number; created_at:string };
 
-const LEARN_CARD_IMAGES = [
-  "/notices/sovac-2026-goods.webp",
-  "/assets/bamboo-card-01.webp",
-  "/assets/bamboo-card-02.webp",
-  "/assets/bamboo-card-03.webp",
-  "/assets/bamboo-card-04.webp",
-  "/assets/bamboo-card-05.webp",
+const LEARN_CARDS = [
+  {
+    no:"01",
+    title:"왜 대나무를 심을까요?",
+    body:"기후변화로 인한 집중호우, 하천 범람, 토사 유실로 강변 생태계가 위협받고 있습니다.",
+    kind:"why" as const,
+  },
+  {
+    no:"02",
+    title:"대나무의 힘",
+    body:"대나무는 빠르게 자라고, 뿌리가 강해 토양을 단단히 고정합니다. 또한 탄소를 흡수해 기후변화 대응에 도움이 됩니다.",
+    kind:"power" as const,
+  },
+  {
+    no:"03",
+    title:"어떻게 심을까요?",
+    body:"강변 환경에 맞는 장소를 선택하고 건강한 대나무 묘목을 심은 뒤, 뿌리가 자리 잡을 수 있도록 꾸준히 관리합니다.",
+    kind:"how" as const,
+  },
+  {
+    no:"04",
+    title:"이렇게 변화합니다",
+    body:"대나무와 식생이 자리 잡으면 강변이 안정되고, 식물이 돌아오는 건강한 생태계가 다시 만들어집니다.",
+    kind:"change" as const,
+  },
+  {
+    no:"05",
+    title:"더 큰 변화를 위해",
+    body:"당신의 작은 터치가 건강한 강, 안전한 지역사회, 지속가능한 미래로 이어집니다.",
+    kind:"future" as const,
+  },
 ] as const;
 
 const BAMBOO_POSITIONS = [
@@ -114,6 +138,78 @@ function PixelRiverScene({count=0,interactive=false,onTap,showGuide=false,compac
       </div>
     </div>}
   </button>
+}
+
+function LearnIllustration({kind}:{kind:(typeof LEARN_CARDS)[number]["kind"]}) {
+  if(kind==="why") return <div className="relative h-full min-h-[210px] overflow-hidden bg-[#80cef6] sm:min-h-[280px]">
+    <div className="absolute inset-x-0 top-[52%] h-[48%] bg-[#4ca8d4]"/>
+    <div className="absolute inset-x-0 bottom-0 h-[35%] bg-[#947448] [clip-path:polygon(0_25%,12%_4%,24%_22%,37%_5%,50%_24%,64%_8%,78%_26%,90%_9%,100%_22%,100%_100%,0_100%)]"/>
+    <div className="absolute inset-x-0 top-[34%] h-[9%] bg-[#d8e2e7] shadow-[0_8px_0_#56656e]"/>
+    <div className="absolute inset-x-[8%] top-[26%] flex h-[9%] items-end gap-1">{Array.from({length:30}).map((_,i)=><span key={i} className="w-2 bg-[#d8e6ec] shadow-[inset_1px_0_0_#9cb1bf]" style={{height:`${16+(i%5)*7}px`}}/>)}</div>
+    <div className="absolute left-[13%] top-[18%] h-[28%] w-[40%] bg-[#4c8dc0] [clip-path:polygon(0_100%,18%_55%,35%_78%,52%_35%,67%_62%,82%_42%,100%_78%,100%_100%)]"/>
+    <div className="absolute bottom-[9%] left-[8%] h-[12%] w-[84%] bg-[#6f8d42]/70"/>
+  </div>;
+
+  if(kind==="power") return <div className="relative h-full min-h-[210px] overflow-hidden bg-[#b7e6f6] sm:min-h-[280px]">
+    <div className="absolute inset-x-0 bottom-0 h-[46%] bg-[#7d5a35]"/>
+    <div className="absolute left-1/2 top-[4%] h-[72%] w-7 -translate-x-1/2 border-x-4 border-[#245c2f] bg-[#5fbd46] shadow-[7px_0_0_#347d37]"/>
+    <div className="absolute left-1/2 top-[52%] h-[5px] w-[78%] -translate-x-1/2 bg-[#b99954]"/>
+    {[[-34,63,-20],[-18,72,-6],[0,74,0],[18,72,6],[34,63,20]].map(([x,y,r],i)=><span key={i} className="absolute left-1/2 top-[55%] h-[38%] w-[7px] origin-top bg-[#d1ae5f]" style={{transform:`translateX(${x}px) rotate(${r}deg)`}}/>)}
+    <div className="absolute left-[6%] top-[18%] rounded-lg border-4 border-[#17343d] bg-[#17343d] px-3 py-2 text-center text-xs font-black text-white sm:text-sm">빠른 성장<br/>(연 3~5m)</div>
+    <div className="absolute right-[4%] top-[14%] rounded-lg border-4 border-[#17343d] bg-[#17343d] px-3 py-2 text-center text-xs font-black text-white sm:text-sm">강한 뿌리<br/>(토양 고정)</div>
+    <div className="absolute right-[5%] bottom-[8%] rounded-lg border-4 border-[#17343d] bg-[#17343d] px-3 py-2 text-center text-xs font-black text-white sm:text-sm">탄소 흡수<br/>(CO₂ 저장)</div>
+  </div>;
+
+  if(kind==="how") return <div className="relative h-full min-h-[210px] overflow-hidden bg-[#9edcf7] sm:min-h-[280px]">
+    <div className="absolute inset-x-0 bottom-0 h-[38%] bg-[#8d6740]"/>
+    <div className="absolute bottom-[18%] left-[14%] scale-[.72] sm:scale-100"><PixelFarmer small/></div>
+    <div className="absolute bottom-[18%] left-[57%] h-[48%] w-[14px] border-x-4 border-[#245c2f] bg-[#5fbd46]"/>
+    <div className="absolute bottom-[38%] left-[52%] h-4 w-12 -rotate-[28deg] bg-[#78cf58] shadow-[4px_4px_0_#347d37]"/>
+    <div className="absolute bottom-[48%] left-[61%] h-4 w-12 rotate-[28deg] bg-[#78cf58] shadow-[4px_4px_0_#347d37]"/>
+    <div className="absolute bottom-[10%] right-[8%] h-12 w-14 rounded bg-[#47a6c9] shadow-[4px_4px_0_#2b718d]"/>
+  </div>;
+
+  if(kind==="change") return <div className="grid h-full min-h-[210px] grid-cols-2 overflow-hidden sm:min-h-[280px]">
+    <div className="relative bg-[#cfa873]">
+      <div className="absolute inset-x-0 top-0 bg-[#83cef5] h-[35%]"/>
+      <div className="absolute inset-x-0 bottom-0 h-[58%] bg-[#9a7447]"/>
+      <div className="absolute left-3 top-3 rounded bg-[#17343d] px-3 py-1 text-xs font-black text-white sm:text-sm">BEFORE</div>
+      {Array.from({length:9}).map((_,i)=><span key={i} className="absolute h-3 w-4 bg-[#70583f]" style={{left:`${8+(i*19)%85}%`,bottom:`${8+(i%4)*10}%`}}/>)}
+    </div>
+    <div className="relative bg-[#7fbf54]">
+      <div className="absolute inset-x-0 top-0 bg-[#83cef5] h-[35%]"/>
+      <div className="absolute inset-x-0 bottom-0 h-[58%] bg-[#79a34b]"/>
+      <div className="absolute left-3 top-3 rounded bg-[#497a28] px-3 py-1 text-xs font-black text-white sm:text-sm">AFTER</div>
+      {Array.from({length:10}).map((_,i)=><span key={i} className="absolute bottom-[12%] w-2 border-x-2 border-[#245c2f] bg-[#55b945]" style={{left:`${7+i*9}%`,height:`${70+(i%4)*18}px`}}/>)}
+    </div>
+  </div>;
+
+  return <div className="relative h-full min-h-[210px] overflow-hidden bg-[#d8f1fb] sm:min-h-[280px]">
+    <div className="absolute left-1/2 top-[16%] h-[130px] w-[130px] -translate-x-1/2 rounded-full bg-[#2b8bd0] shadow-[inset_-18px_-12px_0_#1b6fae] sm:h-[170px] sm:w-[170px]">
+      <span className="absolute left-[18%] top-[24%] h-[22%] w-[40%] rounded-full bg-[#62c85c]"/>
+      <span className="absolute right-[10%] top-[42%] h-[30%] w-[35%] rounded-full bg-[#62c85c]"/>
+      <span className="absolute bottom-[10%] left-[30%] h-[24%] w-[30%] rounded-full bg-[#62c85c]"/>
+    </div>
+    {[[10,18],[78,16],[8,68],[80,68]].map(([x,y],i)=><span key={i} className="absolute h-16 w-12" style={{left:`${x}%`,top:`${y}%`}}><span className="absolute bottom-0 left-1/2 h-8 w-2 -translate-x-1/2 bg-[#6c4b2f]"/><span className="absolute left-0 top-0 h-11 w-12 rounded-full bg-[#3c913e] shadow-[inset_-6px_-5px_0_#2c7131]"/></span>)}
+  </div>;
+}
+
+function LearnCard({index}:{index:number}) {
+  const card=LEARN_CARDS[index];
+  return <article className="flex h-full w-full flex-col overflow-hidden rounded-[22px] bg-[#f7faf8] text-[#132b36]">
+    <div className="flex items-center gap-3 px-4 pb-3 pt-4 sm:gap-4 sm:px-7 sm:pb-4 sm:pt-6">
+      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#17343d] text-sm font-black text-white sm:h-12 sm:w-12 sm:text-base">{card.no}</span>
+      <h2 className="text-[clamp(1.45rem,5.3vw,2.25rem)] font-black leading-tight tracking-[-.03em]">{card.title}</h2>
+    </div>
+    <div className="mx-4 overflow-hidden rounded-xl border-[3px] border-[#17343d]/15 sm:mx-7"><LearnIllustration kind={card.kind}/></div>
+    <div className="flex flex-1 flex-col justify-between px-4 py-4 sm:px-7 sm:py-6">
+      <p className="text-[clamp(.98rem,3.7vw,1.2rem)] font-semibold leading-[1.65] text-[#334d56]">{card.body}</p>
+      {index===4?<div className="mt-4 border-t border-[#17343d]/15 pt-4 text-center">
+        <div className="text-[clamp(1.45rem,5vw,2rem)] font-black tracking-[-.03em]">LINKIMPACT</div>
+        <div className="mt-1 text-[9px] font-black tracking-[.16em] text-[#55706f] sm:text-[11px]">LINKED TO CHANGE THE WORLD</div>
+      </div>:null}
+    </div>
+  </article>;
 }
 
 function StatusBar({count,left}:{count:number;left:number}) {
@@ -248,35 +344,29 @@ export default function BambooPlantGame() {
       </div>
     </div>}
     {phase==="learn"&&(()=>{
-      const isCover=learnIndex===0;
-      const isLast=learnIndex===LEARN_CARD_IMAGES.length-1;
-      const next=()=>{if(!isLast)setLearnIndex(v=>Math.min(LEARN_CARD_IMAGES.length-1,v+1));};
-      return <div className="relative min-h-[100svh] bg-[#0e2732] px-3 py-4 sm:px-6 sm:py-6">
-        <div className="mx-auto flex min-h-[calc(100svh-2rem)] w-full max-w-[760px] flex-col items-center justify-center sm:min-h-[calc(100svh-3rem)]">
-          <div className="mb-3 flex w-full items-center justify-between px-1 text-[10px] font-black tracking-[.13em] text-white/80 sm:text-xs sm:tracking-[.15em]">
+      const isLast=learnIndex===LEARN_CARDS.length-1;
+      const next=()=>{if(!isLast)setLearnIndex(v=>Math.min(LEARN_CARDS.length-1,v+1));};
+      return <div className="relative min-h-[100svh] bg-[#0e2732] px-3 py-3 sm:px-6 sm:py-5">
+        <div className="mx-auto flex min-h-[calc(100svh-1.5rem)] w-full max-w-[720px] flex-col sm:min-h-[calc(100svh-2.5rem)]">
+          <div className="mb-2.5 flex items-center justify-between px-1 text-[10px] font-black tracking-[.13em] text-white/80 sm:mb-3 sm:text-xs sm:tracking-[.15em]">
             <span>LINKIMPACT · BAMBOO FOR TOMORROW</span>
-            <span>{isCover?"START":`${learnIndex} / 5`}</span>
+            <span>{learnIndex+1} / {LEARN_CARDS.length}</span>
           </div>
 
-          <button type="button" onClick={next} aria-label={isLast?"마지막 설명 카드":"다음 설명 카드"} className="group relative flex min-h-0 w-full flex-1 items-center justify-center overflow-hidden rounded-2xl bg-[#eef5f7] shadow-[6px_6px_0_#07171e] sm:shadow-[8px_8px_0_#07171e]">
-            <img
-              key={LEARN_CARD_IMAGES[learnIndex]}
-              src={LEARN_CARD_IMAGES[learnIndex]}
-              alt={isCover?"대나무 게임 시작 썸네일":`대나무 식재 설명 카드 ${learnIndex}`}
-              className="block max-h-[calc(100svh-190px)] w-full object-contain [image-rendering:auto] sm:max-h-[calc(100svh-205px)]"
-            />
-            {!isLast&&<span className="absolute bottom-3 right-3 rounded-full bg-[#0e2732]/90 px-4 py-2 text-xs font-black text-white shadow-lg transition group-hover:translate-x-1 sm:bottom-4 sm:right-4 sm:text-sm">{isCover?"설명 시작 →":"눌러서 다음 →"}</span>}
+          <button type="button" onClick={next} aria-label={isLast?"마지막 설명 카드":"다음 설명 카드"} className="group relative flex min-h-0 flex-1 items-stretch overflow-hidden rounded-[24px] bg-[#eef5f7] p-2 shadow-[5px_5px_0_#07171e] sm:p-3 sm:shadow-[8px_8px_0_#07171e]">
+            <LearnCard index={learnIndex}/>
+            {!isLast?<span className="absolute bottom-4 right-4 rounded-full bg-[#17343d]/95 px-4 py-2 text-xs font-black text-white shadow-lg sm:text-sm">눌러서 다음 →</span>:null}
           </button>
 
-          <div className="mt-4 flex w-full items-center justify-between gap-2 sm:mt-5 sm:gap-3">
-            <button disabled={learnIndex===0} onClick={()=>setLearnIndex(v=>Math.max(0,v-1))} className="shrink-0 border-[3px] border-white/80 bg-[#17343d] px-3 py-3 text-xs font-black text-white shadow-[3px_3px_0_#07171e] disabled:opacity-25 sm:border-4 sm:px-5 sm:text-base sm:shadow-[4px_4px_0_#07171e]">← 이전</button>
+          <div className="mt-3 flex w-full items-center justify-between gap-2 sm:mt-4 sm:gap-3">
+            <button disabled={learnIndex===0} onClick={()=>setLearnIndex(v=>Math.max(0,v-1))} className="inline-flex min-h-11 shrink-0 items-center justify-center border-[3px] border-white/75 bg-[#17343d] px-3 py-2.5 text-xs font-black text-white shadow-[3px_3px_0_#07171e] disabled:opacity-25 sm:border-4 sm:px-5 sm:text-base sm:shadow-[4px_4px_0_#07171e]">← 이전</button>
             <div className="flex min-w-0 items-center justify-center gap-1.5 sm:gap-2">
-              {LEARN_CARD_IMAGES.map((_,i)=><button key={i} onClick={()=>setLearnIndex(i)} aria-label={i===0?"시작 화면":`${i}번 카드`} className={`h-2.5 w-2.5 shrink-0 rounded-full sm:h-3 sm:w-3 ${i===learnIndex?"bg-[#67d267]":"bg-white/35"}`}/>)}
+              {LEARN_CARDS.map((_,i)=><button key={i} onClick={()=>setLearnIndex(i)} aria-label={`${i+1}번 카드`} className={`h-2.5 w-2.5 shrink-0 rounded-full sm:h-3 sm:w-3 ${i===learnIndex?"bg-[#67d267]":"bg-white/35"}`}/>)}
             </div>
             {isLast?<div className="flex min-w-0 flex-1 justify-end gap-1.5 sm:gap-2">
               <a href={KAKAO_URL} target="_blank" rel="noreferrer" className="inline-flex min-h-11 min-w-0 flex-1 items-center justify-center whitespace-nowrap border-[3px] border-[#17343d] bg-[#fee500] px-2.5 py-2.5 text-[11px] font-black text-[#17343d] shadow-[3px_3px_0_#07171e] sm:flex-none sm:border-4 sm:px-5 sm:py-3 sm:text-sm sm:shadow-[4px_4px_0_#07171e]">기부 페이지로 →</a>
               <button onClick={start} className="inline-flex min-h-11 shrink-0 items-center justify-center whitespace-nowrap border-[3px] border-white/80 bg-[#28b95b] px-2.5 py-2.5 text-[11px] font-black text-white shadow-[3px_3px_0_#07171e] sm:border-4 sm:px-5 sm:py-3 sm:text-sm sm:shadow-[4px_4px_0_#07171e]">다시 심기</button>
-            </div>:<button onClick={next} className="shrink-0 border-[3px] border-white/80 bg-[#28b95b] px-4 py-3 text-xs font-black text-white shadow-[3px_3px_0_#07171e] sm:border-4 sm:px-6 sm:text-base sm:shadow-[4px_4px_0_#07171e]">다음 →</button>}
+            </div>:<button onClick={next} className="inline-flex min-h-11 shrink-0 items-center justify-center border-[3px] border-white/80 bg-[#28b95b] px-4 py-2.5 text-xs font-black text-white shadow-[3px_3px_0_#07171e] sm:border-4 sm:px-6 sm:text-base sm:shadow-[4px_4px_0_#07171e]">다음 →</button>}
           </div>
         </div>
       </div>;
