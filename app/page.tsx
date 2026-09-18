@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { getFrontSettings, getPublishedPosts } from "./lib/content";
+import { getFrontSettings, getPublishedPosts, getSettings } from "./lib/content";
 import { getChatGPTUser } from "./chatgpt-auth";
 import InteractiveFrontClient from "./ui/interactive-front-client";
+import HomeClient from "./ui/home-client";
 
 export const dynamic = "force-dynamic";
 
@@ -15,18 +16,19 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const [notices, activities, front, user] = await Promise.all([
+  const [notices, activities, front, settings, user] = await Promise.all([
     getPublishedPosts("notice", 5),
     getPublishedPosts("activity", 20),
     getFrontSettings(),
+    getSettings(),
     getChatGPTUser(),
   ]);
 
+  const posts=[...notices, ...activities];
   return (
-    <InteractiveFrontClient
-      posts={[...notices, ...activities]}
-      front={front}
-      showAdmin={Boolean(user)}
-    />
+    <>
+      <InteractiveFrontClient posts={posts} front={front} showAdmin={Boolean(user)} />
+      <HomeClient settings={settings} posts={posts} showAdmin={Boolean(user)} embedded />
+    </>
   );
 }
