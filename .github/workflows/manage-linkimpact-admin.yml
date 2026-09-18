@@ -60,7 +60,7 @@ jobs:
           esac
 
           if [[ "${ACTION}" != "list" ]]; then
-            if ! [[ "${EMAIL}" =~ ^[A-Za-z0-9.!#$%\&'*+/=?^_\`{|}~-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$ ]]; then
+            if ! [[ "${EMAIL}" =~ ^[^[:space:]@]+@[^[:space:]@]+\.[A-Za-z]{2,}$ ]]; then
               echo "Invalid email address"
               exit 1
             fi
