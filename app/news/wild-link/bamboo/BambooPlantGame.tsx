@@ -224,25 +224,30 @@ export default function BambooPlantGame() {
       {count>0&&count%8===0&&<div className="pointer-events-none absolute left-1/2 top-[32%] z-50 -translate-x-1/2 animate-pulse rounded-full bg-[#fff38a]/90 px-5 py-2 text-sm font-black text-[#17343d]">✨ 강변이 점점 푸르게 변하고 있어요!</div>}
     </div>}
 
-    {phase==="complete"&&<div className="relative min-h-[720px] overflow-hidden bg-[#06243a]">
+    {phase==="rank"&&<div className="relative min-h-[720px] overflow-hidden bg-[#06243a]">
       <PixelRiverScene count={30}/>
-      <div className="absolute inset-0 z-40 bg-[#051d31]/78"/>
-      {Array.from({length:20}).map((_,i)=><span key={i} className="absolute z-50 h-3 w-3 rotate-45" style={{left:`${5+(i*17)%90}%`,top:`${8+(i*23)%70}%`,background:["#ffe45f","#5fd8ff","#fa7a86","#70d86c"][i%4]}}/>)}
-      <div className="absolute inset-x-0 top-12 z-[60] px-5 text-center">
-        <div className="text-[clamp(3rem,10vw,6.4rem)] font-black leading-[.85] text-[#ffea4e] [text-shadow:5px_5px_0_#5e4b13]">MISSION<br/>COMPLETE!</div>
-        <div className="mx-auto mt-5 w-fit border-4 border-[#17343d] bg-[#0b3650] px-7 py-3 text-2xl font-black shadow-[5px_5px_0_#17343d]">🎋 {count} / {GAME_GOAL}</div>
-        <div className="mx-auto mt-7 max-w-sm border-4 border-[#5a381d] bg-[#bd7a32] px-6 py-4 text-[#24170d] shadow-[7px_7px_0_#5a381d]">
-          <h2 className="text-2xl font-black">함께, 더 푸른 강변</h2>
-          <p className="mt-1 font-black">작은 행동이 큰 변화를 만듭니다.</p>
+      <div className="absolute inset-0 z-40 bg-[#051d31]/82"/>
+      <div className="absolute inset-x-0 top-8 z-[60] mx-auto max-w-xl px-5 text-center">
+        <div className="text-[clamp(2.4rem,9vw,5rem)] font-black leading-[.88] text-[#ffea4e] [text-shadow:5px_5px_0_#5e4b13]">MISSION<br/>COMPLETE!</div>
+        <div className="mx-auto mt-4 w-fit border-4 border-[#17343d] bg-[#0b3650] px-6 py-3 text-xl font-black shadow-[5px_5px_0_#17343d]">🎋 {count} / {GAME_GOAL}</div>
+        <div className="mx-auto mt-5 max-w-md border-4 border-[#17343d] bg-[#fffdf2] p-4 text-[#172a34] shadow-[7px_7px_0_#17343d]">
+          <p className="text-xs font-black tracking-[.18em] text-[#2f7a43]">TODAY&apos;S RANKING</p>
+          {rankLoading?<div className="py-8 font-black">랭킹을 불러오는 중...</div>:<>
+            <div className="mt-2 text-2xl font-black">{playerName||"대나무 친구"} · {rank?("오늘 "+rank+"위"):"랭킹 집계 완료"}</div>
+            <div className="mt-4 space-y-2 text-left">
+              {leaderboard.slice(0,5).map((row,i)=><div key={row.player_name+"-"+i} className={"flex items-center justify-between border-2 border-[#203744] px-3 py-2 text-sm font-black "+(row.player_name===playerName?"bg-[#dff77b]":"bg-white")}>
+                <span>{i+1}. {row.player_name}</span><span>🎋 {row.score}</span>
+              </div>)}
+              {leaderboard.length===0&&<div className="py-5 text-center text-sm font-bold text-slate-500">첫 번째 기록입니다.</div>}
+            </div>
+          </>}
         </div>
-        <div className="mx-auto mt-3 flex w-fit items-end gap-2"><PixelFarmer small/><PixelBird/></div>
-        <div className="mx-auto mt-3 flex max-w-sm flex-col gap-3">
-          <button onClick={()=>{setLearnIndex(0);setPhase("learn")}} className="border-4 border-[#17343d] bg-[#28b95b] px-6 py-4 font-black shadow-[5px_5px_0_#17343d]">자세히 알아보기</button>
-          <button onClick={start} className="border-4 border-white/45 bg-[#172f3c] px-6 py-4 font-black shadow-[5px_5px_0_#081821]">↻ 다시 심기</button>
+        <div className="mx-auto mt-5 flex max-w-md flex-col gap-3">
+          <button onClick={()=>{setLearnIndex(0);setPhase("learn")}} className="border-4 border-[#17343d] bg-[#28b95b] px-6 py-4 font-black shadow-[5px_5px_0_#17343d]">대나무 이야기를 알아보기 →</button>
+          <button onClick={start} className="border-4 border-white/45 bg-[#172f3c] px-6 py-3 font-black shadow-[5px_5px_0_#081821]">↻ 다시 심기</button>
         </div>
       </div>
     </div>}
-
     {phase==="learn"&&(()=>{
       const isLast=learnIndex===LEARN_CARD_IMAGES.length-1;
       const next=()=>{if(!isLast)setLearnIndex(v=>Math.min(LEARN_CARD_IMAGES.length-1,v+1));};
