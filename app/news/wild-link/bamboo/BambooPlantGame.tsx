@@ -10,6 +10,7 @@ type Phase = "intro" | "play" | "rank" | "learn";
 type LeaderRow = { player_name:string; score:number; created_at:string };
 
 const LEARN_CARD_IMAGES = [
+  "/notices/sovac-2026-goods.webp",
   "/assets/bamboo-card-01.webp",
   "/assets/bamboo-card-02.webp",
   "/assets/bamboo-card-03.webp",
@@ -247,37 +248,35 @@ export default function BambooPlantGame() {
       </div>
     </div>}
     {phase==="learn"&&(()=>{
+      const isCover=learnIndex===0;
       const isLast=learnIndex===LEARN_CARD_IMAGES.length-1;
       const next=()=>{if(!isLast)setLearnIndex(v=>Math.min(LEARN_CARD_IMAGES.length-1,v+1));};
-      return <div className="relative min-h-[700px] bg-[#0e2732] p-4 sm:p-7">
-        <div className="mx-auto flex min-h-[650px] max-w-3xl flex-col items-center justify-center">
-          <div className="mb-4 flex w-full max-w-[620px] items-center justify-between text-xs font-black tracking-[.15em] text-white/80">
+      return <div className="relative min-h-[100svh] bg-[#0e2732] px-3 py-4 sm:px-6 sm:py-6">
+        <div className="mx-auto flex min-h-[calc(100svh-2rem)] w-full max-w-[760px] flex-col items-center justify-center sm:min-h-[calc(100svh-3rem)]">
+          <div className="mb-3 flex w-full items-center justify-between px-1 text-[10px] font-black tracking-[.13em] text-white/80 sm:text-xs sm:tracking-[.15em]">
             <span>LINKIMPACT · BAMBOO FOR TOMORROW</span>
-            <span>{learnIndex+1} / {LEARN_CARD_IMAGES.length}</span>
+            <span>{isCover?"START":`${learnIndex} / 5`}</span>
           </div>
-          <button type="button" onClick={next} aria-label={isLast?"마지막 설명 카드":"다음 설명 카드"} className="group relative flex w-full max-w-[620px] flex-1 items-center justify-center overflow-hidden rounded-2xl bg-[#eef5f7] p-2 shadow-[8px_8px_0_#07171e] sm:p-3">
-            {learnIndex===0?<div className="flex min-h-[460px] w-full flex-col justify-between rounded-xl border-4 border-[#17343d] bg-[#f5faf8] p-6 text-left text-[#17343d] sm:min-h-[520px] sm:p-9">
-              <div>
-                <div className="flex items-center gap-4"><span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[#17343d] text-lg font-black text-white">01</span><h2 className="text-[clamp(1.6rem,6vw,2.4rem)] font-black leading-tight">왜 대나무를 심을까요?</h2></div>
-                <div className="mt-8 border-y-4 border-[#17343d] bg-[#dff77b] px-5 py-7 text-center text-[clamp(2.1rem,9vw,4rem)] font-black leading-none">BAMBOO<br/>FOR TOMORROW</div>
-              </div>
-              <div className="mt-7">
-                <div className="mb-5 flex items-end justify-center gap-2" aria-hidden="true">{[36,58,46,72,52,66,42].map((h,i)=><span key={i} className="relative block w-4 bg-[#43a84d]" style={{height:h}}><span className="absolute left-[-7px] top-[28%] h-3 w-6 rotate-[-28deg] bg-[#75cf58]"/><span className="absolute right-[-7px] top-[52%] h-3 w-6 rotate-[28deg] bg-[#75cf58]"/></span>)}</div>
-                <p className="text-base font-bold leading-7 sm:text-lg sm:leading-8">태풍과 홍수로 훼손된 강변에 식생을 회복하면 토양을 붙잡고 물의 흐름을 완충하는 데 도움을 줄 수 있습니다.</p>
-                <p className="mt-3 text-sm leading-6 text-[#48615a]">대나무 심기는 재난을 단독으로 막는 해법이 아니라, 지역의 식생·토양·생태계를 함께 회복하는 활동의 한 부분입니다.</p>
-              </div>
-            </div>:<img key={LEARN_CARD_IMAGES[learnIndex]} src={LEARN_CARD_IMAGES[learnIndex]} alt={`대나무 식재 설명 카드 ${learnIndex+1}`} className="max-h-[70vh] w-auto max-w-full object-contain [image-rendering:auto]"/>}
-            {!isLast&&<span className="absolute bottom-4 right-4 rounded-full bg-[#0e2732]/90 px-4 py-2 text-sm font-black text-white shadow-lg transition group-hover:translate-x-1">눌러서 다음 →</span>}
+
+          <button type="button" onClick={next} aria-label={isLast?"마지막 설명 카드":"다음 설명 카드"} className="group relative flex min-h-0 w-full flex-1 items-center justify-center overflow-hidden rounded-2xl bg-[#eef5f7] shadow-[6px_6px_0_#07171e] sm:shadow-[8px_8px_0_#07171e]">
+            <img
+              key={LEARN_CARD_IMAGES[learnIndex]}
+              src={LEARN_CARD_IMAGES[learnIndex]}
+              alt={isCover?"대나무 게임 시작 썸네일":`대나무 식재 설명 카드 ${learnIndex}`}
+              className="block max-h-[calc(100svh-190px)] w-full object-contain [image-rendering:auto] sm:max-h-[calc(100svh-205px)]"
+            />
+            {!isLast&&<span className="absolute bottom-3 right-3 rounded-full bg-[#0e2732]/90 px-4 py-2 text-xs font-black text-white shadow-lg transition group-hover:translate-x-1 sm:bottom-4 sm:right-4 sm:text-sm">{isCover?"설명 시작 →":"눌러서 다음 →"}</span>}
           </button>
-          <div className="mt-5 flex w-full max-w-[620px] items-center justify-between gap-3">
-            <button disabled={learnIndex===0} onClick={()=>setLearnIndex(v=>Math.max(0,v-1))} className="border-4 border-white/80 bg-[#17343d] px-5 py-3 font-black text-white shadow-[4px_4px_0_#07171e] disabled:opacity-25">← 이전</button>
-            <div className="flex gap-2">
-              {LEARN_CARD_IMAGES.map((_,i)=><button key={i} onClick={()=>setLearnIndex(i)} aria-label={`${i+1}번 카드`} className={`h-3 w-3 rounded-full ${i===learnIndex?"bg-[#67d267]":"bg-white/35"}`}/>)}
+
+          <div className="mt-4 flex w-full items-center justify-between gap-2 sm:mt-5 sm:gap-3">
+            <button disabled={learnIndex===0} onClick={()=>setLearnIndex(v=>Math.max(0,v-1))} className="shrink-0 border-[3px] border-white/80 bg-[#17343d] px-3 py-3 text-xs font-black text-white shadow-[3px_3px_0_#07171e] disabled:opacity-25 sm:border-4 sm:px-5 sm:text-base sm:shadow-[4px_4px_0_#07171e]">← 이전</button>
+            <div className="flex min-w-0 items-center justify-center gap-1.5 sm:gap-2">
+              {LEARN_CARD_IMAGES.map((_,i)=><button key={i} onClick={()=>setLearnIndex(i)} aria-label={i===0?"시작 화면":`${i}번 카드`} className={`h-2.5 w-2.5 shrink-0 rounded-full sm:h-3 sm:w-3 ${i===learnIndex?"bg-[#67d267]":"bg-white/35"}`}/>)}
             </div>
-            {isLast?<div className="flex min-w-0 flex-1 justify-end gap-2">
-              <a href={KAKAO_URL} target="_blank" rel="noreferrer" className="inline-flex min-h-12 min-w-0 flex-1 items-center justify-center whitespace-nowrap border-[3px] border-[#17343d] bg-[#fee500] px-3 py-3 text-[13px] font-black text-[#17343d] shadow-[3px_3px_0_#07171e] sm:flex-none sm:border-4 sm:px-5 sm:text-sm sm:shadow-[4px_4px_0_#07171e]">기부 페이지로 →</a>
-              <button onClick={start} className="inline-flex min-h-12 shrink-0 items-center justify-center whitespace-nowrap border-[3px] border-white/80 bg-[#28b95b] px-3 py-3 text-[13px] font-black text-white shadow-[3px_3px_0_#07171e] sm:border-4 sm:px-5 sm:text-sm sm:shadow-[4px_4px_0_#07171e]">다시 심기</button>
-            </div>:<button onClick={next} className="border-4 border-white/80 bg-[#28b95b] px-6 py-3 font-black text-white shadow-[4px_4px_0_#07171e]">다음 →</button>}
+            {isLast?<div className="flex min-w-0 flex-1 justify-end gap-1.5 sm:gap-2">
+              <a href={KAKAO_URL} target="_blank" rel="noreferrer" className="inline-flex min-h-11 min-w-0 flex-1 items-center justify-center whitespace-nowrap border-[3px] border-[#17343d] bg-[#fee500] px-2.5 py-2.5 text-[11px] font-black text-[#17343d] shadow-[3px_3px_0_#07171e] sm:flex-none sm:border-4 sm:px-5 sm:py-3 sm:text-sm sm:shadow-[4px_4px_0_#07171e]">기부 페이지로 →</a>
+              <button onClick={start} className="inline-flex min-h-11 shrink-0 items-center justify-center whitespace-nowrap border-[3px] border-white/80 bg-[#28b95b] px-2.5 py-2.5 text-[11px] font-black text-white shadow-[3px_3px_0_#07171e] sm:border-4 sm:px-5 sm:py-3 sm:text-sm sm:shadow-[4px_4px_0_#07171e]">다시 심기</button>
+            </div>:<button onClick={next} className="shrink-0 border-[3px] border-white/80 bg-[#28b95b] px-4 py-3 text-xs font-black text-white shadow-[3px_3px_0_#07171e] sm:border-4 sm:px-6 sm:text-base sm:shadow-[4px_4px_0_#07171e]">다음 →</button>}
           </div>
         </div>
       </div>;
