@@ -3,7 +3,7 @@ import Link from "next/link";
 import BambooPlantGame from "./BambooPlantGame";
 
 export const metadata: Metadata = {
- title: "10초 숲 만들기 | BAMBOO LINK | LINKIMPACT",
+ title: "30초 숲 만들기 | BAMBOO LINK | LINKIMPACT",
  description: "대나무를 심으며 기후재난, 생태계 회복력, 지역사회와 우리의 삶이 어떻게 연결되는지 체험합니다.",
 };
 
