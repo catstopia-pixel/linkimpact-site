@@ -75,7 +75,7 @@ export default function InteractiveFrontClient({posts,front,showAdmin}:Props){
 
      <div className="absolute inset-x-0 bottom-7 z-30 flex justify-center px-6 md:left-1/2 md:right-auto md:w-full md:max-w-[1360px] md:-translate-x-1/2 md:justify-start md:px-6 lg:px-10">
        <div className="flex flex-wrap justify-center gap-3 md:justify-start">
-         <a href="#home-main" className="inline-flex h-12 min-w-[148px] items-center justify-center gap-3 rounded-full border border-white/45 bg-white/10 px-6 text-sm font-black text-white backdrop-blur-sm">HOME<ArrowRight size={17}/></a>
+         <Link href="/home" className="inline-flex h-12 min-w-[148px] items-center justify-center gap-3 rounded-full border border-white/45 bg-white/10 px-6 text-sm font-black text-white backdrop-blur-sm">HOME<ArrowRight size={17}/></Link>
          <Link href={front.work_url} className="inline-flex h-12 min-w-[168px] items-center justify-center gap-3 rounded-full bg-emerald-300 px-6 text-sm font-black text-[#04100c]">{front.work_label}<ArrowRight size={17}/></Link>
          <a href={front.naturelens_url} target="_blank" rel="noreferrer" className="inline-flex h-12 min-w-[168px] items-center justify-center gap-3 rounded-full border border-white/50 bg-black/30 px-6 text-sm font-bold backdrop-blur-sm">{front.naturelens_label}<ExternalLink size={15}/></a>
        </div>
