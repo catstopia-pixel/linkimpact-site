@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const KAKAO_URL = "https://together.kakao.com/fundraisings/139701/story";
 const GAME_SECONDS = 30;
@@ -138,17 +138,6 @@ export default function BambooPlantGame() {
   const countRef=useRef(0);
   const submittedRef=useRef(false);
 
-  useEffect(()=>{
-    if(phase!=="play") return;
-    const started=Date.now();
-    const id=window.setInterval(()=>{
-      const next=Math.max(0,GAME_SECONDS-(Date.now()-started)/1000);
-      setLeft(next);
-      if(next<=0){clearInterval(id);void finishGame(countRef.current);}
-    },100);
-    return()=>clearInterval(id);
-  },[phase]);
-
   function start(){
     submittedRef.current=false;
     countRef.current=0;
@@ -161,7 +150,7 @@ export default function BambooPlantGame() {
     setPhase("play");
   }
 
-  async function finishGame(finalScore:number){
+  const finishGame=useCallback(async (finalScore:number)=>{
     if(submittedRef.current) return;
     submittedRef.current=true;
     setPhase("rank");
@@ -181,7 +170,18 @@ export default function BambooPlantGame() {
     } finally {
       setRankLoading(false);
     }
-  }
+  },[]);
+
+  useEffect(()=>{
+    if(phase!=="play") return;
+    const started=Date.now();
+    const id=window.setInterval(()=>{
+      const next=Math.max(0,GAME_SECONDS-(Date.now()-started)/1000);
+      setLeft(next);
+      if(next<=0){clearInterval(id);void finishGame(countRef.current);}
+    },100);
+    return()=>clearInterval(id);
+  },[phase,finishGame]);
 
   function plant(){
     if(phase!=="play") return;
