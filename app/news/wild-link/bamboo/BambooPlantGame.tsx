@@ -3,8 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 const KAKAO_URL = "https://together.kakao.com/fundraisings/139701/story";
-const GAME_SECONDS = 60;
-const GAME_GOAL = 100;
+const GAME_SECONDS = 30;
 
 type Phase = "intro" | "play" | "rank" | "learn";
 
@@ -119,11 +118,11 @@ function PixelRiverScene({count=0,interactive=false,onTap,showGuide=false,compac
 function StatusBar({count,left}:{count:number;left:number}) {
   const m=Math.floor(left/60);
   const s=Math.floor(left%60).toString().padStart(2,"0");
-  return <div className="pointer-events-none absolute left-4 right-4 top-4 z-50 flex items-center justify-between gap-3 sm:left-6 sm:right-6">
-    <div className="flex min-w-[145px] items-center gap-3 border-4 border-[#18323e] bg-[#0b3650] px-4 py-3 text-xl font-black shadow-[5px_5px_0_#18323e]">
-      <span className="text-2xl">🎋</span><span>{count} <span className="text-sm text-white/70">/ {GAME_GOAL}</span></span>
+  return <div className="pointer-events-none absolute left-3 right-3 top-3 z-50 flex items-center justify-between gap-2 sm:left-6 sm:right-6 sm:top-5 sm:gap-3">
+    <div className="flex min-w-0 items-center gap-2 border-[3px] border-[#18323e] bg-[#0b3650] px-3 py-2 text-base font-black shadow-[4px_4px_0_#18323e] sm:min-w-[150px] sm:border-4 sm:px-4 sm:py-3 sm:text-xl sm:shadow-[5px_5px_0_#18323e]">
+      <span className="text-xl sm:text-2xl">🎋</span><span className="truncate">{count}그루</span>
     </div>
-    <div className="border-4 border-[#18323e] bg-[#0b3650] px-4 py-3 text-lg font-black text-[#ffe15b] shadow-[5px_5px_0_#18323e]">TIME {m}:{s}</div>
+    <div className="shrink-0 border-[3px] border-[#18323e] bg-[#0b3650] px-3 py-2 text-base font-black text-[#ffe15b] shadow-[4px_4px_0_#18323e] sm:border-4 sm:px-4 sm:py-3 sm:text-lg sm:shadow-[5px_5px_0_#18323e]">TIME {m}:{s}</div>
   </div>
 }
 
@@ -187,16 +186,15 @@ export default function BambooPlantGame() {
   function plant(){
     if(phase!=="play") return;
     setCount(v=>{
-      const next=Math.min(GAME_GOAL,v+1);
+      const next=v+1;
       countRef.current=next;
-      if(next>=GAME_GOAL) setTimeout(()=>void finishGame(next),180);
       return next;
     });
     if(navigator.vibrate&&countRef.current%4===0) navigator.vibrate(12);
   }
 
   return <div className="overflow-hidden border-4 border-[#142630] bg-[#0e2732] text-white shadow-[10px_10px_0_#142630]">
-    {phase==="intro"&&<div className="relative min-h-[520px] overflow-hidden sm:min-h-[580px]">
+    {phase==="intro"&&<div className="relative min-h-[500px] overflow-hidden sm:min-h-[580px] lg:min-h-[640px]">
       <PixelRiverScene count={2} compact/>
       <div className="absolute inset-0 z-40 bg-gradient-to-b from-[#12344b]/10 via-transparent to-[#19333f]/20"/>
       <div className="absolute inset-x-0 top-7 z-50 text-center">
@@ -209,15 +207,15 @@ export default function BambooPlantGame() {
       </div>
       <div className="pointer-events-none absolute bottom-16 left-5 z-50 sm:left-10"><PixelFarmer/></div>
       <div className="pointer-events-none absolute bottom-20 left-[42%] z-50 hidden sm:block"><PixelBird/></div>
-      <button onClick={start} className="absolute bottom-5 left-1/2 z-[60] w-[calc(100%-32px)] max-w-md -translate-x-1/2 border-4 border-[#17343d] bg-[#28b95b] px-8 py-4 text-lg font-black shadow-[6px_6px_0_#17343d] active:translate-y-1 active:shadow-[2px_2px_0_#17343d]">
+      <button onClick={start} className="absolute bottom-4 left-1/2 z-[60] w-[calc(100%-24px)] max-w-md -translate-x-1/2 border-[3px] border-[#17343d] bg-[#28b95b] px-4 py-3 text-base font-black shadow-[4px_4px_0_#17343d] active:translate-y-1 active:shadow-[2px_2px_0_#17343d] sm:bottom-5 sm:w-[calc(100%-32px)] sm:border-4 sm:px-8 sm:py-4 sm:text-lg sm:shadow-[6px_6px_0_#17343d]">
         터치해서 대나무를 심어주세요
       </button>
     </div>}
 
-    {phase==="play"&&<div className="relative min-h-[720px]">
+    {phase==="play"&&<div className="relative min-h-[560px] sm:min-h-[640px] lg:min-h-[720px]">
       <PixelRiverScene count={count} interactive onTap={plant} showGuide/>
       <StatusBar count={count} left={left}/>
-      {count<2&&<div className="pointer-events-none absolute left-1/2 top-[34%] z-50 -translate-x-1/2 border-4 border-[#203744] bg-[#0b3650]/95 px-6 py-4 text-center font-black shadow-[6px_6px_0_#203744]">
+      {count<2&&<div className="pointer-events-none absolute left-1/2 top-[34%] z-50 w-[calc(100%-40px)] max-w-xs -translate-x-1/2 border-[3px] border-[#203744] bg-[#0b3650]/95 px-4 py-3 text-center text-sm font-black shadow-[4px_4px_0_#203744] sm:w-auto sm:max-w-none sm:border-4 sm:px-6 sm:py-4 sm:text-base sm:shadow-[6px_6px_0_#203744]">
         강변을 터치해서<br/>대나무를 심어주세요!
         <span className="mx-auto mt-3 block text-4xl">☝</span>
       </div>}
@@ -229,7 +227,7 @@ export default function BambooPlantGame() {
       <div className="absolute inset-0 z-40 bg-[#051d31]/82"/>
       <div className="absolute inset-x-0 top-8 z-[60] mx-auto max-w-xl px-5 text-center">
         <div className="text-[clamp(2.4rem,9vw,5rem)] font-black leading-[.88] text-[#ffea4e] [text-shadow:5px_5px_0_#5e4b13]">MISSION<br/>COMPLETE!</div>
-        <div className="mx-auto mt-4 w-fit border-4 border-[#17343d] bg-[#0b3650] px-6 py-3 text-xl font-black shadow-[5px_5px_0_#17343d]">🎋 {count} / {GAME_GOAL}</div>
+        <div className="mx-auto mt-4 w-fit border-4 border-[#17343d] bg-[#0b3650] px-6 py-3 text-xl font-black shadow-[5px_5px_0_#17343d]">🎋 {count}그루</div>
         <div className="mx-auto mt-5 max-w-md border-4 border-[#17343d] bg-[#fffdf2] p-4 text-[#172a34] shadow-[7px_7px_0_#17343d]">
           <p className="text-xs font-black tracking-[.18em] text-[#2f7a43]">TODAY&apos;S RANKING</p>
           {rankLoading?<div className="py-8 font-black">랭킹을 불러오는 중...</div>:<>
@@ -242,9 +240,9 @@ export default function BambooPlantGame() {
             </div>
           </>}
         </div>
-        <div className="mx-auto mt-5 flex max-w-md flex-col gap-3">
-          <button onClick={()=>{setLearnIndex(0);setPhase("learn")}} className="border-4 border-[#17343d] bg-[#28b95b] px-6 py-4 font-black shadow-[5px_5px_0_#17343d]">대나무 이야기를 알아보기 →</button>
-          <button onClick={start} className="border-4 border-white/45 bg-[#172f3c] px-6 py-3 font-black shadow-[5px_5px_0_#081821]">↻ 다시 심기</button>
+        <div className="mx-auto mt-5 flex w-full max-w-md flex-col gap-3">
+          <button onClick={()=>{setLearnIndex(0);setPhase("learn")}} className="w-full border-[3px] border-[#17343d] bg-[#28b95b] px-4 py-3 text-sm font-black shadow-[4px_4px_0_#17343d] sm:border-4 sm:px-6 sm:py-4 sm:text-base sm:shadow-[5px_5px_0_#17343d]">대나무 이야기를 알아보기 →</button>
+          <button onClick={start} className="w-full border-[3px] border-white/45 bg-[#172f3c] px-4 py-3 text-sm font-black shadow-[4px_4px_0_#081821] sm:border-4 sm:px-6 sm:text-base sm:shadow-[5px_5px_0_#081821]">↻ 다시 심기</button>
         </div>
       </div>
     </div>}
