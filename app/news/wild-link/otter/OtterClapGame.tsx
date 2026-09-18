@@ -86,11 +86,10 @@ export default function OtterClapGame() {
 
   useEffect(() => {
     if (phase !== "countdown") return;
-    if (countdown <= 0) {
-      setPhase("play");
-      return;
-    }
-    const timer = window.setTimeout(() => setCountdown(v => v - 1), 700);
+    const timer = window.setTimeout(() => {
+      if (countdown <= 0) setPhase("play");
+      else setCountdown(v => v - 1);
+    }, countdown <= 0 ? 0 : 700);
     return () => window.clearTimeout(timer);
   }, [phase, countdown]);
 
@@ -172,7 +171,7 @@ export default function OtterClapGame() {
 
           {phase === "result" && <div className="my-auto text-center">
             <div className="mx-auto mb-5 h-36 w-36 overflow-hidden rounded-full border-4 border-[#d7ff58]/50"><img src={OTTER_IMAGE} alt="수달" className="h-full w-full object-cover" /></div>
-            <p className="text-sm font-bold tracking-[.2em] text-[#d7ff58]">TIME'S UP!</p>
+            <p className="text-sm font-bold tracking-[.2em] text-[#d7ff58]">TIME&apos;S UP!</p>
             <div className="mt-3 text-7xl font-black">{score}</div><p className="mt-1 text-emerald-100">번의 박수</p>
             <div className="mx-auto mt-8 max-w-md rounded-3xl border border-[#d7ff58]/35 bg-black/15 p-6">
               <p className="text-3xl font-black leading-tight text-[#d7ff58]">잠깐!!<br/>나의 랭킹이 궁금하다구요?</p>
