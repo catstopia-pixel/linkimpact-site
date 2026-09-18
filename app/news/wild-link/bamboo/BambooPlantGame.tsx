@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const KAKAO_URL = "https://together.kakao.com/fundraisings/139701/story";
-const GAME_SECONDS = 120;
+const GAME_SECONDS = 60;
 const GAME_GOAL = 100;
 
-type Phase = "intro" | "play" | "complete" | "learn";
+type Phase = "intro" | "play" | "rank" | "learn";
+
+type LeaderRow = { player_name:string; score:number; created_at:string };
 
 const LEARN_CARD_IMAGES = [
   "/assets/bamboo-card-01.webp",
@@ -77,9 +79,9 @@ function PixelBamboo({index}:{index:number}) {
   </div>
 }
 
-function PixelRiverScene({count=0,interactive=false,onTap,showGuide=false}:{count?:number;interactive?:boolean;onTap?:()=>void;showGuide?:boolean}) {
+function PixelRiverScene({count=0,interactive=false,onTap,showGuide=false,compact=false}:{count?:number;interactive?:boolean;onTap?:()=>void;showGuide?:boolean;compact?:boolean}) {
   const bambooCount=Math.min(count,BAMBOO_POSITIONS.length);
-  return <button type="button" onPointerDown={interactive?onTap:undefined} className="relative block min-h-[720px] w-full touch-manipulation overflow-hidden bg-[#75c8fa] text-left outline-none">
+  return <button type="button" onPointerDown={interactive?onTap:undefined} className={"relative block w-full touch-manipulation overflow-hidden bg-[#75c8fa] text-left outline-none "+(compact?"min-h-[520px] sm:min-h-[580px]":"min-h-[720px]")}>
     <div className="absolute inset-0 [image-rendering:pixelated]">
       <div className="absolute inset-x-0 top-0 h-[43%] bg-[#69bdf3]"/>
       <div className="absolute left-[4%] top-[8%] h-6 w-14 bg-white shadow-[14px_8px_0_#e6f6ff,30px_0_0_white]"/>
@@ -130,6 +132,12 @@ export default function BambooPlantGame() {
   const [count,setCount]=useState(0);
   const [left,setLeft]=useState(GAME_SECONDS);
   const [learnIndex,setLearnIndex]=useState(0);
+  const [leaderboard,setLeaderboard]=useState<LeaderRow[]>([]);
+  const [rank,setRank]=useState<number|null>(null);
+  const [playerName,setPlayerName]=useState("");
+  const [rankLoading,setRankLoading]=useState(false);
+  const countRef=useRef(0);
+  const submittedRef=useRef(false);
 
   useEffect(()=>{
     if(phase!=="play") return;
@@ -137,25 +145,59 @@ export default function BambooPlantGame() {
     const id=window.setInterval(()=>{
       const next=Math.max(0,GAME_SECONDS-(Date.now()-started)/1000);
       setLeft(next);
-      if(next<=0){clearInterval(id);setPhase("complete");}
+      if(next<=0){clearInterval(id);void finishGame(countRef.current);}
     },100);
     return()=>clearInterval(id);
   },[phase]);
 
-  function start(){setCount(0);setLeft(GAME_SECONDS);setLearnIndex(0);setPhase("play");}
+  function start(){
+    submittedRef.current=false;
+    countRef.current=0;
+    setCount(0);
+    setLeft(GAME_SECONDS);
+    setLearnIndex(0);
+    setLeaderboard([]);
+    setRank(null);
+    setPlayerName("");
+    setPhase("play");
+  }
+
+  async function finishGame(finalScore:number){
+    if(submittedRef.current) return;
+    submittedRef.current=true;
+    setPhase("rank");
+    setRankLoading(true);
+    try {
+      const response=await fetch("/api/wild-link/bamboo-score",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({score:finalScore}),
+      });
+      if(response.ok){
+        const data=await response.json() as {playerName?:string;rank?:number;leaderboard?:LeaderRow[]};
+        setPlayerName(data.playerName??"");
+        setRank(typeof data.rank==="number"?data.rank:null);
+        setLeaderboard(Array.isArray(data.leaderboard)?data.leaderboard:[]);
+      }
+    } finally {
+      setRankLoading(false);
+    }
+  }
+
   function plant(){
     if(phase!=="play") return;
     setCount(v=>{
       const next=Math.min(GAME_GOAL,v+1);
-      if(next>=GAME_GOAL) setTimeout(()=>setPhase("complete"),180);
+      countRef.current=next;
+      if(next>=GAME_GOAL) setTimeout(()=>void finishGame(next),180);
       return next;
     });
-    if(navigator.vibrate&&count%4===0) navigator.vibrate(12);
+    if(navigator.vibrate&&countRef.current%4===0) navigator.vibrate(12);
   }
 
   return <div className="overflow-hidden border-4 border-[#142630] bg-[#0e2732] text-white shadow-[10px_10px_0_#142630]">
-    {phase==="intro"&&<div className="relative min-h-[720px] overflow-hidden">
-      <PixelRiverScene count={2}/>
+    {phase==="intro"&&<div className="relative min-h-[520px] overflow-hidden sm:min-h-[580px]">
+      <PixelRiverScene count={2} compact/>
       <div className="absolute inset-0 z-40 bg-gradient-to-b from-[#12344b]/10 via-transparent to-[#19333f]/20"/>
       <div className="absolute inset-x-0 top-7 z-50 text-center">
         <p className="text-sm font-black tracking-[.12em] text-white">LINKIMPACT</p>
@@ -165,8 +207,8 @@ export default function BambooPlantGame() {
         </div>
         <p className="mt-4 font-black">함께 만드는 더 푸른 강변</p>
       </div>
-      <div className="pointer-events-none absolute bottom-20 left-6 z-50 sm:left-12"><PixelFarmer/></div>
-      <div className="pointer-events-none absolute bottom-24 left-[42%] z-50 hidden sm:block"><PixelBird/></div>
+      <div className="pointer-events-none absolute bottom-16 left-5 z-50 sm:left-10"><PixelFarmer/></div>
+      <div className="pointer-events-none absolute bottom-20 left-[42%] z-50 hidden sm:block"><PixelBird/></div>
       <button onClick={start} className="absolute bottom-5 left-1/2 z-[60] w-[calc(100%-32px)] max-w-md -translate-x-1/2 border-4 border-[#17343d] bg-[#28b95b] px-8 py-4 text-lg font-black shadow-[6px_6px_0_#17343d] active:translate-y-1 active:shadow-[2px_2px_0_#17343d]">
         터치해서 대나무를 심어주세요
       </button>
