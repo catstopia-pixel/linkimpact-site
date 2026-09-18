@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 const KAKAO_URL = "https://together.kakao.com/fundraisings/139701/story";
-const GAME_SECONDS = 10;
+const GAME_SECONDS = 120;
+const GAME_GOAL = 100;
 
 type Phase = "intro" | "play" | "complete" | "learn";
 
@@ -16,123 +17,215 @@ const LEARN_CARD_IMAGES = [
 ] as const;
 
 const BAMBOO_POSITIONS = [
-  [15,62],[27,68],[39,58],[52,65],[66,55],[79,66],[88,58],[20,45],[34,50],[47,43],
-  [61,49],[75,41],[90,45],[10,35],[30,34],[49,30],[69,31],[85,28]
+  [16,55],[24,61],[31,51],[39,59],[47,50],[55,58],[63,49],[71,56],[79,48],[87,55],
+  [19,39],[28,44],[37,37],[46,43],[55,36],[64,42],[73,35],[82,40],[91,34],[12,33],
+  [22,27],[33,30],[44,25],[57,29],[69,24],[80,28],[89,23],[16,21],[50,20],[75,19]
 ] as const;
 
-function PixelBamboo({index}:{index:number}){
+function PixelFarmer({small=false}:{small?:boolean}) {
+  const s=small?104:168;
+  return <svg width={s} height={s} viewBox="0 0 84 84" aria-hidden="true" className="[image-rendering:pixelated] drop-shadow-[6px_7px_0_rgba(15,35,42,.45)]">
+    <g shapeRendering="crispEdges">
+      <rect x="16" y="8" width="50" height="8" fill="#efe0a7"/>
+      <rect x="22" y="3" width="38" height="7" fill="#f4e5ae"/>
+      <rect x="29" y="10" width="22" height="8" fill="#f5e8b6"/>
+      <rect x="34" y="6" width="7" height="8" fill="#2f8a48"/>
+      <rect x="21" y="18" width="42" height="28" fill="#6c4a35"/>
+      <rect x="27" y="20" width="30" height="27" fill="#f0bf8a"/>
+      <rect x="29" y="28" width="5" height="5" fill="#1b2630"/>
+      <rect x="50" y="28" width="5" height="5" fill="#1b2630"/>
+      <rect x="38" y="37" width="10" height="4" fill="#b66458"/>
+      <rect x="18" y="44" width="48" height="10" fill="#f4f1e6"/>
+      <rect x="20" y="52" width="44" height="18" fill="#2e7848"/>
+      <rect x="28" y="48" width="7" height="22" fill="#265f3c"/>
+      <rect x="49" y="48" width="7" height="22" fill="#265f3c"/>
+      <rect x="23" y="69" width="15" height="9" fill="#245d92"/>
+      <rect x="46" y="69" width="15" height="9" fill="#245d92"/>
+      <rect x="20" y="77" width="20" height="5" fill="#2e2a29"/>
+      <rect x="44" y="77" width="20" height="5" fill="#2e2a29"/>
+      <rect x="9" y="51" width="12" height="8" fill="#f0bf8a"/>
+      <rect x="63" y="51" width="12" height="8" fill="#f0bf8a"/>
+    </g>
+  </svg>
+}
+
+function PixelBird() {
+  return <svg width="74" height="58" viewBox="0 0 74 58" aria-hidden="true" className="[image-rendering:pixelated]">
+    <g shapeRendering="crispEdges">
+      <rect x="18" y="22" width="34" height="22" fill="#9b642e"/>
+      <rect x="12" y="27" width="12" height="12" fill="#c68a42"/>
+      <rect x="46" y="16" width="16" height="19" fill="#b87a37"/>
+      <rect x="56" y="20" width="6" height="6" fill="#171f25"/>
+      <rect x="62" y="24" width="8" height="4" fill="#d9a53e"/>
+      <rect x="24" y="42" width="5" height="10" fill="#694622"/>
+      <rect x="42" y="42" width="5" height="10" fill="#694622"/>
+    </g>
+  </svg>
+}
+
+function PixelBamboo({index}:{index:number}) {
   const [left,bottom]=BAMBOO_POSITIONS[index % BAMBOO_POSITIONS.length];
-  const h=70+(index%4)*12;
-  return <div className="absolute z-20 origin-bottom animate-[bambooGrow_.35s_steps(5,end)_both]" style={{left:`${left}%`,bottom:`${bottom}%`,transform:"translateX(-50%)"}}>
-    <div className="relative" style={{width:24,height:h}}>
-      <div className="absolute bottom-0 left-1/2 h-full w-[7px] -translate-x-1/2 border-x-2 border-[#215f2d] bg-[#53b448] shadow-[3px_0_0_#173f20]"/>
-      {[22,44,66].map((y,n)=><span key={n} className="absolute left-1/2 h-[4px] w-[12px] -translate-x-1/2 bg-[#173f20]" style={{bottom:`${y}%`}} />)}
-      <span className="absolute left-[-2px] top-[18%] h-[10px] w-[16px] rotate-[-30deg] bg-[#69cb51] shadow-[2px_2px_0_#246c31]"/>
-      <span className="absolute right-[-3px] top-[38%] h-[10px] w-[16px] rotate-[28deg] bg-[#69cb51] shadow-[2px_2px_0_#246c31]"/>
-      <span className="absolute left-[-4px] top-[58%] h-[9px] w-[14px] rotate-[-25deg] bg-[#56b849] shadow-[2px_2px_0_#246c31]"/>
+  const h=62+(index%5)*11;
+  return <div className="pointer-events-none absolute z-30 origin-bottom animate-[bambooGrow_.32s_steps(5,end)_both]" style={{left:`${left}%`,bottom:`${bottom}%`,transform:"translateX(-50%)"}}>
+    <div className="relative" style={{width:28,height:h}}>
+      <div className="absolute bottom-0 left-1/2 h-full w-[9px] -translate-x-1/2 border-x-[2px] border-[#1a612d] bg-[#62c94f] shadow-[4px_0_0_#174424]"/>
+      {[18,39,61,81].map((y,n)=><span key={n} className="absolute left-1/2 h-[4px] w-[14px] -translate-x-1/2 bg-[#194f28]" style={{bottom:`${y}%`}} />)}
+      <span className="absolute left-[-1px] top-[16%] h-[11px] w-[17px] rotate-[-29deg] bg-[#7ddd58] shadow-[3px_3px_0_#2d7a3b]"/>
+      <span className="absolute right-[-2px] top-[36%] h-[11px] w-[18px] rotate-[28deg] bg-[#7ddd58] shadow-[3px_3px_0_#2d7a3b]"/>
+      <span className="absolute left-[-4px] top-[56%] h-[10px] w-[16px] rotate-[-28deg] bg-[#62c94f] shadow-[3px_3px_0_#2d7a3b]"/>
     </div>
   </div>
 }
 
-function PixelRiverScene({count=0,interactive=false,onTap}:{count?:number;interactive?:boolean;onTap?:()=>void}){
+function PixelRiverScene({count=0,interactive=false,onTap,showGuide=false}:{count?:number;interactive?:boolean;onTap?:()=>void;showGuide?:boolean}) {
   const bambooCount=Math.min(count,BAMBOO_POSITIONS.length);
-  return <button type="button" onPointerDown={interactive?onTap:undefined} className="relative block min-h-[620px] w-full overflow-hidden bg-[#7ed0ff] text-left outline-none sm:min-h-[700px]">
+  return <button type="button" onPointerDown={interactive?onTap:undefined} className="relative block min-h-[720px] w-full touch-manipulation overflow-hidden bg-[#75c8fa] text-left outline-none">
     <div className="absolute inset-0 [image-rendering:pixelated]">
-      <div className="absolute inset-x-0 top-0 h-[34%] bg-[#68bdf3]"/>
-      <div className="absolute left-[6%] top-[10%] h-8 w-16 bg-white shadow-[12px_8px_0_#dff4ff,28px_0_0_white]"/>
-      <div className="absolute right-[13%] top-[7%] h-7 w-14 bg-white shadow-[10px_7px_0_#dff4ff,25px_0_0_white]"/>
-      <div className="absolute inset-x-0 top-[26%] h-[19%] bg-[#4f95c8] [clip-path:polygon(0_100%,18%_45%,34%_70%,51%_22%,69%_68%,84%_35%,100%_80%,100%_100%)]"/>
-      <div className="absolute inset-x-0 top-[36%] h-[14%] bg-[#9aa8b6]"/>
-      <div className="absolute inset-x-[4%] top-[39%] h-5 bg-[#4c5963] shadow-[0_8px_0_#bec9d0]"/>
-      <div className="absolute inset-x-0 top-[50%] h-[27%] bg-[#4db0df] shadow-[inset_0_8px_0_#8bd4f2]"/>
-      {Array.from({length:18}).map((_,i)=><span key={i} className="absolute h-[4px] w-10 bg-[#b8ecff]/80" style={{left:`${(i*11)%94}%`,top:`${54+(i%5)*4}%`}} />)}
-      <div className="absolute inset-x-0 bottom-0 h-[32%] bg-[#7a8a45]"/>
-      <div className="absolute inset-x-0 bottom-0 h-[24%] bg-[#9b7a45] [clip-path:polygon(0_28%,12%_8%,24%_25%,38%_3%,50%_20%,63%_5%,77%_24%,90%_4%,100%_16%,100%_100%,0_100%)]"/>
-      {Array.from({length:20}).map((_,i)=><span key={i} className="absolute h-3 w-3 bg-[#7e623d] shadow-[5px_3px_0_#6e5535]" style={{left:`${(i*17)%96}%`,bottom:`${5+(i%6)*3}%`}} />)}
-    </div>
-    {Array.from({length:bambooCount}).map((_,i)=><PixelBamboo key={i} index={i}/>)}
-    <div className="absolute bottom-6 left-5 z-30 flex items-end gap-3">
-      <div className="grid h-20 w-16 place-items-center border-4 border-[#1f2d35] bg-[#f4d6a5] text-4xl shadow-[6px_6px_0_#1f2d35]">🧑🏻‍🌾</div>
-      <div className="max-w-[260px] border-4 border-[#1f2d35] bg-[#f7f1dd] px-4 py-3 text-sm font-black leading-6 text-[#18252c] shadow-[6px_6px_0_#1f2d35]">
-        강변을 터치해서<br/>대나무를 심어주세요!
+      <div className="absolute inset-x-0 top-0 h-[43%] bg-[#69bdf3]"/>
+      <div className="absolute left-[4%] top-[8%] h-6 w-14 bg-white shadow-[14px_8px_0_#e6f6ff,30px_0_0_white]"/>
+      <div className="absolute right-[10%] top-[10%] h-6 w-14 bg-white shadow-[12px_8px_0_#e6f6ff,28px_0_0_white]"/>
+      <div className="absolute left-[45%] top-[8%] h-5 w-12 bg-white shadow-[10px_7px_0_#e6f6ff,24px_0_0_white]"/>
+      <div className="absolute inset-x-0 top-[25%] h-[20%] bg-[#458bc5] [clip-path:polygon(0_100%,14%_62%,28%_78%,43%_42%,52%_58%,61%_22%,71%_60%,85%_39%,100%_75%,100%_100%)]"/>
+      <div className="absolute left-[60%] top-[19%] h-[14%] w-[2px] bg-[#345978] shadow-[3px_0_0_#d6edf9]"/>
+      <div className="absolute left-[59.2%] top-[18%] h-[6px] w-[12px] bg-[#344f69]"/>
+      <div className="absolute inset-x-[10%] top-[36%] flex h-[8%] items-end gap-[5px] overflow-hidden">
+        {Array.from({length:42}).map((_,i)=><span key={i} className="block w-[10px] bg-[#d8e6ec] shadow-[inset_2px_0_0_#9cb1bf]" style={{height:`${20+(i%6)*7}px`}}/>)}
       </div>
+      <div className="absolute inset-x-0 top-[43%] h-[7%] bg-[#52616b]"/>
+      <div className="absolute inset-x-[2%] top-[44%] h-[11px] bg-[#d5dde2] shadow-[0_8px_0_#3b4850]"/>
+      <div className="absolute inset-x-0 top-[50%] h-[28%] bg-[#4daee1] shadow-[inset_0_8px_0_#8fdbf8]"/>
+      {Array.from({length:26}).map((_,i)=><span key={i} className="absolute h-[4px] bg-[#d5f2ff]/85" style={{width:`${22+(i%4)*10}px`,left:`${(i*13)%94}%`,top:`${54+(i%6)*3.4}%`}} />)}
+      <div className="absolute inset-x-0 bottom-0 h-[32%] bg-[#779547]"/>
+      <div className="absolute inset-x-0 bottom-0 h-[25%] bg-[#9a7a4a] [clip-path:polygon(0_24%,9%_9%,18%_22%,30%_4%,40%_20%,52%_3%,64%_19%,76%_5%,88%_22%,100%_8%,100%_100%,0_100%)]"/>
+      <div className="absolute inset-x-0 bottom-[23%] h-[8%] bg-[#7ca64e]"/>
+      {Array.from({length:34}).map((_,i)=><span key={i} className="absolute h-3 w-3 bg-[#6f8d42] shadow-[6px_3px_0_#527333]" style={{left:`${(i*19)%96}%`,bottom:`${8+(i%7)*3.2}%`}} />)}
+      {Array.from({length:22}).map((_,i)=><span key={i} className="absolute h-3 w-4 bg-[#8b6944] shadow-[4px_4px_0_#6c5237]" style={{left:`${(i*23)%95}%`,bottom:`${2+(i%5)*4}%`}} />)}
     </div>
+
+    {Array.from({length:bambooCount}).map((_,i)=><PixelBamboo key={i} index={i}/>)}
+
+    {showGuide&&<div className="pointer-events-none absolute inset-x-0 bottom-5 z-40 flex items-end gap-3 px-4 sm:px-8">
+      <PixelFarmer small/>
+      <div className="relative max-w-[310px] border-4 border-[#203744] bg-[#fffdf2] px-5 py-4 text-sm font-black leading-6 text-[#162630] shadow-[6px_6px_0_#203744]">
+        강변을 여러 번 터치해서<br/>더 푸르게 만들어주세요!
+        <span className="absolute -left-3 bottom-6 h-5 w-5 rotate-45 border-b-4 border-l-4 border-[#203744] bg-[#fffdf2]"/>
+      </div>
+    </div>}
   </button>
 }
 
-export default function BambooPlantGame(){
- const [phase,setPhase]=useState<Phase>("intro");
- const [count,setCount]=useState(0);
- const [left,setLeft]=useState(GAME_SECONDS);
- const [learnIndex,setLearnIndex]=useState(0);
-
- useEffect(()=>{if(phase!=="play")return;const started=Date.now();const id=window.setInterval(()=>{const l=Math.max(0,GAME_SECONDS-(Date.now()-started)/1000);setLeft(l);if(l<=0){clearInterval(id);setPhase("complete")}},50);return()=>clearInterval(id)},[phase]);
- function start(){setCount(0);setLeft(GAME_SECONDS);setLearnIndex(0);setPhase("play")}
- function plant(){if(phase!=="play")return;setCount(v=>Math.min(100,v+1));if(navigator.vibrate&&count%4===0)navigator.vibrate(12)}
- const bambooCount=useMemo(()=>Math.min(count,BAMBOO_POSITIONS.length),[count]);
-
- return <div className="overflow-hidden border-4 border-[#142630] bg-[#0e2732] text-white shadow-[10px_10px_0_#142630]">
-  {phase==="intro"&&<div className="relative min-h-[700px]">
-    <PixelRiverScene count={4}/>
-    <div className="absolute inset-0 z-40 bg-gradient-to-r from-[#0a2940]/85 via-[#0a2940]/20 to-transparent"/>
-    <div className="absolute left-6 top-8 z-50 sm:left-10 sm:top-10"><div className="text-sm font-black tracking-widest">LINKIMPACT</div><div className="mt-14 max-w-md"><div className="text-[clamp(2.4rem,7vw,5.4rem)] font-black leading-[.9] text-[#d6ff5e] [text-shadow:5px_5px_0_#132b34]">BAMBOO<br/>FOR TOMORROW</div><p className="mt-5 text-lg font-black">작은 행동이 더 건강한 자연을 만듭니다.</p></div></div>
-    <button onClick={start} className="absolute bottom-8 left-1/2 z-50 -translate-x-1/2 border-4 border-[#17343d] bg-[#26b95b] px-8 py-4 text-lg font-black shadow-[6px_6px_0_#17343d] active:translate-y-1 active:shadow-[2px_2px_0_#17343d]">터치해서 대나무를 심어주세요</button>
-  </div>}
-
-  {phase==="play"&&<div className="relative min-h-[700px]">
-    <PixelRiverScene count={bambooCount} interactive onTap={plant}/>
-    <div className="pointer-events-none absolute left-5 right-5 top-5 z-50 flex justify-end gap-3">
-      <div className="border-4 border-[#18323e] bg-[#0b3650]/95 px-5 py-3 font-black shadow-[5px_5px_0_#18323e]">🎋 {count} / 100</div>
-      <div className="border-4 border-[#18323e] bg-[#0b3650]/95 px-5 py-3 font-black shadow-[5px_5px_0_#18323e]">TIME {left.toFixed(1)}</div>
+function StatusBar({count,left}:{count:number;left:number}) {
+  const m=Math.floor(left/60);
+  const s=Math.floor(left%60).toString().padStart(2,"0");
+  return <div className="pointer-events-none absolute left-4 right-4 top-4 z-50 flex items-center justify-between gap-3 sm:left-6 sm:right-6">
+    <div className="flex min-w-[145px] items-center gap-3 border-4 border-[#18323e] bg-[#0b3650] px-4 py-3 text-xl font-black shadow-[5px_5px_0_#18323e]">
+      <span className="text-2xl">🎋</span><span>{count} <span className="text-sm text-white/70">/ {GAME_GOAL}</span></span>
     </div>
-  </div>}
+    <div className="border-4 border-[#18323e] bg-[#0b3650] px-4 py-3 text-lg font-black text-[#ffe15b] shadow-[5px_5px_0_#18323e]">TIME {m}:{s}</div>
+  </div>
+}
 
-  {phase==="complete"&&<div className="relative min-h-[700px] overflow-hidden">
-    <PixelRiverScene count={18}/>
-    <div className="absolute inset-0 z-40 bg-[#061922]/65 backdrop-blur-[2px]"/>
-    <div className="absolute inset-x-0 top-20 z-50 text-center">
-      <div className="text-[clamp(3rem,8vw,6rem)] font-black leading-none text-[#ffdb43] [text-shadow:5px_5px_0_#473715]">MISSION<br/>COMPLETE!</div>
-      <div className="mx-auto mt-5 w-fit border-4 border-[#17343d] bg-[#0b3650] px-6 py-3 text-xl font-black shadow-[5px_5px_0_#17343d]">🎋 {count} / 100</div>
-      <p className="mt-5 font-black">당신의 작은 행동이 더 푸른 강변을 만들었습니다.</p>
-      <div className="mt-8 flex justify-center gap-3">
-        <button onClick={()=>{setLearnIndex(0);setPhase("learn")}} className="border-4 border-[#17343d] bg-[#28b95b] px-6 py-4 font-black shadow-[5px_5px_0_#17343d]">자세히 알아보기</button>
-        <button onClick={start} className="border-4 border-[#17343d] bg-[#172f3c] px-6 py-4 font-black shadow-[5px_5px_0_#17343d]">다시 심기</button>
-      </div>
-    </div>
-  </div>}
+export default function BambooPlantGame() {
+  const [phase,setPhase]=useState<Phase>("intro");
+  const [count,setCount]=useState(0);
+  const [left,setLeft]=useState(GAME_SECONDS);
+  const [learnIndex,setLearnIndex]=useState(0);
 
-  {phase==="learn"&&(()=>{
-    const isLast=learnIndex===LEARN_CARD_IMAGES.length-1;
-    const next=()=>{if(!isLast)setLearnIndex(v=>Math.min(LEARN_CARD_IMAGES.length-1,v+1));};
-    return <div className="relative min-h-[700px] bg-[#0e2732] p-4 sm:p-7">
-      <div className="mx-auto flex min-h-[650px] max-w-3xl flex-col items-center justify-center">
-        <div className="mb-4 flex w-full max-w-[620px] items-center justify-between text-xs font-black tracking-[.15em] text-white/80">
-          <span>LINKIMPACT · BAMBOO FOR TOMORROW</span>
-          <span>{learnIndex+1} / {LEARN_CARD_IMAGES.length}</span>
+  useEffect(()=>{
+    if(phase!=="play") return;
+    const started=Date.now();
+    const id=window.setInterval(()=>{
+      const next=Math.max(0,GAME_SECONDS-(Date.now()-started)/1000);
+      setLeft(next);
+      if(next<=0){clearInterval(id);setPhase("complete");}
+    },100);
+    return()=>clearInterval(id);
+  },[phase]);
+
+  function start(){setCount(0);setLeft(GAME_SECONDS);setLearnIndex(0);setPhase("play");}
+  function plant(){
+    if(phase!=="play") return;
+    setCount(v=>{
+      const next=Math.min(GAME_GOAL,v+1);
+      if(next>=GAME_GOAL) setTimeout(()=>setPhase("complete"),180);
+      return next;
+    });
+    if(navigator.vibrate&&count%4===0) navigator.vibrate(12);
+  }
+
+  return <div className="overflow-hidden border-4 border-[#142630] bg-[#0e2732] text-white shadow-[10px_10px_0_#142630]">
+    {phase==="intro"&&<div className="relative min-h-[720px] overflow-hidden">
+      <PixelRiverScene count={2}/>
+      <div className="absolute inset-0 z-40 bg-gradient-to-b from-[#12344b]/10 via-transparent to-[#19333f]/20"/>
+      <div className="absolute inset-x-0 top-7 z-50 text-center">
+        <p className="text-sm font-black tracking-[.12em] text-white">LINKIMPACT</p>
+        <p className="mt-4 text-sm font-bold text-white/90">작은 행동이<br/>더 건강한 자연을 만듭니다.</p>
+        <div className="mx-auto mt-5 w-fit border-4 border-[#162d37] bg-[#ddff62] px-6 py-4 text-[clamp(2.1rem,7vw,4.9rem)] font-black leading-[.86] text-[#17343d] shadow-[7px_7px_0_#162d37] [text-shadow:3px_3px_0_#fff]">
+          BAMBOO<br/>FOR TOMORROW
         </div>
+        <p className="mt-4 font-black">함께 만드는 더 푸른 강변</p>
+      </div>
+      <div className="pointer-events-none absolute bottom-20 left-6 z-50 sm:left-12"><PixelFarmer/></div>
+      <div className="pointer-events-none absolute bottom-24 left-[42%] z-50 hidden sm:block"><PixelBird/></div>
+      <button onClick={start} className="absolute bottom-5 left-1/2 z-[60] w-[calc(100%-32px)] max-w-md -translate-x-1/2 border-4 border-[#17343d] bg-[#28b95b] px-8 py-4 text-lg font-black shadow-[6px_6px_0_#17343d] active:translate-y-1 active:shadow-[2px_2px_0_#17343d]">
+        터치해서 대나무를 심어주세요
+      </button>
+    </div>}
 
-        <button type="button" onClick={next} aria-label={isLast?"마지막 설명 카드":"다음 설명 카드"} className="group relative flex w-full max-w-[620px] flex-1 items-center justify-center overflow-hidden rounded-2xl bg-[#eef5f7] p-2 shadow-[8px_8px_0_#07171e] sm:p-3">
-          <img
-            key={LEARN_CARD_IMAGES[learnIndex]}
-            src={LEARN_CARD_IMAGES[learnIndex]}
-            alt={`대나무 식재 설명 카드 ${learnIndex+1}`}
-            className="max-h-[70vh] w-auto max-w-full object-contain [image-rendering:auto]"
-          />
-          {!isLast&&<span className="absolute bottom-4 right-4 rounded-full bg-[#0e2732]/90 px-4 py-2 text-sm font-black text-white shadow-lg transition group-hover:translate-x-1">눌러서 다음 →</span>}
-        </button>
+    {phase==="play"&&<div className="relative min-h-[720px]">
+      <PixelRiverScene count={count} interactive onTap={plant} showGuide/>
+      <StatusBar count={count} left={left}/>
+      {count<2&&<div className="pointer-events-none absolute left-1/2 top-[34%] z-50 -translate-x-1/2 border-4 border-[#203744] bg-[#0b3650]/95 px-6 py-4 text-center font-black shadow-[6px_6px_0_#203744]">
+        강변을 터치해서<br/>대나무를 심어주세요!
+        <span className="mx-auto mt-3 block text-4xl">☝</span>
+      </div>}
+      {count>0&&count%8===0&&<div className="pointer-events-none absolute left-1/2 top-[32%] z-50 -translate-x-1/2 animate-pulse rounded-full bg-[#fff38a]/90 px-5 py-2 text-sm font-black text-[#17343d]">✨ 강변이 점점 푸르게 변하고 있어요!</div>}
+    </div>}
 
-        <div className="mt-5 flex w-full max-w-[620px] items-center justify-between gap-3">
-          <button disabled={learnIndex===0} onClick={()=>setLearnIndex(v=>Math.max(0,v-1))} className="border-4 border-white/80 bg-[#17343d] px-5 py-3 font-black text-white shadow-[4px_4px_0_#07171e] disabled:opacity-25">← 이전</button>
-          <div className="flex gap-2">
-            {LEARN_CARD_IMAGES.map((_,i)=><button key={i} onClick={()=>setLearnIndex(i)} aria-label={`${i+1}번 카드`} className={`h-3 w-3 rounded-full ${i===learnIndex?"bg-[#67d267]":"bg-white/35"}`}/>)}
+    {phase==="complete"&&<div className="relative min-h-[720px] overflow-hidden bg-[#06243a]">
+      <PixelRiverScene count={30}/>
+      <div className="absolute inset-0 z-40 bg-[#051d31]/78"/>
+      {Array.from({length:20}).map((_,i)=><span key={i} className="absolute z-50 h-3 w-3 rotate-45" style={{left:`${5+(i*17)%90}%`,top:`${8+(i*23)%70}%`,background:["#ffe45f","#5fd8ff","#fa7a86","#70d86c"][i%4]}}/>)}
+      <div className="absolute inset-x-0 top-12 z-[60] px-5 text-center">
+        <div className="text-[clamp(3rem,10vw,6.4rem)] font-black leading-[.85] text-[#ffea4e] [text-shadow:5px_5px_0_#5e4b13]">MISSION<br/>COMPLETE!</div>
+        <div className="mx-auto mt-5 w-fit border-4 border-[#17343d] bg-[#0b3650] px-7 py-3 text-2xl font-black shadow-[5px_5px_0_#17343d]">🎋 {count} / {GAME_GOAL}</div>
+        <div className="mx-auto mt-7 max-w-sm border-4 border-[#5a381d] bg-[#bd7a32] px-6 py-4 text-[#24170d] shadow-[7px_7px_0_#5a381d]">
+          <h2 className="text-2xl font-black">함께, 더 푸른 강변</h2>
+          <p className="mt-1 font-black">작은 행동이 큰 변화를 만듭니다.</p>
+        </div>
+        <div className="mx-auto mt-3 flex w-fit items-end gap-2"><PixelFarmer small/><PixelBird/></div>
+        <div className="mx-auto mt-3 flex max-w-sm flex-col gap-3">
+          <button onClick={()=>{setLearnIndex(0);setPhase("learn")}} className="border-4 border-[#17343d] bg-[#28b95b] px-6 py-4 font-black shadow-[5px_5px_0_#17343d]">자세히 알아보기</button>
+          <button onClick={start} className="border-4 border-white/45 bg-[#172f3c] px-6 py-4 font-black shadow-[5px_5px_0_#081821]">↻ 다시 심기</button>
+        </div>
+      </div>
+    </div>}
+
+    {phase==="learn"&&(()=>{
+      const isLast=learnIndex===LEARN_CARD_IMAGES.length-1;
+      const next=()=>{if(!isLast)setLearnIndex(v=>Math.min(LEARN_CARD_IMAGES.length-1,v+1));};
+      return <div className="relative min-h-[700px] bg-[#0e2732] p-4 sm:p-7">
+        <div className="mx-auto flex min-h-[650px] max-w-3xl flex-col items-center justify-center">
+          <div className="mb-4 flex w-full max-w-[620px] items-center justify-between text-xs font-black tracking-[.15em] text-white/80">
+            <span>LINKIMPACT · BAMBOO FOR TOMORROW</span>
+            <span>{learnIndex+1} / {LEARN_CARD_IMAGES.length}</span>
           </div>
-          {isLast?<div className="flex gap-2">
-            <a href={KAKAO_URL} target="_blank" rel="noreferrer" className="border-4 border-[#17343d] bg-[#fee500] px-4 py-3 text-sm font-black text-[#17343d] shadow-[4px_4px_0_#07171e]">실제 행동으로 →</a>
-            <button onClick={start} className="border-4 border-white/80 bg-[#28b95b] px-4 py-3 text-sm font-black text-white shadow-[4px_4px_0_#07171e]">다시 심기</button>
-          </div>:<button onClick={next} className="border-4 border-white/80 bg-[#28b95b] px-6 py-3 font-black text-white shadow-[4px_4px_0_#07171e]">다음 →</button>}
+          <button type="button" onClick={next} aria-label={isLast?"마지막 설명 카드":"다음 설명 카드"} className="group relative flex w-full max-w-[620px] flex-1 items-center justify-center overflow-hidden rounded-2xl bg-[#eef5f7] p-2 shadow-[8px_8px_0_#07171e] sm:p-3">
+            <img key={LEARN_CARD_IMAGES[learnIndex]} src={LEARN_CARD_IMAGES[learnIndex]} alt={`대나무 식재 설명 카드 ${learnIndex+1}`} className="max-h-[70vh] w-auto max-w-full object-contain [image-rendering:auto]"/>
+            {!isLast&&<span className="absolute bottom-4 right-4 rounded-full bg-[#0e2732]/90 px-4 py-2 text-sm font-black text-white shadow-lg transition group-hover:translate-x-1">눌러서 다음 →</span>}
+          </button>
+          <div className="mt-5 flex w-full max-w-[620px] items-center justify-between gap-3">
+            <button disabled={learnIndex===0} onClick={()=>setLearnIndex(v=>Math.max(0,v-1))} className="border-4 border-white/80 bg-[#17343d] px-5 py-3 font-black text-white shadow-[4px_4px_0_#07171e] disabled:opacity-25">← 이전</button>
+            <div className="flex gap-2">
+              {LEARN_CARD_IMAGES.map((_,i)=><button key={i} onClick={()=>setLearnIndex(i)} aria-label={`${i+1}번 카드`} className={`h-3 w-3 rounded-full ${i===learnIndex?"bg-[#67d267]":"bg-white/35"}`}/>)}
+            </div>
+            {isLast?<div className="flex gap-2">
+              <a href={KAKAO_URL} target="_blank" rel="noreferrer" className="border-4 border-[#17343d] bg-[#fee500] px-4 py-3 text-sm font-black text-[#17343d] shadow-[4px_4px_0_#07171e]">실제 행동으로 →</a>
+              <button onClick={start} className="border-4 border-white/80 bg-[#28b95b] px-4 py-3 text-sm font-black text-white shadow-[4px_4px_0_#07171e]">다시 심기</button>
+            </div>:<button onClick={next} className="border-4 border-white/80 bg-[#28b95b] px-6 py-3 font-black text-white shadow-[4px_4px_0_#07171e]">다음 →</button>}
+          </div>
         </div>
-      </div>
-    </div>;
-  })()}
- </div>
+      </div>;
+    })()}
+  </div>;
 }
