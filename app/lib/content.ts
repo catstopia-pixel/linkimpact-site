@@ -126,17 +126,13 @@ async function upsertAndDeduplicateSovacNotice(notice: SovacNotice, now: string)
 async function ensureSovacNotices() {
   try {
     const now = new Date().toISOString();
+    // The Otter Clap notice has been retired. Remove any previously generated
+    // copy from D1 so it cannot reappear in the notice list or front popup.
+    await env.DB.prepare(
+      "DELETE FROM posts WHERE title_ko = ? OR content_ko LIKE ? OR content_en LIKE ?"
+    ).bind(WILD_LINK_TITLE, `%${WILD_LINK_MARKER}%`, `%${WILD_LINK_MARKER}%`).run();
+
     const notices: SovacNotice[] = [
-      {
-        marker: WILD_LINK_MARKER,
-        titleKo: WILD_LINK_TITLE,
-        titleEn: "[SOVAC 2026] Otter Clap — How is biodiversity connected to our lives?",
-        excerptKo: "수달의 박수 게임을 통해 자연을 기록하는 이유와 생물다양성, 기후환경, 지역사회와 우리의 삶이 어떻게 연결되는지 체험해보세요.",
-        excerptEn: "Play the Otter Clap game and discover how recording nature connects biodiversity, climate resilience, communities and our lives.",
-        contentKo: `${WILD_LINK_MARKER}\n수달의 박수에서 시작해 생물다양성, 기후환경, 자연재해와 우리의 삶까지 이어지는 연결을 따라가 보세요.`,
-        contentEn: `${WILD_LINK_MARKER}\nFollow the link from an otter to biodiversity, climate resilience, natural hazards and our lives.`,
-        imageKey: WILD_LINK_IMAGE,
-      },
       {
         marker: BAMBOO_LINK_MARKER,
         titleKo: BAMBOO_LINK_TITLE,
