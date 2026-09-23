@@ -34,8 +34,8 @@ export async function POST(request:Request){
       .bind("wild-friends-2026",body.lang==="en"?"en":"ko",JSON.stringify(answers),new Date().toISOString()).run();
 
     // Email is best-effort: a notification failure must never lose a valid application.
-    const emailBinding=(env as unknown as {EMAIL?:{send:(message:{to:string;from:string;subject:string;text:string;html?:string})=>Promise<unknown>}}).EMAIL;
-    if(emailBinding){
+    const resendKey=(env as unknown as {RESEND_API_KEY?:string}).RESEND_API_KEY;
+    if(resendKey){
       const interestText=interests.join(", ");
       const text=[
         "[LINKIMPACT] 새로운 FIELD MISSION 신청이 접수되었습니다.",
@@ -51,12 +51,17 @@ export async function POST(request:Request){
         "전체 응답은 LINKIMPACT 관리자 대시보드 > 신청 · 설문 관리에서 확인하세요."
       ].join("\n");
       try{
-        await emailBinding.send({
-          to:"catstopia@gmail.com",
-          from:"forms@linkimpact.or.kr",
-          subject:`[LINKIMPACT] FIELD MISSION 참가 신청 - ${name}`,
-          text
+        const mail=await fetch("https://api.resend.com/emails",{
+          method:"POST",
+          headers:{"Authorization":`Bearer ${resendKey}`,"Content-Type":"application/json"},
+          body:JSON.stringify({
+            from:"LINKIMPACT Forms <forms@linkimpact.or.kr>",
+            to:["catstopia@gmail.com","hyojoon0310@gmail.com"],
+            subject:`[LINKIMPACT] FIELD MISSION 참가 신청 - ${name}`,
+            text
+          })
         });
+        if(!mail.ok) console.error("Form notification email failed",await mail.text());
       }catch(error){
         console.error("Form notification email failed",error);
       }
