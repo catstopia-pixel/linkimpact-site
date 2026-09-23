@@ -37,8 +37,8 @@ const copy={
   }
 } as const;
 
-export default function ApplyFormClient(){
-  const[lang,setLang]=useState<Lang>("ko");
+export default function ApplyFormClient({initialLang="ko"}:{initialLang?:Lang}){
+  const[lang,setLang]=useState<Lang>(initialLang);
   const[busy,setBusy]=useState(false);
   const[done,setDone]=useState(false);
   const[error,setError]=useState("");
