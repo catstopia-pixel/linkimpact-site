@@ -14,6 +14,7 @@ export async function POST(request:Request){
     const body=await request.json() as Submission;
     const date=clean(body.date,100), name=clean(body.name,100), age=clean(body.age,20), phone=clean(body.phone,50), device=clean(body.device,80);
     if(!date||!name||!age||!phone||!device||!body.consent) return Response.json({error:"Missing required fields"},{status:400});
+    if(!["20대","30대","20s","30s"].includes(age)) return Response.json({error:"Invalid age range"},{status:400});
     const interests=Array.isArray(body.interests)?body.interests.map(x=>clean(x,80)).filter(Boolean).slice(0,20):[];
     if(!interests.length) return Response.json({error:"Select at least one interest"},{status:400});
 
