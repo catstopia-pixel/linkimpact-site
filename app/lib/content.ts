@@ -88,6 +88,8 @@ const WILD_LINK_IMAGE = "https://commons.wikimedia.org/wiki/Special:Redirect/fil
 const WILD_LINK_MARKER = "[[WILD_LINK_OTTER]]";
 const BAMBOO_LINK_TITLE = "[SOVAC 2026] 30초 숲 만들기 — 대나무가 지역사회의 회복과 어떻게 연결될까요?";
 const BAMBOO_LINK_MARKER = "[[BAMBOO_LINK_PHILIPPINES]]";
+const WILD_FRIENDS_TITLE = "[모집] 야생 친구를 찾습니다 — 추석 도시생태 탐사게임 & 네트워킹";
+const WILD_FRIENDS_MARKER = "[[WILD_FRIENDS_2026]]";
 
 async function upsertAndDeduplicateSovacNotice(notice: SovacNotice, now: string) {
   const matches = await env.DB.prepare(
@@ -131,6 +133,72 @@ async function ensureSovacNotices() {
     await env.DB.prepare(
       "DELETE FROM posts WHERE title_ko = ? OR content_ko LIKE ? OR content_en LIKE ?"
     ).bind(WILD_LINK_TITLE, `%${WILD_LINK_MARKER}%`, `%${WILD_LINK_MARKER}%`).run();
+
+    const wildFriends = await env.DB.prepare(
+      "SELECT id FROM posts WHERE title_ko = ? OR content_ko LIKE ? OR content_en LIKE ? ORDER BY id ASC"
+    ).bind(WILD_FRIENDS_TITLE, `%${WILD_FRIENDS_MARKER}%`, `%${WILD_FRIENDS_MARKER}%`).all<{id:number}>();
+    const wildFriendsIds = wildFriends.results.map(row => row.id);
+    const wildFriendsKo = `${WILD_FRIENDS_MARKER}
+추석 연휴, 서울에 남은 청년들과 함께 도시의 야생을 발견하고 기록하는 NatureLens FIELD MISSION을 진행합니다.
+
+금요일과 토요일 오후 5시, 홍릉천과 습지 일대를 걸으며 새·식물·곤충·이름 모를 생명과 흔적을 발견하고 NatureLens에 기록합니다. 현장에서 공개되는 WILD QUEST 미션을 완료하면 경품도 받을 수 있습니다.
+
+탐사가 끝난 뒤에는 무료 다과와 함께 AFTER TIME 네트워킹이 이어집니다. 생물에 대한 지식은 필요하지 않으며 혼자 참가해도 좋습니다.
+
+일정
+- 9월 25일(금) 오후 5:00
+- 9월 26일(토) 오후 5:00
+
+장소: 홍릉천 · 습지 일대
+참가비: 무료
+준비물: 스마트폰, 운동화 및 간편한 복장, 물
+FIELD MISSION 성공 시 경품 증정
+
+상세 프로그램과 참가 신청 안내는 랜딩페이지에서 확인할 수 있습니다.
+LANDING: /wild-friends
+REGISTRATION: 준비 중`;
+    const wildFriendsEn = `${WILD_FRIENDS_MARKER}
+NatureLens FIELD MISSION is a real-world urban ecology exploration game for young adults spending Chuseok in Seoul.
+
+At 5 PM on Friday and Saturday, we will explore the Hongneungcheon stream and wetland area, discover birds, plants, insects and unfamiliar traces of life, and record them in NatureLens. Complete WILD QUEST missions revealed on site to earn prizes.
+
+After the field mission, stay for AFTER TIME with complimentary refreshments. No biological knowledge is required, and solo participants are welcome.
+
+Dates
+- Friday, September 25 · 5:00 PM
+- Saturday, September 26 · 5:00 PM
+
+Location: Hongneungcheon stream & wetland area
+Fee: Free
+Bring: Smartphone, comfortable shoes/clothes, water
+Prizes for successful FIELD MISSIONS
+
+See the landing page for the full program and registration information.
+LANDING: /wild-friends
+REGISTRATION: Coming soon`;
+    const wfNow = new Date().toISOString();
+    if (wildFriendsIds.length) {
+      await env.DB.prepare(
+        `UPDATE posts SET type='notice',title_ko=?,title_en=?,excerpt_ko=?,excerpt_en=?,content_ko=?,content_en=?,image_key=?,category=?,status='published',is_pinned=1,event_date='2026-09-25',updated_at=? WHERE id=?`
+      ).bind(
+        WILD_FRIENDS_TITLE,
+        "[Recruiting] Seeking Wild Friends — Chuseok Urban Ecology Field Game & Networking",
+        "추석 저녁, NatureLens로 도시의 야생을 발견하고 WILD QUEST 미션을 수행하는 현실세계 생태 탐사게임에 참여하세요.",
+        "Join a real-world NatureLens ecology game: explore Seoul's urban wild, complete WILD QUEST missions, and meet people through discovery.",
+        wildFriendsKo, wildFriendsEn, "/notices/wild-friends-2026.svg", "모집 · FIELD MISSION", wfNow, wildFriendsIds[0]
+      ).run();
+      for (const duplicateId of wildFriendsIds.slice(1)) await env.DB.prepare("DELETE FROM posts WHERE id=?").bind(duplicateId).run();
+    } else {
+      await env.DB.prepare(
+        "INSERT INTO posts(type,title_ko,title_en,excerpt_ko,excerpt_en,content_ko,content_en,image_key,gallery_json,category,status,is_pinned,event_date,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+      ).bind(
+        "notice", WILD_FRIENDS_TITLE,
+        "[Recruiting] Seeking Wild Friends — Chuseok Urban Ecology Field Game & Networking",
+        "추석 저녁, NatureLens로 도시의 야생을 발견하고 WILD QUEST 미션을 수행하는 현실세계 생태 탐사게임에 참여하세요.",
+        "Join a real-world NatureLens ecology game: explore Seoul's urban wild, complete WILD QUEST missions, and meet people through discovery.",
+        wildFriendsKo, wildFriendsEn, "/notices/wild-friends-2026.svg", "[]", "모집 · FIELD MISSION", "published", 1, "2026-09-25", wfNow, wfNow
+      ).run();
+    }
 
     const notices: SovacNotice[] = [
       {
