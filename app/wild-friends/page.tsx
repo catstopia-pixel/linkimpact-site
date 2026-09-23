@@ -11,7 +11,7 @@ const copy = {
     subtitle:"추석에 서울에 남은 사람들의 도시생태 탐사게임 & 네트워킹",
     intro:"금요일과 토요일 저녁, 스마트폰 하나 들고 도시의 야생을 찾아 나섭니다. 새와 식물, 곤충, 이름 모를 생명과 흔적을 발견하고 NatureLens에 기록하면서 현장에서 주어지는 FIELD MISSION을 수행합니다.",
     heroNote:"그냥 걷는 산책이 아니라 탐험하고, 발견하고, 수집하고, 미션을 깨는 현실세계 생태게임.",
-    cta:"FIELD MISSION 참가 신청하기", ctaPending:"신청 링크 준비 중",
+    cta:"FIELD MISSION 참가 신청하기", ctaPending:"",
     weekendTitle:"주말 저녁을 탐험으로.", weekendBody:"해가 조금씩 낮아지는 오후 5시. 낮에 보이던 생물과 저녁이 되면서 움직이기 시작하는 생물을 함께 관찰합니다. 매번 같은 공원을 걷는 것이 아니라 하천과 습지의 새로운 구간을 직접 탐사하며 그날의 발견을 NatureLens에 남깁니다. 누가 무엇을 발견하게 될지는 직접 걸어보기 전까지 알 수 없습니다.",
     howTitle:"현실세계에서 시작되는 WILD QUEST",
     steps:[
@@ -44,7 +44,7 @@ const copy = {
     who:["탐조를 한번 해보고 싶었던 사람","이름 모르는 식물을 그냥 지나치지 못하는 사람","산책하며 사진 찍는 걸 좋아하는 사람","게임처럼 미션 깨는 걸 좋아하는 사람","주말마다 새로운 곳을 가보고 싶은 사람","도시를 조금 다른 방식으로 보고 싶은 사람","혼자 참여할 수 있는 새로운 모임을 찾는 사람"],
     whoNote:"생물에 대한 지식은 필요하지 않습니다. 잘 알아서 찾는 것이 아니라 찾아보기 때문에 알게 되는 프로그램입니다.",
     finalTitle:"이번 주말, 새로운 곳 하나를 정복해보세요.", finalBody:"누군가는 새를 발견하고, 누군가는 이름 모를 식물을 발견하고, 누군가는 새로운 사람을 발견합니다.", finalLine:"혼자 와서, 같이 발견하는 추석.",
-    formTitle:"FIELD MISSION 참가 신청", formBody:"참가 신청 링크는 현재 준비 중입니다. 링크가 확정되면 이 버튼에서 바로 신청할 수 있도록 연결됩니다.",
+    formTitle:"FIELD MISSION 참가 신청", formBody:"아래 버튼을 누르면 LINKIMPACT 자체 참가 신청 폼으로 이동합니다.",
     accepted:"🌿 FIELD MISSION ACCEPTED", acceptedBody:"참가 신청이 완료되면 준비물과 집결 안내를 전달드립니다. 오늘의 미션은 현장에서 공개됩니다."
   },
   en: {
@@ -54,7 +54,7 @@ const copy = {
     subtitle:"An urban ecology field game & networking night for people spending Chuseok in Seoul",
     intro:"On Friday and Saturday evening, head into the city's wild spaces with just your phone. Find birds, plants, insects and unfamiliar traces of life, record them in NatureLens, and complete FIELD MISSIONS revealed on site.",
     heroNote:"Not just a walk: explore, discover, collect, record and clear missions in a real-world ecology game.",
-    cta:"Join the FIELD MISSION", ctaPending:"Registration link coming soon",
+    cta:"Join the FIELD MISSION", ctaPending:"",
     weekendTitle:"Turn your weekend evening into an expedition.", weekendBody:"At 5 PM, as daylight begins to fade, we look for both daytime wildlife and creatures that become active toward evening. We explore new stretches of streams and wetlands and leave each discovery in NatureLens. You won't know what you'll find until you start walking.",
     howTitle:"WILD QUEST begins in the real world",
     steps:[
@@ -87,7 +87,7 @@ const copy = {
     who:["Have wanted to try birdwatching","Always stop for plants you don't recognize","Enjoy taking photos on walks","Like completing game-style missions","Want to explore somewhere new on weekends","Want to see the city differently","Are looking for a new activity you can join alone"],
     whoNote:"No biological knowledge is required. You don't find things because you already know them—you learn because you start looking.",
     finalTitle:"Conquer one new place this weekend.", finalBody:"Someone will find a bird, someone an unknown plant, and someone a new person.", finalLine:"Come alone. Discover together.",
-    formTitle:"FIELD MISSION REGISTRATION", formBody:"The registration link is being prepared. Once confirmed, this button will take you directly to the application form.",
+    formTitle:"FIELD MISSION REGISTRATION", formBody:"Use the button below to open LINKIMPACT’s own registration form.",
     accepted:"🌿 FIELD MISSION ACCEPTED", acceptedBody:"After registration, we'll send preparation and meeting-point information. Today's mission will be revealed on site."
   }
 } as const;
@@ -112,8 +112,8 @@ export default async function WildFriendsPage({searchParams}:{searchParams:Promi
     <section className="relative overflow-hidden bg-[#092d2a] text-white">
       <div className="absolute inset-0 opacity-25" style={{backgroundImage:"radial-gradient(circle at 20% 10%,#6fcb7d 0,transparent 28%),radial-gradient(circle at 85% 20%,#f4c968 0,transparent 22%)"}}/>
       <div className="relative mx-auto grid max-w-6xl gap-12 px-5 py-20 md:grid-cols-[1.05fr_.95fr] md:px-8 md:py-28">
-        <div className="flex flex-col justify-center"><p className="text-sm font-black tracking-[.18em] text-[#9ed8a8]">{t.eyebrow}</p><p className="mt-8 text-xl font-bold text-[#f4c968]">{t.heroTop}</p><h1 className="mt-4 text-5xl font-black leading-[1.04] md:text-7xl">{t.title}</h1><p className="mt-5 text-xl font-bold leading-8 text-[#dff2e3]">{t.subtitle}</p><p className="mt-8 max-w-2xl text-base leading-8 text-white/75">{t.intro}</p><p className="mt-4 font-bold leading-7">{t.heroNote}</p><div className="mt-8 text-sm font-black tracking-[.15em] text-[#9ed8a8]">MISSION → EXPLORE → DISCOVER → RECORD → COMPLETE</div><div className="mt-9 inline-flex w-fit cursor-not-allowed flex-col rounded-2xl bg-[#f4c968] px-7 py-4 text-[#153a32] shadow-lg"><span className="font-black">{t.cta}</span><span className="mt-1 text-xs font-bold opacity-65">{t.ctaPending}</span></div></div>
-        <div className="overflow-hidden rounded-[2rem] border border-white/15 bg-white/5 p-3 shadow-2xl"><img src="/notices/wild-friends-2026.svg" alt={t.title} className="h-full w-full rounded-[1.5rem] object-cover"/></div>
+        <div className="flex flex-col justify-center"><p className="text-sm font-black tracking-[.18em] text-[#9ed8a8]">{t.eyebrow}</p><p className="mt-8 text-xl font-bold text-[#f4c968]">{t.heroTop}</p><h1 className="mt-4 text-5xl font-black leading-[1.04] md:text-7xl">{t.title}</h1><p className="mt-5 text-xl font-bold leading-8 text-[#dff2e3]">{t.subtitle}</p><p className="mt-8 max-w-2xl text-base leading-8 text-white/75">{t.intro}</p><p className="mt-4 font-bold leading-7">{t.heroNote}</p><div className="mt-8 text-sm font-black tracking-[.15em] text-[#9ed8a8]">MISSION → EXPLORE → DISCOVER → RECORD → COMPLETE</div><Link href={"/apply/wild-friends-2026?lang="+lang} className="mt-9 inline-flex w-fit rounded-2xl bg-[#f4c968] px-7 py-4 font-black text-[#153a32] shadow-lg transition hover:-translate-y-0.5">{t.cta}</Link></div>
+        <div className="mx-auto w-full max-w-[430px] overflow-hidden rounded-[2rem] border border-white/15 bg-white/5 p-3 shadow-2xl"><div className="aspect-[3/4] overflow-hidden rounded-[1.5rem] bg-[#102d29]"><img src="/notices/wild-friends-2026.svg" alt={t.title} className="h-full w-full object-cover"/></div></div>
       </div>
     </section>
 
