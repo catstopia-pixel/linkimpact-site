@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/apply/wild-friends-2026" },
 };
 
-export default function WildFriendsApplyPage(){
-  return <ApplyFormClient/>;
+export default async function WildFriendsApplyPage({searchParams}:{searchParams:Promise<{lang?:string}>}){
+  const {lang}=await searchParams;
+  return <ApplyFormClient initialLang={lang==="en"?"en":"ko"}/>;
 }
