@@ -90,6 +90,108 @@ const BAMBOO_LINK_TITLE = "[SOVAC 2026] 30초 숲 만들기 — 대나무가 지
 const BAMBOO_LINK_MARKER = "[[BAMBOO_LINK_PHILIPPINES]]";
 const WILD_FRIENDS_TITLE = "[모집] 야생 친구를 찾습니다 — 추석 도시생태 탐사게임 & 네트워킹";
 const WILD_FRIENDS_MARKER = "[[WILD_FRIENDS_2026]]";
+const SOVAC_ACTIVITY_MARKER = "[[SOVAC_2026_ACTIVITY]]";
+const SOVAC_ACTIVITY_TITLE = "LINKIMPACT, SOVAC 2026 참가";
+
+async function ensureSovacActivity(now: string) {
+  const contentKo = `${SOVAC_ACTIVITY_MARKER}
+LINKIMPACT가 SOVAC 2026에 참가해 시민의 발견과 기록을 실제 환경 행동으로 연결하는 활동을 소개했습니다.
+
+이번 팝업에서는 LINKIMPACT가 환경·사회문제를 다루는 과정을 ‘발견(Discover) → 기록(Record) → 연결(Connect) → 활동(Act) → 임팩트(Impact)’의 5단계로 구성해 선보였습니다.
+
+환경과 사회의 변화는 문제를 ‘발견’하는 것에서 시작합니다. 지역에서 발견한 생물과 자연환경의 변화를 시민이 직접 관찰하고, 이를 사진과 위치정보 등의 데이터로 남기는 과정에는 LINKIMPACT의 시민 환경 기록 플랫폼 ‘NatureLens(네이처렌즈)’가 활용됩니다.
+
+NatureLens는 현장에서 발견한 생물과 환경 변화를 기록하고, AI 기반 종 추정과 커뮤니티·전문가 검증을 통해 시민의 관찰을 축적할 수 있도록 설계된 플랫폼입니다.
+
+LINKIMPACT는 이러한 ‘기록’이 데이터에 머무르지 않고 사람과 전문가, 지역사회 그리고 실제 행동으로 ‘연결’되어야 한다고 생각합니다.
+
+이번 SOVAC에서는 그 연결이 실제 환경복원 활동으로 확장되는 사례로 필리핀 Nueva Vizcaya 지역의 대나무 식재 프로젝트를 소개했습니다.
+
+Nueva Vizcaya는 태풍과 홍수로 지역사회와 자연환경이 피해를 입은 지역입니다. LINKIMPACT는 피해지역의 환경 회복과 지속가능한 복원에 기여하기 위해 하천 주변에 대나무를 식재하고, 향후 현지에서 묘목을 지속적으로 생산·관리할 수 있는 기반을 만드는 프로젝트를 추진하고 있습니다.
+
+대나무는 빠른 생장과 촘촘하게 발달하는 뿌리 구조를 가진 식물입니다. 이러한 특성은 적절한 지역과 관리 조건에서 하천변의 토양을 붙잡고 토양 유실을 줄이는 데 활용될 수 있습니다. 또한 식재에서 끝나는 것이 아니라 현지 묘목장 조성과 보식, 관리로 이어지는 구조를 구축하면 환경복원과 지역의 지속적인 참여를 함께 만들어갈 수 있습니다.
+
+이번 팝업에서는 이러한 복원 원리를 설명만으로 전달하는 대신 RPG 형식의 체험 게임으로 구현했습니다. 참여자는 게임 속 재난 피해지역에서 직접 대나무를 심고 복원 진행도를 높여가며, 왜 대나무를 심는지, 식재가 환경 회복에 어떻게 활용될 수 있는지, 지속적인 관리가 왜 필요한지를 자연스럽게 경험할 수 있었습니다.
+
+이를 통해 다소 어렵게 느껴질 수 있는 기후재난과 환경복원의 이야기를 참여형 콘텐츠로 전환하고, 관람객의 관심과 이해를 실제 ‘활동(Act)’으로 이어지도록 구성했습니다.
+
+게임을 마친 뒤에는 필리핀 Nueva Vizcaya의 실제 대나무 식재를 지원하는 카카오 같이가치 모금 캠페인으로 연결했습니다. 현장에서 문제를 이해하고 게임으로 복원 과정을 경험한 뒤, 실제 프로젝트를 확인하고 참여할 수 있도록 한 것입니다.
+
+결국 이번 SOVAC 팝업에서 LINKIMPACT가 보여준 것은 각각 분리된 플랫폼과 캠페인이 아니라 하나의 연결된 과정입니다.
+
+발견하고, NatureLens로 기록하고, 사람과 전문성을 연결하고, 필요한 행동을 만들고, 그 행동을 지속가능한 임팩트로 확장하는 것.
+
+DISCOVER → RECORD → CONNECT → ACT → IMPACT.
+
+다양한 기업과 소셜벤처, 비영리조직, 사회혁신 주체들이 각자의 방식으로 사회문제 해결을 제시하는 SOVAC에서 LINKIMPACT가 참가 조직으로 함께했다는 점에서도 이번 활동은 의미가 있습니다.
+
+하나의 발견이 기록이 되고, 기록이 연결을 만들며, 연결이 행동으로 이어지고, 그 행동이 쌓여 임팩트가 됩니다.
+
+LINKIMPACT는 앞으로도 사람과 자원, 행동을 연결하며 지역사회가 마주한 환경과 사회문제를 지속가능한 변화로 이어가겠습니다.`;
+
+  const contentEn = `${SOVAC_ACTIVITY_MARKER}
+LINKIMPACT participated in SOVAC 2026, presenting how citizen observation and environmental records can be connected to real-world action.
+
+At our pop-up, we introduced LINKIMPACT’s five-stage approach to creating change:
+
+DISCOVER → RECORD → CONNECT → ACT → IMPACT.
+
+Change begins with discovery. Citizens observe changes in local ecosystems and turn what they find into meaningful records through NatureLens, LINKIMPACT’s citizen environmental recording platform.
+
+NatureLens enables people to document species and environmental changes using photographs, location data and field observations, supported by AI-assisted identification and community or expert verification.
+
+But records become more meaningful when they create connections. LINKIMPACT aims to connect citizen-generated records with communities, experts, organizations and the actions needed to respond to environmental challenges.
+
+At SOVAC 2026, we demonstrated how this process can extend into real-world restoration through our bamboo planting project in Nueva Vizcaya, the Philippines.
+
+Nueva Vizcaya is one of the areas affected by typhoons and flooding. LINKIMPACT is developing a project to plant bamboo along affected riverside areas while building a longer-term system for local seedling production, replanting and environmental management.
+
+Bamboo grows rapidly and develops dense root systems. Under appropriate site and management conditions, these characteristics can help stabilize riverside soil and reduce erosion. By connecting planting with local nurseries, replacement planting and continued management, restoration can become an ongoing process rather than a one-time activity.
+
+Instead of explaining this only through panels, LINKIMPACT transformed the restoration process into an interactive RPG-style game. Participants entered a disaster-affected environment, planted bamboo and watched the restoration progress as they played. The experience helped visitors understand why bamboo is being planted, how vegetation can contribute to environmental recovery and why long-term management matters.
+
+The experience then moved from learning to action. After the game, visitors were connected to LINKIMPACT’s Kakao Together fundraising campaign supporting the actual bamboo planting project in Nueva Vizcaya.
+
+What LINKIMPACT presented at SOVAC was therefore not a collection of separate projects, but one connected process:
+
+DISCOVER → RECORD → CONNECT → ACT → IMPACT.
+
+Participating in SOVAC 2026 alongside companies, social ventures, nonprofits and other social innovation organizations was also a meaningful opportunity for LINKIMPACT to present its own approach to social and environmental change.
+
+A discovery becomes a record. A record creates a connection. A connection leads to action. And accumulated actions create impact.
+
+LINKIMPACT will continue connecting people, resources and action to turn environmental and social challenges into sustainable change.`;
+
+  const gallery = JSON.stringify([
+    "/sovac/2026/IMG_8646.jpg",
+    "/sovac/2026/IMG_8647.jpg",
+    "/sovac/2026/IMG_8648.jpg",
+    "/sovac/2026/IMG_8649.jpg",
+    "/sovac/2026/IMG_8571.jpg",
+    "/sovac/2026/IMG_8556.jpg"
+  ]);
+  const matches = await env.DB.prepare(
+    "SELECT id FROM posts WHERE title_ko=? OR content_ko LIKE ? OR content_en LIKE ? ORDER BY id ASC"
+  ).bind(SOVAC_ACTIVITY_TITLE, `%${SOVAC_ACTIVITY_MARKER}%`, `%${SOVAC_ACTIVITY_MARKER}%`).all<{id:number}>();
+  const ids = matches.results.map(row => row.id);
+  const values = [
+    SOVAC_ACTIVITY_TITLE,
+    "LINKIMPACT at SOVAC 2026",
+    "SOVAC 2026 팝업에서 발견·기록·연결·활동·임팩트의 5단계 활동 모델과 NatureLens, 필리핀 Nueva Vizcaya 대나무 복원 프로젝트를 소개했습니다.",
+    "At SOVAC 2026, LINKIMPACT presented its five-stage impact model, NatureLens, and the Nueva Vizcaya bamboo restoration project through an interactive experience.",
+    contentKo, contentEn, "/sovac/2026/IMG_8650.jpg", gallery
+  ];
+  if (ids.length) {
+    await env.DB.prepare(
+      "UPDATE posts SET type='activity',title_ko=?,title_en=?,excerpt_ko=?,excerpt_en=?,content_ko=?,content_en=?,image_key=?,gallery_json=?,category='SOVAC 2026',status='published',is_pinned=0,event_date='2026-09-21',updated_at=? WHERE id=?"
+    ).bind(...values, now, ids[0]).run();
+    for (const duplicateId of ids.slice(1)) await env.DB.prepare("DELETE FROM posts WHERE id=?").bind(duplicateId).run();
+  } else {
+    await env.DB.prepare(
+      "INSERT INTO posts(type,title_ko,title_en,excerpt_ko,excerpt_en,content_ko,content_en,image_key,gallery_json,category,status,is_pinned,event_date,created_at,updated_at) VALUES('activity',?,?,?,?,?,?,?,?,?,'published',0,'2026-09-21',?,?)"
+    ).bind(...values, "SOVAC 2026", now, now).run();
+  }
+}
 
 async function upsertAndDeduplicateSovacNotice(notice: SovacNotice, now: string) {
   const matches = await env.DB.prepare(
@@ -216,6 +318,7 @@ REGISTRATION: Coming soon`;
     for (const notice of notices) {
       await upsertAndDeduplicateSovacNotice(notice, now);
     }
+    await ensureSovacActivity(now);
   } catch {}
 }
 
