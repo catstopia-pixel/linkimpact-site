@@ -15,6 +15,7 @@ const copy={
     date:"참가 희망일",name:"이름",age:"나이",gender:"성별",phone:"연락처",device:"휴대폰 기종",interests:"관심사",message:"기대하는 점 또는 하고 싶은 말",consent:"개인정보 수집 및 이용 동의",consentBody:"행사 참가 접수와 안내를 위해 이름, 나이, 연락처, 휴대폰 기종, 관심사 등의 정보를 수집합니다. 수집된 정보는 행사 운영 목적에만 사용하며 목적 달성 후 파기합니다.",
     required:"필수",optional:"선택",submit:"FIELD MISSION 참가 신청",sending:"신청 접수 중…",back:"행사 소개로 돌아가기",
     dates:["9월 25일(금) 오후 5:00","9월 26일(토) 오후 5:00"],
+    ages:["20대","30대"],
     genders:["여성","남성","기타","응답하지 않음"],
     devices:["Apple / iPhone","Android"],
     interests:["새 / 탐조","식물","곤충","사진","산책 / 트레킹","생물다양성","미션 / 탐험","새로운 사람 만나기","NatureLens","기타"],
@@ -29,6 +30,7 @@ const copy={
     date:"Preferred date",name:"Name",age:"Age",gender:"Gender",phone:"Phone number",device:"Phone type",interests:"Interests",message:"What are you hoping to experience?",consent:"Consent to personal data collection",consentBody:"We collect your name, age, contact information, phone type and interests for registration, participant communication and event operation. Data will be deleted after the purpose of collection is fulfilled.",
     required:"Required",optional:"Optional",submit:"Join the FIELD MISSION",sending:"Submitting…",back:"Back to event page",
     dates:["Fri, Sep 25 · 5:00 PM","Sat, Sep 26 · 5:00 PM"],
+    ages:["20s","30s"],
     genders:["Female","Male","Other","Prefer not to say"],
     devices:["Apple / iPhone","Android"],
     interests:["Birds / Birdwatching","Plants","Insects","Photography","Walking / Trekking","Biodiversity","Missions / Exploration","Meeting new people","NatureLens","Other"],
@@ -119,7 +121,7 @@ export default function ApplyFormClient({initialLang="ko"}:{initialLang?:Lang}){
 
         <div className="grid gap-5 md:grid-cols-2">
           <Field label={t.name} requiredText={t.required}><input name="name" required className="input" /></Field>
-          <Field label={t.age} requiredText={t.required}><input name="age" required inputMode="numeric" className="input" /></Field>
+          <Field label={t.age} requiredText={t.required}><select name="age" required className="input bg-white"><option value="">—</option>{t.ages.map(x=><option key={x} value={x}>{x}</option>)}</select></Field>
         </div>
 
         <Field label={t.gender} requiredText={t.optional}><div className="grid grid-cols-2 gap-3">{t.genders.map(x=><label key={x} className="flex cursor-pointer items-center gap-2 rounded-xl border border-[#dde5da] p-3 text-sm has-[:checked]:border-[#2d8b55] has-[:checked]:bg-[#eef8f0]"><input type="radio" name="gender" value={x} className="accent-[#2d8b55]"/>{x}</label>)}</div></Field>
