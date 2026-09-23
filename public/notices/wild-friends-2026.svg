@@ -1,71 +1,39 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="t d">
-<title id="t">야생 친구를 찾습니다 — WILD QUEST</title>
-<desc id="d">추석 저녁 도시생태 탐사게임과 네트워킹 참가자 모집 썸네일</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1200" role="img" aria-labelledby="t d">
+<title id="t">야생 친구를 찾습니다</title><desc id="d">도시생태 탐사게임 FIELD MISSION 참가자 모집 포스터</desc>
 <defs>
-  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="0" stop-color="#14264a"/>
-    <stop offset=".48" stop-color="#765b9f"/>
-    <stop offset="1" stop-color="#ffb36b"/>
-  </linearGradient>
-  <linearGradient id="river" x1="0" y1="0" x2="1" y2="1">
-    <stop stop-color="#46b7cf"/>
-    <stop offset="1" stop-color="#205f7a"/>
-  </linearGradient>
-  <filter id="shadow"><feDropShadow dx="0" dy="8" stdDeviation="8" flood-opacity=".28"/></filter>
+ <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#273e83"/><stop offset=".5" stop-color="#f08c78"/><stop offset="1" stop-color="#ffd071"/></linearGradient>
+ <linearGradient id="water" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#70d1d1"/><stop offset="1" stop-color="#187487"/></linearGradient>
+ <filter id="s"><feDropShadow dx="0" dy="9" stdDeviation="9" flood-opacity=".25"/></filter>
 </defs>
-<rect width="1200" height="675" fill="url(#sky)"/>
-<circle cx="1000" cy="108" r="52" fill="#fff4b2" opacity=".95"/>
-<g fill="#fff" opacity=".7">
-  <circle cx="945" cy="55" r="3"/><circle cx="1080" cy="62" r="2"/><circle cx="1110" cy="135" r="3"/><circle cx="860" cy="88" r="2"/>
+<rect width="900" height="1200" rx="48" fill="#0d3a32"/>
+<rect x="24" y="24" width="852" height="1152" rx="38" fill="url(#sky)"/>
+<circle cx="690" cy="330" r="82" fill="#ffd86e" opacity=".9"/>
+<g fill="#293d62" opacity=".9"><rect x="590" y="370" width="45" height="130"/><rect x="640" y="325" width="62" height="175"/><rect x="708" y="355" width="50" height="145"/><rect x="765" y="300" width="66" height="200"/></g>
+<path d="M24 480 C160 405 280 430 395 500 C505 566 620 455 876 430 L876 1176 L24 1176Z" fill="#176047"/>
+<path d="M24 590 C180 505 300 560 420 620 C550 685 680 560 876 565 L876 1176 L24 1176Z" fill="#287e4f"/>
+<path d="M430 530 C520 570 650 610 720 700 C785 784 735 900 650 1010 L430 1176 H675 C770 1060 850 970 876 850 L876 650 C730 590 600 535 430 500Z" fill="url(#water)"/>
+<g filter="url(#s)"><rect x="85" y="85" width="730" height="315" rx="45" fill="#fff9df"/><path d="M150 400l55 0-32 46z" fill="#fff9df"/></g>
+<text x="450" y="145" text-anchor="middle" font-family="Arial,sans-serif" font-size="28" font-weight="900" fill="#2e8450">NATURELENS · FIELD MISSION</text>
+<text x="450" y="245" text-anchor="middle" font-family="Arial,sans-serif" font-size="76" font-weight="900" fill="#153a32">야생 친구를</text>
+<text x="450" y="335" text-anchor="middle" font-family="Arial,sans-serif" font-size="76" font-weight="900" fill="#153a32">찾습니다</text>
+<text x="450" y="378" text-anchor="middle" font-family="Arial,sans-serif" font-size="26" font-weight="800" fill="#5a705e">도시생태 탐사게임 &amp; 네트워킹</text>
+<!-- explorer -->
+<g transform="translate(110 535)" filter="url(#s)">
+ <circle cx="145" cy="130" r="80" fill="#f4c9a4"/><path d="M72 126q20-115 143-62q38 17 25 90q-20-52-70-55q-62-3-98 27z" fill="#2e302d"/>
+ <path d="M50 76q84-94 202-14l-15 35q-88-36-178 14z" fill="#9d9a77"/><ellipse cx="152" cy="67" rx="110" ry="23" fill="#817e61"/>
+ <circle cx="122" cy="133" r="9" fill="#283331"/><circle cx="181" cy="133" r="9" fill="#283331"/><path d="M132 166q20 16 40 0" stroke="#8b493f" stroke-width="6" fill="none"/>
+ <path d="M72 213q80-43 160 0l35 170H45z" fill="#7d8d76"/><path d="M135 255q58 30 88 100" stroke="#f4c9a4" stroke-width="28" stroke-linecap="round"/>
+ <rect x="184" y="307" width="75" height="112" rx="14" transform="rotate(-14 184 307)" fill="#142b31"/><circle cx="220" cy="390" r="7" fill="#63b476"/>
 </g>
-<!-- distant city -->
-<g fill="#2c4162" opacity=".9">
-  <rect x="780" y="280" width="44" height="110"/><rect x="828" y="242" width="56" height="148"/><rect x="890" y="266" width="40" height="124"/><rect x="936" y="225" width="64" height="165"/><rect x="1007" y="258" width="48" height="132"/><rect x="1063" y="236" width="58" height="154"/>
-</g>
-<!-- landscape -->
-<path d="M0 330 C180 230 290 265 410 322 C520 372 610 300 745 302 C900 305 1010 350 1200 280 L1200 675 L0 675 Z" fill="#184f42"/>
-<path d="M0 408 C180 335 320 366 450 424 C570 476 685 372 790 386 C920 402 1030 475 1200 390 L1200 675 L0 675 Z" fill="#28714c"/>
-<path d="M495 372 C620 405 715 410 815 468 C880 505 930 565 1040 675 L678 675 C718 610 738 558 690 514 C646 474 574 452 495 432 Z" fill="url(#river)" opacity=".95"/>
-<!-- foliage -->
-<g fill="#3e8f51">
-  <circle cx="75" cy="430" r="78"/><circle cx="165" cy="458" r="96"/><circle cx="1110" cy="445" r="100"/><circle cx="1020" cy="490" r="80"/>
-</g>
-<!-- sign -->
-<g filter="url(#shadow)">
-  <rect x="80" y="84" width="730" height="245" rx="34" fill="#fffdf0"/>
-  <rect x="98" y="104" width="694" height="205" rx="26" fill="#f5f0d8"/>
-</g>
-<text x="118" y="152" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#2b724d">NATURELENS · FIELD MISSION</text>
-<text x="118" y="224" font-family="Arial,sans-serif" font-size="62" font-weight="900" fill="#173b32">야생 친구를 찾습니다</text>
-<text x="118" y="270" font-family="Arial,sans-serif" font-size="30" font-weight="800" fill="#37554c">추석 저녁 도시생태 탐사게임 &amp; 네트워킹</text>
-<text x="118" y="303" font-family="Arial,sans-serif" font-size="20" font-weight="700" fill="#688078">WILD QUEST · EXPLORE · DISCOVER · RECORD</text>
-<!-- cute owl -->
-<g transform="translate(878 358)" filter="url(#shadow)">
-  <ellipse cx="80" cy="100" rx="72" ry="78" fill="#d9a66e"/>
-  <circle cx="52" cy="78" r="27" fill="#fff7dc"/><circle cx="108" cy="78" r="27" fill="#fff7dc"/>
-  <circle cx="52" cy="78" r="10" fill="#253a37"/><circle cx="108" cy="78" r="10" fill="#253a37"/>
-  <path d="M72 96 L88 96 L80 111 Z" fill="#e48b3a"/>
-  <path d="M18 42 L45 12 L54 49 Z" fill="#a96f44"/><path d="M106 49 L116 12 L143 42 Z" fill="#a96f44"/>
-  <path d="M42 132 Q80 165 118 132" fill="#4f8d54"/>
-</g>
-<!-- phone -->
-<g transform="translate(340 382) rotate(-6)" filter="url(#shadow)">
-  <rect width="180" height="260" rx="28" fill="#12262b"/>
-  <rect x="15" y="20" width="150" height="215" rx="18" fill="#d9f1e3"/>
-  <circle cx="90" cy="213" r="16" fill="#36a564"/>
-  <path d="M38 58 C70 34 108 38 144 64" stroke="#6fbf75" stroke-width="10" fill="none"/>
-  <circle cx="68" cy="98" r="18" fill="#71b85c"/><circle cx="122" cy="118" r="16" fill="#4e8c64"/>
-  <path d="M56 160 L130 148" stroke="#2f7f56" stroke-width="8"/>
-</g>
-<!-- event info pills -->
-<g font-family="Arial,sans-serif" font-weight="800">
-  <rect x="80" y="512" width="286" height="78" rx="20" fill="#0c312a" opacity=".96"/>
-  <text x="104" y="546" font-size="22" fill="#fff">9/25 FRI · 17:00</text><text x="104" y="574" font-size="18" fill="#bfe8d0">홍릉천 · 습지 일대</text>
-  <rect x="382" y="512" width="286" height="78" rx="20" fill="#0c312a" opacity=".96"/>
-  <text x="406" y="546" font-size="22" fill="#fff">9/26 SAT · 17:00</text><text x="406" y="574" font-size="18" fill="#bfe8d0">혼자 참가 환영</text>
-  <rect x="684" y="512" width="436" height="78" rx="20" fill="#f7d951"/>
-  <text x="714" y="547" font-size="24" fill="#173b32">FIELD MISSION 참가자 모집</text><text x="714" y="576" font-size="17" fill="#4b5b31">무료 · 미션 성공 시 경품 · AFTER TIME</text>
-</g>
-<text x="86" y="642" font-family="Arial,sans-serif" font-size="23" font-weight="900" fill="#fff">LINKIMPACT</text>
-<text x="1020" y="640" text-anchor="end" font-family="Arial,sans-serif" font-size="17" font-weight="700" fill="#dff6ea">혼자 와서, 같이 발견하는 추석.</text>
+<!-- wildlife -->
+<g transform="translate(355 765)" filter="url(#s)"><ellipse cx="90" cy="80" rx="78" ry="58" fill="#9a603e"/><ellipse cx="90" cy="86" rx="55" ry="40" fill="#e6c09c"/><circle cx="62" cy="70" r="7"/><circle cx="118" cy="70" r="7"/><circle cx="90" cy="90" r="8"/><path d="M76 105q14 12 28 0" stroke="#53372d" stroke-width="5" fill="none"/></g>
+<g transform="translate(650 720)"><ellipse cx="70" cy="80" rx="54" ry="32" fill="#e9edf0"/><circle cx="105" cy="58" r="28" fill="#f8fafb"/><path d="M130 58l38 10-38 11z" fill="#efaa48"/><path d="M47 83q-28 30-38 70" stroke="#343d48" stroke-width="10"/><circle cx="111" cy="51" r="5"/></g>
+<g transform="translate(100 925)"><ellipse cx="70" cy="55" rx="60" ry="42" fill="#66a94d"/><circle cx="48" cy="26" r="24" fill="#80c461"/><circle cx="96" cy="26" r="24" fill="#80c461"/><circle cx="48" cy="23" r="6"/><circle cx="96" cy="23" r="6"/><path d="M55 59q18 12 35 0" stroke="#315f3b" stroke-width="5" fill="none"/></g>
+<!-- mission sign -->
+<g transform="translate(675 520)" filter="url(#s)"><rect x="63" y="0" width="18" height="280" rx="8" fill="#755033"/><g fill="#d6a65e" stroke="#604127" stroke-width="4"><rect x="0" y="20" width="150" height="55" rx="8"/><rect x="-8" y="88" width="158" height="55" rx="8"/><rect x="5" y="156" width="145" height="55" rx="8"/></g><g font-family="Arial,sans-serif" font-size="20" font-weight="900" fill="#173b32"><text x="75" y="55" text-anchor="middle">EXPLORE</text><text x="71" y="123" text-anchor="middle">DISCOVER</text><text x="77" y="191" text-anchor="middle">RECORD</text></g></g>
+<!-- info card -->
+<g filter="url(#s)"><rect x="80" y="1005" width="740" height="120" rx="28" fill="#fff9df"/></g>
+<text x="125" y="1052" font-family="Arial,sans-serif" font-size="28" font-weight="900" fill="#173b32">9.25 FRI · 9.26 SAT · 17:00</text>
+<text x="125" y="1095" font-family="Arial,sans-serif" font-size="25" font-weight="800" fill="#173b32">홍릉천 · 습지 일대</text>
+<text x="450" y="1160" text-anchor="middle" font-family="Arial,sans-serif" font-size="26" font-weight="900" fill="#fff">LINKIMPACT</text>
 </svg>
