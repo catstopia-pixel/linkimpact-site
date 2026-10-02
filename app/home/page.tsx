@@ -23,6 +23,7 @@ export default async function MainHomePage() {
       settings={settings}
       posts={[...notices, ...activities]}
       showAdmin={Boolean(user)}
+      embedded
     />
   );
 }

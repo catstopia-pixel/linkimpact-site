@@ -30,7 +30,7 @@ export default function InteractiveFrontClient({posts,front,showAdmin}:Props){
    {popupOpen&&popupNotice?<div className="fixed inset-0 z-[100] grid place-items-center bg-black/70 p-4">
      <div className="relative w-full max-w-lg overflow-hidden rounded-3xl border border-white/10 bg-[#09171b]">
        <button onClick={()=>setPopupOpen(false)} className="absolute right-4 top-4 z-10 grid h-10 w-10 place-items-center rounded-full bg-black/60" aria-label="공지 닫기"><X size={18}/></button>
-       <div className="aspect-[16/8] bg-cover bg-center" style={{backgroundImage:`url("${media(popupNotice)}")`}}/>
+       <div className="aspect-square bg-cover bg-center" style={{backgroundImage:`url("${media(popupNotice)}")`}}/>
        <div className="p-6">
          <div className="text-xs font-bold tracking-[.2em] text-emerald-300">NOTICE</div>
          <h2 className="mt-3 text-2xl font-bold">{lang==="ko"?popupNotice.title_ko:(popupNotice.title_en||popupNotice.title_ko)}</h2>
