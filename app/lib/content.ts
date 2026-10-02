@@ -92,6 +92,61 @@ const WILD_FRIENDS_TITLE = "[모집] 야생 친구를 찾습니다 — 추석 �
 const WILD_FRIENDS_MARKER = "[[WILD_FRIENDS_2026]]";
 const SOVAC_ACTIVITY_MARKER = "[[SOVAC_2026_ACTIVITY]]";
 const SOVAC_ACTIVITY_TITLE = "LINKIMPACT, SOVAC 2026 참가";
+const NATURELENS_MISSION_TITLE = "네이처렌즈에 ‘미션’ 기능이 추가되었습니다";
+const NATURELENS_MISSION_MARKER = "[[NATURELENS_MISSION_2026]]";
+
+async function ensureNatureLensMissionNotice(now: string) {
+  const contentKo = `${NATURELENS_MISSION_MARKER}
+네이처렌즈에 단체와 팀이 함께 자연을 기록할 수 있는 ‘미션’ 기능이 추가되었습니다.
+
+미션은 개인의 관찰 기록을 넘어 학교, 기관, 동아리, 시민모임 등 여러 사람이 하나의 주제와 기간을 정해 함께 자연을 탐사하고 기록할 수 있도록 만든 팀 프로젝트 기능입니다.
+
+미션에 참여하면 정해진 기간 동안 현장에서 직접 촬영하거나 앨범의 사진, 기존 탐사 기록을 연결해 생물 관찰을 남길 수 있습니다. 참여자들이 남긴 기록은 하나의 프로젝트 안에 모이며, 어떤 생물이 발견됐는지와 얼마나 많은 기록이 쌓였는지 함께 확인할 수 있습니다.
+
+단체별 생태조사, 지역 생물다양성 기록, 학교·기관의 자연탐사, 캠페인과 프로젝트 등 목적에 맞는 미션을 만들어 여러 사람의 관찰을 하나의 기록으로 연결해보세요.
+
+개인의 발견이 팀의 기록이 되고, 팀의 기록이 지역의 자연을 이해하는 데이터로 이어집니다.
+
+NatureLens에서 새로운 미션 기능을 만나보세요.`;
+
+  const contentEn = `${NATURELENS_MISSION_MARKER}
+NatureLens now includes Missions, a new team project feature for groups to explore and document nature together.
+
+Missions allow schools, organizations, clubs and community groups to set a shared theme and time period, then collect nature observations in one project instead of keeping records separately.
+
+Participants can take photos in the field, upload photos from their albums, or connect existing exploration records during the mission period. Everyone’s observations are gathered in one project, making it easier to see what species were found and how the team’s records are growing.
+
+Create a mission for biodiversity surveys, school field activities, local nature projects, campaigns or community exploration, and turn individual discoveries into shared environmental records.
+
+One discovery becomes a team record, and team records become data that helps us understand local nature.
+
+Explore the new Missions feature in NatureLens.`;
+
+  const matches = await env.DB.prepare(
+    "SELECT id FROM posts WHERE title_ko=? OR content_ko LIKE ? OR content_en LIKE ? ORDER BY id ASC"
+  ).bind(NATURELENS_MISSION_TITLE, `%${NATURELENS_MISSION_MARKER}%`, `%${NATURELENS_MISSION_MARKER}%`).all<{id:number}>();
+  const ids = matches.results.map(row=>row.id);
+  const values = [
+    NATURELENS_MISSION_TITLE,
+    "NatureLens Missions Are Here",
+    "단체와 팀이 하나의 주제로 자연을 탐사하고 기록할 수 있는 네이처렌즈 ‘미션’ 기능이 새롭게 추가되었습니다.",
+    "NatureLens Missions let groups explore, photograph and build shared nature records together in one team project.",
+    contentKo,
+    contentEn,
+    "/notices/naturelens-mission-2026.webp",
+    "네이처렌즈 · NEW FEATURE"
+  ];
+  if (ids.length) {
+    await env.DB.prepare(
+      "UPDATE posts SET type='notice',title_ko=?,title_en=?,excerpt_ko=?,excerpt_en=?,content_ko=?,content_en=?,image_key=?,gallery_json='[]',category=?,status='published',is_pinned=1,event_date='2026-10-02',updated_at=? WHERE id=?"
+    ).bind(...values, now, ids[0]).run();
+    for (const duplicateId of ids.slice(1)) await env.DB.prepare("DELETE FROM posts WHERE id=?").bind(duplicateId).run();
+  } else {
+    await env.DB.prepare(
+      "INSERT INTO posts(type,title_ko,title_en,excerpt_ko,excerpt_en,content_ko,content_en,image_key,gallery_json,category,status,is_pinned,event_date,created_at,updated_at) VALUES('notice',?,?,?,?,?,?,?,'[]',?,'published',1,'2026-10-02',?,?)"
+    ).bind(...values, now, now).run();
+  }
+}
 
 async function ensureSovacActivity(now: string) {
   const contentKo = `${SOVAC_ACTIVITY_MARKER}
@@ -281,6 +336,7 @@ REGISTRATION: Coming soon`;
       await upsertAndDeduplicateSovacNotice(notice, now);
     }
     await ensureSovacActivity(now);
+    await ensureNatureLensMissionNotice(now);
   } catch {}
 }
 
