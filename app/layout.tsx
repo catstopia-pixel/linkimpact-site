@@ -23,9 +23,18 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  manifest: "/site.webmanifest?v=20261002",
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
+    icon: [
+      { url: "/favicon.ico?v=20261002" },
+      { url: "/favicon.svg?v=20261002", type: "image/svg+xml" },
+      { url: "/favicon-32x32.png?v=20261002", type: "image/png", sizes: "32x32" },
+      { url: "/icon-192.png?v=20261002", type: "image/png", sizes: "192x192" },
+    ],
+    shortcut: "/favicon.ico?v=20261002",
+    apple: [
+      { url: "/apple-touch-icon.png?v=20261002", sizes: "180x180", type: "image/png" },
+    ],
   },
 };
 
