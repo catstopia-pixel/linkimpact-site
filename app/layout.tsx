@@ -23,18 +23,14 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  manifest: "/site.webmanifest?v=20261002",
+  manifest: "/site.webmanifest?v=20261002b",
   icons: {
     icon: [
-      { url: "/favicon.ico?v=20261002" },
-      { url: "/favicon.svg?v=20261002", type: "image/svg+xml" },
-      { url: "/favicon-32x32.png?v=20261002", type: "image/png", sizes: "32x32" },
-      { url: "/icon-192.png?v=20261002", type: "image/png", sizes: "192x192" },
+      { url: "/linkimpact-favicon-v2.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico?v=20261002b" },
     ],
-    shortcut: "/favicon.ico?v=20261002",
-    apple: [
-      { url: "/apple-touch-icon.png?v=20261002", sizes: "180x180", type: "image/png" },
-    ],
+    shortcut: "/linkimpact-favicon-v2.svg",
+    apple: "/apple-touch-icon.png?v=20261002b",
   },
 };
 
