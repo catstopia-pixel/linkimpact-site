@@ -25,8 +25,8 @@ export const metadata: Metadata = {
   },
   manifest: "/site.webmanifest",
   icons: {
-    icon: [{ url: "/favicon.ico", type: "image/x-icon", sizes: "48x48" }],
-    shortcut: "/favicon.ico",
+    icon: [{ url: "/api/site/favicon", sizes: "48x48" }],
+    shortcut: "/api/site/favicon",
     apple: "/apple-touch-icon.png",
   },
 };
