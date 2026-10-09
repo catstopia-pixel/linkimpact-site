@@ -29,6 +29,12 @@ const worker = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
 
+    // Read-only responsive QA harness, restricted to the isolated preview host.
+    if (url.hostname === "refinement-2026-10-09-linkimpact-site.catstopia.workers.dev" && url.pathname === "/__preview-qa") {
+      const width = [360,390,768,1440].includes(Number(url.searchParams.get("width"))) ? Number(url.searchParams.get("width")) : 390;
+      return new Response(`<!doctype html><html><head><title>LINKIMPACT responsive preview</title></head><body style="margin:0;background:#ddd"><nav style="height:40px">${[360,390,768,1440].map(w=>`<a style="margin:12px" href="?width=${w}">${w}px</a>`).join("")}</nav><iframe title="LINKIMPACT ${width}px" src="/" style="width:${width}px;height:844px;border:0;display:block"></iframe></body></html>`, {headers:{"Content-Type":"text/html; charset=utf-8","X-Robots-Tag":"noindex","Cache-Control":"no-store"}});
+    }
+
     if (url.pathname === "/_vinext/image") {
       const allowedWidths = [...DEFAULT_DEVICE_SIZES, ...DEFAULT_IMAGE_SIZES];
       return handleImageOptimization(request, {
