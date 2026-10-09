@@ -28,5 +28,39 @@ export function renderFront(template:string, locations:Location[], posts:Post[],
   const photos=gallery(p.gallery_json);const next=activities[(index+1)%activities.length];
   return `<section class="drawer" id="detail-${p.id}" data-story-id="${p.id}" aria-labelledby="detail-title-${p.id}"><a class="drawer-close" aria-label="Close" href="#home">×</a><aside class="drawer-map" ${l?`data-lat="${l.lat}" data-lng="${l.lng}" data-place-ko="${escape(l.place_ko)}" data-place-en="${escape(l.place_en)}" data-zoom="11"`:''} style="background:linear-gradient(145deg,#08372f,#176958)">${l?`<div class="chapter-map" id="chapter-map-${p.id}" aria-hidden="true"></div>`:''}<div class="map-pin"><span class="pin-box"></span>${bilingual(l?.place_ko||p.category,l?.place_en||p.category)}</div><div class="map-topline"><div><div class="eyebrow">LINKIMPACT · ACTIVITY</div><div class="place">${bilingual(l?.place_ko||p.category,l?.place_en||p.category)}</div></div><div class="map-zoom-status"></div></div></aside><article class="article"><div class="article-inner"><div class="tags"><span class="tag">${escape(p.category)}</span><span class="tag light">${date}</span></div><h1 id="detail-title-${p.id}">${title}</h1><h2>${bilingual(p.excerpt_ko,p.excerpt_en)}</h2>${p.image_key?`<figure class="article-media actual-media"><img src="${escape(media(p.image_key))}" alt="${escape(p.title_ko)}" loading="lazy"></figure>`:''}<div class="body-copy ko"><p>${text(p.content_ko)}</p></div><div class="body-copy en"><p>${text(p.content_en||p.content_ko)}</p></div>${photos.length?`<div class="photo-gallery">${photos.map(src=>`<img src="${escape(src)}" alt="${escape(p.title_ko)}" loading="lazy">`).join('')}</div>`:''}</div><footer class="article-footer"><div><h2>LINKIMPACT</h2><p>${bilingual('연결은 설계되어야 한다.','Connection must be designed.')}</p></div><div class="footer-nav"><a class="nav-pill" href="#home">← HOME</a><a class="nav-pill" href="#explore">EXPLORE ↗</a><a class="nav-pill" href="#detail-${next.id}">${bilingual('다음','NEXT')} →</a></div></footer></article></section>`;
  }).join('');
- return template.replace(/\{\{([A-Z_0-9]+)\}\}/g,(_,key)=>slots[key]??'');
+ const footerLeaf="<a aria-label=\"NatureLens · 네이처렌즈\" title=\"NatureLens · 네이처렌즈\" href=\"https://naturelens.kr/\" target=\"_blank\" rel=\"noopener noreferrer\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M20 3c-8 0-14 3-14 9a6 6 0 0 0 6 6c6 0 9-6 8-15Z\"></path><path d=\"M4 21 16 9\"></path><path d=\"M10 15v-4M10 15h4\"></path></svg></a>";
+ return responsiveExplore(template).replace('<div class="li-social">', '<div class="li-social">'+footerLeaf).replace(/\{\{([A-Z_0-9]+)\}\}/g,(_,key)=>slots[key]??'');
+}
+
+/** Keep the geographic plane fully visible; allow dragging after a place zoom. */
+export function responsiveExplore(template: string) {
+ return template
+  .replace('base=Math.max(r.width/1000,r.height/500)', 'base=Math.max(.01,Math.min(Math.max(1,r.width-48)/1000,Math.max(1,r.height-64)/500))')
+  .replace(' function setTransform(scale,x,y){', ' let view={scale:1,x:0,y:0},drag=null;\n function setTransform(scale,x,y){view={scale,x,y};')
+  .replace(' renderMarkers();requestAnimationFrame(fit);', `
+ const observer=new ResizeObserver(()=>{if(location.hash==='#explore'){fit();closeSheet();}});
+ observer.observe(windowEl);
+ windowEl.addEventListener('pointerdown',e=>{
+  if(!windowEl.classList.contains('is-zoomed')||e.target.closest('button,a,.place-sheet'))return;
+  drag={id:e.pointerId,x:e.clientX,y:e.clientY,originX:view.x,originY:view.y};
+  windowEl.setPointerCapture(e.pointerId);windowEl.classList.add('is-dragging');
+ });
+ windowEl.addEventListener('pointermove',e=>{
+  if(!drag||e.pointerId!==drag.id)return;
+  const r=windowEl.getBoundingClientRect(),w=1000*view.scale,h=500*view.scale;
+  const clamp=(value,size,viewport)=>size<=viewport?(viewport-size)/2:Math.min(0,Math.max(viewport-size,value));
+  setTransform(view.scale,clamp(drag.originX+e.clientX-drag.x,w,r.width),clamp(drag.originY+e.clientY-drag.y,h,r.height));
+ });
+ const endDrag=()=>{drag=null;windowEl.classList.remove('is-dragging');};
+ windowEl.addEventListener('pointerup',endDrag);windowEl.addEventListener('pointercancel',endDrag);
+ windowEl.addEventListener('lostpointercapture',endDrag);
+ renderMarkers();requestAnimationFrame(fit);`)
+  .replace('</head>', `<style id="explore-responsive-fit">
+ #explore .explore-map-window{touch-action:none}
+ #explore .explore-map-window.is-zoomed{cursor:grab}
+ #explore .explore-map-window.is-dragging{cursor:grabbing}
+ #explore .explore-map-window.is-dragging .explore-map-plane{transition:none}
+ #explore .place-sheet{touch-action:pan-x pan-y}
+ @media(max-width:600px){#explore .place-marker-card{width:44px}#explore .place-marker-thumb{width:44px;height:44px}#explore .place-marker-count{min-width:18px;height:18px}}
+ </style></head>`);
 }
