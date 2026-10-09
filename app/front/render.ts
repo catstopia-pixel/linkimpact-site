@@ -38,10 +38,17 @@ export function responsiveExplore(template: string) {
   .replace('base=Math.max(r.width/1000,r.height/500)', 'base=Math.max(.01,Math.min(Math.max(1,r.width-48)/1000,Math.max(1,r.height-64)/500))')
   .replace(' function setTransform(scale,x,y){', ' let view={scale:1,x:0,y:0},drag=null;\n function setTransform(scale,x,y){view={scale,x,y};')
   .replace(' renderMarkers();requestAnimationFrame(fit);', `
- const observer=new ResizeObserver(()=>{if(location.hash==='#explore'){fit();closeSheet();}});
+ const picker=document.createElement('select');picker.className='explore-location-picker';
+ picker.setAttribute('aria-label','활동 지역 선택 / Choose a location');windowEl.appendChild(picker);
+ const drawMarkers=renderMarkers;
+ renderMarkers=()=>{drawMarkers();picker.innerHTML='<option value="">'+(lang()==='en'?'Choose an activity location':'활동 지역을 선택하세요')+'</option>'+clusters.map((c,i)=>'<option value="'+i+'">'+esc(placeName(c.items[0]))+' · '+c.items.length+'</option>').join('');};
+ picker.addEventListener('change',()=>{if(picker.value!=='')selectCluster(Number(picker.value));});
+ document.querySelector('.explore-reset')?.addEventListener('click',()=>{picker.value='';});
+ document.getElementById('explore-back-world')?.addEventListener('click',()=>{picker.value='';});
+ const observer=new ResizeObserver(()=>{if(location.hash==='#explore'){fit();closeSheet();picker.value='';}});
  observer.observe(windowEl);
  windowEl.addEventListener('pointerdown',e=>{
-  if(!windowEl.classList.contains('is-zoomed')||e.target.closest('button,a,.place-sheet'))return;
+  if(!windowEl.classList.contains('is-zoomed')||e.target.closest('button,a,select,.place-sheet'))return;
   drag={id:e.pointerId,x:e.clientX,y:e.clientY,originX:view.x,originY:view.y};
   windowEl.setPointerCapture(e.pointerId);windowEl.classList.add('is-dragging');
  });
@@ -61,6 +68,8 @@ export function responsiveExplore(template: string) {
  #explore .explore-map-window.is-dragging{cursor:grabbing}
  #explore .explore-map-window.is-dragging .explore-map-plane{transition:none}
  #explore .place-sheet{touch-action:pan-x pan-y}
+ #explore .explore-location-picker{display:none;position:absolute;z-index:30;left:18px;right:18px;bottom:58px;width:calc(100% - 36px);padding:13px;border:1px solid #426d4b;border-radius:10px;background:#143320;color:#eaffea;font:inherit;font-size:12px}
+ @media(max-width:900px){#explore .explore-location-picker{display:block}#explore .is-zoomed .explore-location-picker{display:none}}
  @media(max-width:600px){#explore .place-marker-card{width:44px}#explore .place-marker-thumb{width:44px;height:44px}#explore .place-marker-count{min-width:18px;height:18px}}
  </style></head>`);
 }
