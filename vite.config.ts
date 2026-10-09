@@ -14,6 +14,13 @@ const isCodexSeatbeltSandbox = process.env.CODEX_SANDBOX === "seatbelt";
 const localBindingConfig = {
   main: "./worker/index.ts",
   compatibility_flags: ["nodejs_compat"],
+  previews: {
+    d1_databases: [{
+      binding: "DB",
+      database_name: "linkimpact-preview-20261009",
+      database_id: "04a696e0-491c-41c7-b53e-2969e39156d0",
+    }],
+  },
   d1_databases: d1
     ? [
         {
