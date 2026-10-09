@@ -4,12 +4,12 @@
  const copy=(a,b)=>isEn()?b:a;
  const modal=document.getElementById('receiptModal'),form=document.getElementById('receiptForm'),type=document.getElementById('donorType'),business=document.getElementById('businessFields'),number=document.getElementById('businessNumber'),submit=document.getElementById('receiptSubmit');
  let previous=null,busy=false,done=false;
- function translate(){document.querySelectorAll('[data-copy-ko]').forEach(e=>e.textContent=isEn()?e.dataset.copyEn:e.dataset.copyKo);document.getElementById('donorNameLabel').textContent=type.value==='business'?copy('법인·사업자명 *','Business name *'):copy('기부자 성명 *','Donor name *');document.documentElement.lang=isEn()?'en':'ko';}
+ function translate(){document.querySelectorAll('[data-post-link]').forEach(a=>{const u=new URL(a.href);u.searchParams.set('lang',isEn()?'en':'ko');a.href=u.pathname+u.search});document.querySelectorAll('[data-copy-ko]').forEach(e=>e.textContent=isEn()?e.dataset.copyEn:e.dataset.copyKo);document.getElementById('donorNameLabel').textContent=type.value==='business'?copy('법인·사업자명 *','Business name *'):copy('기부자 성명 *','Donor name *');document.documentElement.lang=isEn()?'en':'ko';}
  function close(){modal.hidden=true;document.body.style.overflow='';previous?.focus()}
  document.getElementById('openReceipt').addEventListener('click',()=>{previous=document.activeElement;translate();modal.hidden=false;document.body.style.overflow='hidden';document.getElementById('closeReceipt').focus()});
  document.getElementById('closeReceipt').addEventListener('click',close);modal.addEventListener('click',e=>{if(e.target===modal)close()});
  type.addEventListener('change',()=>{const b=type.value==='business';business.classList.toggle('receipt-hidden',!b);number.required=b;translate()});
- [ko,en].forEach(r=>r.addEventListener('change',translate));translate();
+ [ko,en].forEach(r=>r.addEventListener('change',translate));window.addEventListener('linkimpact-language',translate);translate();
  document.addEventListener('keydown',e=>{if(modal.hidden)return;if(e.key==='Escape')close();if(e.key==='Tab'){const inputs=[...modal.querySelectorAll('button,input,select')].filter(x=>!x.disabled&&x.getClientRects().length);const first=inputs[0],last=inputs.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
  form.addEventListener('submit',async e=>{
   e.preventDefault();if(busy||done)return;
