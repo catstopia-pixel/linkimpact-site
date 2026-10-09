@@ -6,6 +6,10 @@ import { defaultFrontSettings, type Post } from "../../lib/content";
 export const dynamic="force-dynamic";
 export async function GET() {
  try {
+  if (!env.DB || typeof env.DB.prepare !== 'function') {
+   console.error('Front content could not be loaded: LINKIMPACT_DB_BINDING_MISSING');
+   return new Response('Unable to load LINKIMPACT. Please try again.', {status:503,headers:{'Retry-After':'30','X-Linkimpact-Error':'missing-db-binding'}});
+  }
   const [posts,settings]=await Promise.all([
    env.DB.prepare("SELECT * FROM posts WHERE status='published' ORDER BY is_pinned DESC,created_at DESC").all<Post>(),
    env.DB.prepare("SELECT key,value FROM front_settings").all<{key:string;value:string}>(),
@@ -13,7 +17,7 @@ export async function GET() {
   const front={...defaultFrontSettings,...Object.fromEntries(settings.results.map(r=>[r.key,r.value]))};
   return new Response(renderFront(template,locations,posts.results,front),{headers:{"Content-Type":"text/html; charset=utf-8","Cache-Control":"no-store","X-Linkimpact-Design":"refinement-2026-10-09","X-Content-Type-Options":"nosniff"}});
  }catch(error){
-  console.error("Front content could not be loaded",error);
+  console.error("Front content could not be loaded: " + (error instanceof Error ? error.message : String(error)));
   return new Response('Unable to load LINKIMPACT. Please try again.',{status:503,headers:{"Retry-After":"30"}});
  }
 }
