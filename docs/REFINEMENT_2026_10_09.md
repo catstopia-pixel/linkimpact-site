@@ -64,3 +64,7 @@ Local final checks: build passed; TypeScript passed; integration tests 6/6; lint
 Production branch was rechecked and still points to 25d9dfb13e7af2a1a43b6d99af8f590231f0c57d. Production https://linkimpact.or.kr/ visibly remains the old design. No production promotion has been performed.
 
 Blocking facts: supplied privacy text explicitly says draft and has unconfirmed effective date, retention rules and processors/international transfers. Existing approved policy or actual operational facts are needed before describing privacy as finalized. Existing administration and APIs are preserved in code; authenticated administrator read/write verification is still pending. No deployment-success claim is made.
+
+## Operator instruction before production deployment
+
+On 2026-10-09 the operator instructed publication using general privacy information and an effective date of February 20, 2024. The policy now describes observed form fields, purpose-based retention, Cloudflare hosting/storage, Resend program notification email, Google Fonts and browser language storage in Korean and English. This records the operator-specified effective date, not independent evidence of historical publication or a legal-compliance audit. Production promotion proceeds under the existing deployment authorization after successful checks. Authenticated private administrator verification remains pending.
