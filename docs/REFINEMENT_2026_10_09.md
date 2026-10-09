@@ -24,9 +24,9 @@ Backup branch: backup/pre-refinement-2026-10-09.
 
 ## Required before production promotion
 
-1. Authenticate to the actual Cloudflare dashboard. Current agent browser was signed out and displayed a verification error; no operating Worker name, account, D1 identifier, deployment branch or build command was verified.
-2. Identify the Worker serving linkimpact.or.kr and record its current deployment, routes, bindings and environment. The repository's .openai/hosting.json refers to a separate older ChatGPT Sites publication; do not deploy there as a substitute.
-3. Export the actual production D1 database and preserve R2/uploads and runtime settings. A Git source backup is not a database backup.
+1. Actual Cloudflare project confirmed from the user's authenticated dashboard: Worker `linkimpact-site`, domain `linkimpact.or.kr`, repository `catstopia-pixel/linkimpact-site`, branch `cloudflare-dashboard`, build `npm run build`, deploy `npx wrangler deploy`, root `/`. Agent browser remains blocked by a verification error.
+2. Existing bindings confirmed: D1 `DB` -> `site-creator-d1` (`f8b529a9-452b-4d75-a1cc-37c44e0af834`), R2 `BUCKET` -> `site-creator-r2`; runtime has encrypted `RESEND_API_KEY`. The separate older ChatGPT Sites publication is not the deployment target.
+3. D1 Time Travel confirmed with a seven-day restore window. Pre-deployment recovery bookmark captured from the dashboard on 2026-10-09 around 16:28 Asia/Seoul: `00000ab6-00000000-000050ff-8911b94916d56984724332d9eba0f084`. Independent SQL export completed on the user's Mac, as recorded below. R2 backup remains unperformed; integration does not replace or delete existing R2 objects.
 4. Verify local/preview desktop and mobile layout, language switch, actual video/audio playback, notice and article navigation, chapter accordion, EXPLORE clustering/zoom, account copy, receipt submission and authenticated admin visibility. Cloud Browser could not reach terminal.local:8787; browser QA has not passed.
 5. Confirm actual privacy-processing operations and retention periods. The supplied privacy text still labels itself a draft and includes an unconfirmed effective date. It must not be reported as finalized.
 6. Confirm production admin Access protection also covers `/admin/donations` and the existing submissions API.
@@ -34,4 +34,8 @@ Backup branch: backup/pre-refinement-2026-10-09.
 8. Recheck linkimpact.or.kr's `X-Linkimpact-Design: refinement-2026-10-09` response and all production flows; retain the actual deployment ID and GitHub commit.
 
 Production deployment status: NOT DEPLOYED.
-Database backup status: NOT PERFORMED.
+Database recovery status: MANAGED TIME TRAVEL BOOKMARK RECORDED. User's Wrangler 4.149.0 exported the confirmed remote database successfully to their Downloads/LINKIMPACT_DB_backup_20261009.sql, verified from the terminal screenshot at 2026-10-09 16:38 Asia/Seoul. Export file contents have not been independently restored or inspected by the agent; the user retains the private backup.
+
+Production schema confirmed from the user's read-only D1 Console screenshot: posts, front_settings, form_submissions, impact_stats, site_settings and wild_link_scores. posts and form_submissions column definitions match the integration queries. Unauthenticated GET /admin/donations redirects HTTP 302 to Cloudflare Access (checked before promotion).
+
+Preview branch builds enabled by the user in Cloudflare Settings > Builds > Previews Base on 2026-10-09 around 16:45 Asia/Seoul, confirmed from the dashboard screenshot. Preview build command `npm run build`, preview command `npx wrangler preview`, root `/`. This document update triggers a work-branch build; production branch remains unchanged.
