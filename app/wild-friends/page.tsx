@@ -107,7 +107,7 @@ export default async function WildFriendsPage({searchParams}:{searchParams:Promi
   const {lang:rawLang}=await searchParams; const lang=rawLang==="en"?"en":"ko"; const t=copy[lang]; const opposite=lang==="ko"?"en":"ko";
   return <main className="min-h-screen bg-[#f7f5e9] text-[#153a32]">
     <header className="sticky top-0 z-50 border-b border-white/10 bg-[#092d2a]/95 px-5 py-4 text-white backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between"><a href="/" className="font-black tracking-tight">◎ LINKIMPACT</a><div className="flex items-center gap-3"><Link href={"/wild-friends?lang="+opposite} className="rounded-full border border-white/30 px-4 py-2 text-xs font-black">{t.toggle}</Link><Link href={"/news?type=notice&lang="+lang} className="text-sm font-bold">← {t.navBack}</Link></div></div>
+      <div className="mx-auto flex max-w-6xl items-center justify-between"><a href="/" className="font-black tracking-tight">◎ LINKIMPACT</a><div className="flex items-center gap-3"><Link href={"/wild-friends?lang="+opposite} className="rounded-full border border-white/30 px-4 py-2 text-xs font-black">{t.toggle}</Link><a href={`/?intro=skip&lang=${lang}#notices`} className="text-sm font-bold">← {t.navBack}</a></div></div>
     </header>
 
     <section className="relative overflow-hidden bg-[#092d2a] text-white">

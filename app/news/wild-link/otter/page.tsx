@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- The HTML front document requires full page navigation to /. */
 import type { Metadata } from "next";
-import Link from "next/link";
 import OtterClapGame from "./OtterClapGame";
 
 export const metadata: Metadata = {
@@ -10,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function OtterWildLinkPage() {
   return <main className="min-h-screen bg-[#f5f4ed] text-[#092a52]">
-    <header className="border-b border-black/10 bg-white px-5 py-5"><div className="mx-auto flex max-w-[1080px] items-center justify-between"><a href="/" className="text-lg font-black">◎ LINKIMPACT</a><Link href="/news" className="text-sm font-bold">공지·활동으로 돌아가기</Link></div></header>
+    <header className="border-b border-black/10 bg-white px-5 py-5"><div className="mx-auto flex max-w-[1080px] items-center justify-between"><a href="/" className="text-lg font-black">◎ LINKIMPACT</a><a href="/?intro=skip&lang=ko#notices" className="text-sm font-bold">공지사항으로 돌아가기</a></div></header>
 
     <section className="mx-auto max-w-[1080px] px-5 pb-10 pt-14 sm:pt-20">
       <div className="max-w-3xl"><p className="text-sm font-black tracking-[.18em] text-[#287d44]">SOVAC 2026 · LINKIMPACT INTERACTIVE</p><h1 className="mt-4 text-5xl font-black leading-[1.05] tracking-tight sm:text-7xl">수달에게 박수를<br/>보내보세요. 👏</h1><p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">재미있는 10초 게임에서 시작해 수달, 하천, 생물다양성, 지역사회 그리고 우리의 삶까지 이어지는 연결을 발견해보세요.</p></div>
