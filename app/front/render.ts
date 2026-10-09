@@ -13,6 +13,9 @@ export function renderFront(template:string, locations:Location[], posts:Post[],
  const locate=(p:Post)=>locations.find(l=>l.sourceId===p.id);
  const chapter=(p:Post)=>locate(p)?.chapter??2;
  const slots:Record<string,string>={RESPONSIVE_CSS:responsiveCSS,DONATE_URL:escape(safeUrl(front.donate_url||'', 'https://together.kakao.com/fundraisings/139701/story'))};
+ const lead=activities[0];
+ slots.HERO=lead?`<div class="chapter-no"><i></i>CHAPTER ${String(chapter(lead)+1).padStart(2,'0')}</div><div class="kicker">${bilingual(lead.category,lead.category)}</div><h1>${bilingual(lead.title_ko,lead.title_en)}</h1><p>${bilingual(lead.excerpt_ko,lead.excerpt_en)}</p><a class="learn" href="#detail-${lead.id}">${bilingual('자세히 보기','LEARN MORE')}<i></i></a>`:`<h1>LINKIMPACT</h1><p>${bilingual('연결은 설계되어야 한다.','Connection must be designed.')}</p>`;
+ slots.RIBBON=activities.map(p=>`<a href="#detail-${p.id}" aria-label="${escape(p.title_ko)}"></a>`).join('');
  for(let i=0;i<6;i++) {
   const list=activities.filter(p=>chapter(p)===i);
   slots[`COUNT_${i}`]=String(list.length).padStart(2,'0');

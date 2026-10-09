@@ -16,6 +16,13 @@ test('live published content replaces all prototype posts and notices',()=>{
  const draft={...post(44),status:'draft'};
  assert.doesNotMatch(renderFront(template,locations,[draft],{}),/운영 게시물 44/);
 });
+test('every activity anchor points to a published drawer, including the hero',()=>{
+ const html=renderFront(template,locations,[post(43),post(999)],{});
+ const ids=new Set(Array.from(html.matchAll(/id="(detail-\d+)"/g),m=>m[1]));
+ for(const m of html.matchAll(/href="#(detail-\d+)"/g))assert.ok(ids.has(m[1]),m[1]);
+ assert.match(html,/<a class="learn" href="#detail-43"/);
+ assert.doesNotMatch(renderFront(template,locations,[],{}),/href="#detail-\d+/);
+});
 test('database content and URLs cannot inject executable markup',()=>{
  const unsafe={...post(43),title_ko:'<script>alert(1)</script>',content_ko:'<img src=x onerror=alert(1)>',image_key:'javascript:alert(1)'};
  const html=renderFront(template,locations,[unsafe],{donate_url:'javascript:alert(1)'});
