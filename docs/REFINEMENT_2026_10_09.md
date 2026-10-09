@@ -1,3 +1,5 @@
+> Historical preparation notes. Production deployment is now complete; see DEPLOYMENT_RESULT_2026_10_09.md for the final status.
+
 # LINKIMPACT refinement — deployment preparation
 
 Source archive: LINKIMPACT_final_refinement_2026(1).zip.
