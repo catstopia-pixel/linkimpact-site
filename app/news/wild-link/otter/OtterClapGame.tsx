@@ -63,7 +63,7 @@ export default function OtterClapGame() {
   const submittedRef = useRef(false);
 
   useEffect(() => {
-    fetch("/api/wild-link/score").then(r => r.json()).then(d => setLeaders(d.leaderboard ?? [])).catch(() => undefined);
+    fetch("/api/wild-link/score").then(r => r.json() as Promise<{leaderboard?:Leader[]}>).then(d => setLeaders(d.leaderboard ?? [])).catch(() => undefined);
   }, []);
 
   const submitScore = useCallback(async (finalScore: number) => {
@@ -75,7 +75,7 @@ export default function OtterClapGame() {
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ score: finalScore, playerName }),
       });
-      const data = await response.json();
+      const data = await response.json() as {rank?:number;playerName?:string;leaderboard?:Leader[]};
       if (response.ok) {
         setRank(data.rank ?? null);
         setPlayerName(data.playerName ?? playerName);

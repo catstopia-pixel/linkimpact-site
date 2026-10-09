@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages -- The HTML front document requires full page navigation to /. */
 "use client";
 import Link from "next/link";
 import { ArrowRight, ExternalLink, X } from "lucide-react";
@@ -48,7 +49,7 @@ export default function InteractiveFrontClient({posts,front,showAdmin}:Props){
      <div className="absolute inset-0 bg-[radial-gradient(circle_at_73%_43%,rgba(21,123,111,.04),rgba(2,9,13,.10)_32%,rgba(2,9,13,.82)_78%),linear-gradient(90deg,rgba(2,8,12,.98)_0%,rgba(2,8,12,.93)_34%,rgba(2,8,12,.28)_62%,rgba(2,8,12,.28)_100%)]"/>
 
      <header className="relative z-30 mx-auto flex h-24 max-w-[1360px] items-center justify-between px-6 lg:px-10">
-       <Link href="/"><img src="/assets/linkimpact-logo.png" alt="LINKIMPACT" className="h-11 w-auto md:h-14"/></Link>
+       <a href="/"><img src="/assets/linkimpact-logo.png" alt="LINKIMPACT" className="h-11 w-auto md:h-14"/></a>
        <div className="flex items-center gap-2">
          {showAdmin?<Link href="/admin" className="hidden text-[11px] font-bold text-white/70 md:block">ADMIN</Link>:null}
          <button onClick={()=>setLang(lang==="ko"?"en":"ko")} className="inline-flex h-8 w-[68px] items-center justify-center rounded-full border border-white/25 bg-black/20 px-3 text-[10px] font-black tracking-[.1em] text-white/85 backdrop-blur">{lang==="ko"?"EN":"KO"}</button>

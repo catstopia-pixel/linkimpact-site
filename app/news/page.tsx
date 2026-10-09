@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages -- The HTML front document requires full page navigation to /. */
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, CalendarDays } from "lucide-react";
@@ -25,8 +26,8 @@ export default async function NewsPage({ searchParams }: { searchParams: Promise
 
   return <main className="min-h-screen bg-slate-50 text-[#092a52]">
     <header className="bg-[#071f35] px-5 py-7 text-white"><div className="mx-auto flex max-w-[1100px] items-center justify-between gap-4">
-      <Link href="/" className="font-bold">◎ LINKIMPACT</Link>
-      <div className="flex items-center gap-3"><Link href={type ? `/news?type=${type}&lang=${opposite}` : `/news?lang=${opposite}`} className="rounded-full border border-white/30 px-4 py-2 text-xs font-bold">{lang === "ko" ? "EN" : "KO"}</Link><Link href="/" className="flex items-center gap-2 text-sm"><ArrowLeft size={16} /> {labels.home}</Link></div>
+      <a href="/" className="font-bold">◎ LINKIMPACT</a>
+      <div className="flex items-center gap-3"><Link href={type ? `/news?type=${type}&lang=${opposite}` : `/news?lang=${opposite}`} className="rounded-full border border-white/30 px-4 py-2 text-xs font-bold">{lang === "ko" ? "EN" : "KO"}</Link><a href="/" className="flex items-center gap-2 text-sm"><ArrowLeft size={16} /> {labels.home}</a></div>
     </div></header>
     <section className="mx-auto max-w-[1100px] px-5 py-16">
       <div className="text-xs font-bold text-[#287d44]">NEWS & STORIES</div><h1 className="mt-3 text-4xl font-bold">{labels.title}</h1>

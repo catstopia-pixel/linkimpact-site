@@ -40,6 +40,13 @@ const worker = {
       }, allowedWidths);
     }
 
+    // Serve the refined document using the same D1/R2 bindings and API router.
+    // No runtime schema changes or static content.json override are involved.
+    if (url.pathname === "/" && (request.method === "GET" || request.method === "HEAD")) {
+      url.pathname = "/api/front";
+      const response = await handler.fetch(new Request(url, request), env, ctx);
+      return request.method === "HEAD" ? new Response(null, response) : response;
+    }
     return handler.fetch(request, env, ctx);
   },
 };

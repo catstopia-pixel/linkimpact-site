@@ -1,0 +1,194 @@
+[
+  {
+    "sourceId": 43,
+    "chapter": 0,
+    "lat": 37.5665,
+    "lng": 126.978,
+    "place_ko": "서울 · 대한민국",
+    "place_en": "SEOUL · KOREA"
+  },
+  {
+    "sourceId": 22,
+    "chapter": 0,
+    "lat": 37.5665,
+    "lng": 126.978,
+    "place_ko": "서울 · 대한민국",
+    "place_en": "SEOUL · KOREA"
+  },
+  {
+    "sourceId": 23,
+    "chapter": 5,
+    "lat": 16.33,
+    "lng": 121.17,
+    "place_ko": "누에바 비즈카야 · 필리핀",
+    "place_en": "NUEVA VIZCAYA · PHILIPPINES"
+  },
+  {
+    "sourceId": 3,
+    "chapter": 0,
+    "lat": 37.5665,
+    "lng": 126.978,
+    "place_ko": "대한민국 · 전시",
+    "place_en": "KOREA · EXHIBITION"
+  },
+  {
+    "sourceId": 20,
+    "chapter": 2,
+    "lat": 37.59,
+    "lng": 127.07,
+    "place_ko": "중랑천 · 서울",
+    "place_en": "JUNGNANGCHEON · SEOUL"
+  },
+  {
+    "sourceId": 21,
+    "chapter": 0,
+    "lat": 37.57,
+    "lng": 126.95,
+    "place_ko": "철새 도래지 · 대한민국",
+    "place_en": "MIGRATORY BIRD HABITAT · KOREA"
+  },
+  {
+    "sourceId": 4,
+    "chapter": 5,
+    "lat": 5.6037,
+    "lng": -0.187,
+    "place_ko": "가나 · 국제 컨퍼런스",
+    "place_en": "GHANA · INTERNATIONAL CONFERENCE"
+  },
+  {
+    "sourceId": 5,
+    "chapter": 2,
+    "lat": 37.5908,
+    "lng": 127.056,
+    "place_ko": "회기동 · 서울",
+    "place_en": "HOEGI-DONG · SEOUL"
+  },
+  {
+    "sourceId": 6,
+    "chapter": 1,
+    "lat": 37.5665,
+    "lng": 126.978,
+    "place_ko": "대한민국 · 컨퍼런스",
+    "place_en": "KOREA · CONFERENCE"
+  },
+  {
+    "sourceId": 7,
+    "chapter": 2,
+    "lat": 37.5665,
+    "lng": 126.978,
+    "place_ko": "미디어아트센터 · 대한민국",
+    "place_en": "MEDIA ART CENTER · KOREA"
+  },
+  {
+    "sourceId": 8,
+    "chapter": 3,
+    "lat": 16.33,
+    "lng": 121.17,
+    "place_ko": "누에바 비즈카야 · 필리핀",
+    "place_en": "NUEVA VIZCAYA · PHILIPPINES"
+  },
+  {
+    "sourceId": 9,
+    "chapter": 3,
+    "lat": 16.5192,
+    "lng": 121.1817,
+    "place_ko": "솔라노 · 필리핀",
+    "place_en": "SOLANO · PHILIPPINES"
+  },
+  {
+    "sourceId": 10,
+    "chapter": 5,
+    "lat": 16.33,
+    "lng": 121.17,
+    "place_ko": "누에바 비즈카야 · 필리핀",
+    "place_en": "NUEVA VIZCAYA · PHILIPPINES"
+  },
+  {
+    "sourceId": 11,
+    "chapter": 4,
+    "lat": 16.33,
+    "lng": 121.17,
+    "place_ko": "누에바 비즈카야 · 필리핀",
+    "place_en": "NUEVA VIZCAYA · PHILIPPINES"
+  },
+  {
+    "sourceId": 12,
+    "chapter": 5,
+    "lat": 16.33,
+    "lng": 121.17,
+    "place_ko": "누에바 비즈카야 · 필리핀",
+    "place_en": "NUEVA VIZCAYA · PHILIPPINES"
+  },
+  {
+    "sourceId": 13,
+    "chapter": 5,
+    "lat": 16.2978,
+    "lng": 121.034,
+    "place_ko": "아리타오 · 필리핀",
+    "place_en": "ARITAO · PHILIPPINES"
+  },
+  {
+    "sourceId": 14,
+    "chapter": 4,
+    "lat": 16.2978,
+    "lng": 121.034,
+    "place_ko": "아리타오 · 필리핀",
+    "place_en": "ARITAO · PHILIPPINES"
+  },
+  {
+    "sourceId": 15,
+    "chapter": 5,
+    "lat": 16.0218,
+    "lng": 120.2319,
+    "place_ko": "링가옌 · 필리핀",
+    "place_en": "LINGAYEN · PHILIPPINES"
+  },
+  {
+    "sourceId": 16,
+    "chapter": 4,
+    "lat": 16.4556,
+    "lng": 120.5875,
+    "place_ko": "라 트리니다드 · 필리핀",
+    "place_en": "LA TRINIDAD · PHILIPPINES"
+  },
+  {
+    "sourceId": 17,
+    "chapter": 5,
+    "lat": 16.4556,
+    "lng": 120.5875,
+    "place_ko": "라 트리니다드 · 필리핀",
+    "place_en": "LA TRINIDAD · PHILIPPINES"
+  },
+  {
+    "sourceId": 18,
+    "chapter": 0,
+    "lat": 12.8797,
+    "lng": 121.774,
+    "place_ko": "필리핀 · 연안 지역",
+    "place_en": "PHILIPPINES · COASTAL AREA"
+  },
+  {
+    "sourceId": 19,
+    "chapter": 2,
+    "lat": 37.5265,
+    "lng": 126.9225,
+    "place_ko": "여의도공원 · 서울",
+    "place_en": "YEOUIDO PARK · SEOUL"
+  },
+  {
+    "sourceId": 2,
+    "chapter": 1,
+    "lat": 14.5995,
+    "lng": 120.9842,
+    "place_ko": "필리핀",
+    "place_en": "PHILIPPINES"
+  },
+  {
+    "sourceId": 1,
+    "chapter": 0,
+    "lat": 14.5995,
+    "lng": 120.9842,
+    "place_ko": "한국 · 필리핀",
+    "place_en": "KOREA · PHILIPPINES"
+  }
+]

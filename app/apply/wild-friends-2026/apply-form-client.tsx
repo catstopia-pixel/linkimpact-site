@@ -12,7 +12,7 @@ const copy={
     title:"야생 친구를 찾습니다",
     subtitle:"FIELD MISSION 참가 신청",
     intro:"추석 저녁, 서울의 도시 야생을 함께 탐험합니다. 아래 정보를 작성하면 참가 신청이 접수됩니다.",
-    date:"참가 희망일",name:"이름",age:"나이",gender:"성별",phone:"연락처",device:"휴대폰 기종",interests:"관심사",message:"기대하는 점 또는 하고 싶은 말",consent:"개인정보 수집 및 이용 동의",consentBody:"행사 참가 접수와 안내를 위해 이름, 나이, 연락처, 휴대폰 기종, 관심사 등의 정보를 수집합니다. 수집된 정보는 행사 운영 목적에만 사용하며 목적 달성 후 파기합니다.",
+    date:"참가 희망일",name:"이름",age:"나이",gender:"성별",phone:"연락처",device:"휴대폰 기종",interestsLabel:"관심사",message:"기대하는 점 또는 하고 싶은 말",consent:"개인정보 수집 및 이용 동의",consentBody:"행사 참가 접수와 안내를 위해 이름, 나이, 연락처, 휴대폰 기종, 관심사 등의 정보를 수집합니다. 수집된 정보는 행사 운영 목적에만 사용하며 목적 달성 후 파기합니다.",
     required:"필수",optional:"선택",submit:"FIELD MISSION 참가 신청",sending:"신청 접수 중…",back:"행사 소개로 돌아가기",
     dates:["9월 25일(금) 오후 5:00","9월 26일(토) 오후 5:00"],
     ages:["20대","30대"],
@@ -27,7 +27,7 @@ const copy={
     title:"SEEKING WILD FRIENDS",
     subtitle:"FIELD MISSION REGISTRATION",
     intro:"Explore Seoul's urban wild with us during Chuseok. Complete the form below to register.",
-    date:"Preferred date",name:"Name",age:"Age",gender:"Gender",phone:"Phone number",device:"Phone type",interests:"Interests",message:"What are you hoping to experience?",consent:"Consent to personal data collection",consentBody:"We collect your name, age, contact information, phone type and interests for registration, participant communication and event operation. Data will be deleted after the purpose of collection is fulfilled.",
+    date:"Preferred date",name:"Name",age:"Age",gender:"Gender",phone:"Phone number",device:"Phone type",interestsLabel:"Interests",message:"What are you hoping to experience?",consent:"Consent to personal data collection",consentBody:"We collect your name, age, contact information, phone type and interests for registration, participant communication and event operation. Data will be deleted after the purpose of collection is fulfilled.",
     required:"Required",optional:"Optional",submit:"Join the FIELD MISSION",sending:"Submitting…",back:"Back to event page",
     dates:["Fri, Sep 25 · 5:00 PM","Sat, Sep 26 · 5:00 PM"],
     ages:["20s","30s"],
@@ -131,7 +131,7 @@ export default function ApplyFormClient({initialLang="ko"}:{initialLang?:Lang}){
           <Field label={t.device} requiredText={t.required}><select name="device" required className="input bg-white"><option value="">—</option>{t.devices.map(x=><option key={x}>{x}</option>)}</select></Field>
         </div>
 
-        <Field label={t.interests} requiredText={t.required}><div className="grid grid-cols-2 gap-3">{interests.map(x=><label key={x} className="flex cursor-pointer items-center gap-2 rounded-xl border border-[#dde5da] p-3 text-sm has-[:checked]:border-[#2d8b55] has-[:checked]:bg-[#eef8f0]"><input type="checkbox" name="interests" value={x} className="accent-[#2d8b55]"/>{x}</label>)}</div></Field>
+        <Field label={t.interestsLabel} requiredText={t.required}><div className="grid grid-cols-2 gap-3">{interests.map(x=><label key={x} className="flex cursor-pointer items-center gap-2 rounded-xl border border-[#dde5da] p-3 text-sm has-[:checked]:border-[#2d8b55] has-[:checked]:bg-[#eef8f0]"><input type="checkbox" name="interests" value={x} className="accent-[#2d8b55]"/>{x}</label>)}</div></Field>
 
         <Field label={t.message} requiredText={t.optional}><textarea name="message" rows={5} className="input min-h-32 resize-y"/></Field>
 
